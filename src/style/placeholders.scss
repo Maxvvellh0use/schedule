@@ -1,0 +1,31 @@
+@import "constants";
+
+%my-transition {
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  -ms-transition: all ease-in-out 0.3s;
+  -o-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+
+%flex_row_space-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+%flex_row_center_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+%background-image-no-repeat-center {
+  background-repeat: no-repeat;
+  background-position-y: center;
+}
+
+
+
