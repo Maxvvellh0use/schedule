@@ -1,0 +1,19 @@
+@import "../../style/placeholders";
+
+.table_header_container {
+  @extend %flex-row-start;
+}
+
+.event_header {
+  padding: 4px;
+}
+
+.loader_table__container {
+  width: 50px;
+  margin: 10px;
+}
+
+.loader_table {
+  width: 50px;
+}
+
