@@ -1,5 +1,5 @@
 import React , {useEffect , useState} from "react";
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { urlApi } from "../../data/const";
 import TableRow from "../TableRow/TableRow";
@@ -11,11 +11,15 @@ import loaderThreeDots from '../../assets/img/svg/loaders/three-dots.svg';
 const MainTable: React.FC = () => {
     const [allEventsState, setAllEventsState] = useState<Event[]>([]);
     const [loaderState, setLoaderState] = useState(true);
+    const [errorText, setErrorText] = useState('');
     useEffect(() => {
         axios.get(`${urlApi}/events`).then((res) => {
             setAllEventsState(res.data);
             setLoaderState(false);
-        }).catch((e) => console.log(e))
+        }).catch(() => {
+            setLoaderState(false);
+            setErrorText('Error data request!');
+        })
     },[])
     const eventRows = allEventsState.length ? allEventsState.map((event) =>
             <TableRow event={event} />) : null;
@@ -33,7 +37,8 @@ const MainTable: React.FC = () => {
                         <div className='event_header event_materials'>Materials</div>
                         <div className='event_header event_deadline'>Deadline</div>
                     </div>
-                    {loaderState ? <div className='loader_table__container'>{loader}</div> : eventRows}
+                    {loaderState ? <div className='loader_table__container'>{loader}</div>
+                        : eventRows || errorText}
                 </div>
             </section>
         </main>
