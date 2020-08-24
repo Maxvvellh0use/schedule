@@ -7,8 +7,8 @@ import loaderThreeDots from '../../assets/img/svg/loaders/three-dots.svg';
 import { Table, Tag, Space } from 'antd';
 import 'antd/dist/antd.css';
 import { columnsTable } from "./consts";
-import {getCorrectTime} from "./helpers/getCorrectTime";
-import {getCorrectDate} from "./helpers/getCorrectDate";
+import { getCorrectTime } from "./helpers/getCorrectTime";
+import { getCorrectDate } from "./helpers/getCorrectDate";
 
 
 const MainTable: React.FC = () => {
@@ -24,7 +24,7 @@ const MainTable: React.FC = () => {
             setErrorText('Error data request!');
         })
     },[]);
-    const myData = allEventsState.map((event) => {
+    const tableEventsData = allEventsState.map((event) => {
         return {
             key: event.id,
             date: getCorrectDate(event.optional.date),
@@ -41,7 +41,7 @@ const MainTable: React.FC = () => {
         <main>
             <section className='main_table_section'>
                     {loaderState ? <div className='loader_table__container'>{loader}</div>
-                        : <Table columns={columnsTable} dataSource={myData} /> || errorText}
+                        : <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText}
             </section>
         </main>
     )
