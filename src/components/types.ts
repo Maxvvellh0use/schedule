@@ -13,3 +13,8 @@ export interface Event {
     course: string,
 }
 
+export interface Name {
+    text: string,
+    link: string,
+}
+
