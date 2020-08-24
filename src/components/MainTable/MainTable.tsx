@@ -1,12 +1,15 @@
 import React , {useEffect , useState} from "react";
-import { connect } from 'react-redux';
 import axios from 'axios';
 import { urlApi } from "../../data/const";
-import TableRow from "../TableRow/TableRow";
 import { Event } from "../types";
 import './main-table.scss';
-import '../TableRow/table-row.scss';
 import loaderThreeDots from '../../assets/img/svg/loaders/three-dots.svg';
+import { Table, Tag, Space } from 'antd';
+import 'antd/dist/antd.css';
+import { columnsTable } from "./consts";
+import {getCorrectTime} from "./helpers/getCorrectTime";
+import {getCorrectDate} from "./helpers/getCorrectDate";
+
 
 const MainTable: React.FC = () => {
     const [allEventsState, setAllEventsState] = useState<Event[]>([]);
@@ -20,26 +23,25 @@ const MainTable: React.FC = () => {
             setLoaderState(false);
             setErrorText('Error data request!');
         })
-    },[])
-    const eventRows = allEventsState.length ? allEventsState.map((event) =>
-            <TableRow event={event} />) : null;
+    },[]);
+    const myData = allEventsState.map((event) => {
+        return {
+            key: event.id,
+            date: getCorrectDate(event.optional.date),
+            time: getCorrectTime(event.optional.date),
+            type: event.type,
+            place: event.optional.place,
+            name: event.name,
+            materials: event.optional.materials,
+            deadline: event.optional.deadline,
+        };
+    });
     const loader = <img className='loader_table' src={loaderThreeDots} alt='Загрузка...'/>;
     return (
         <main>
             <section className='main_table_section'>
-                <div>
-                    <div className='table_header_container'>
-                        <div className='event_header event_date'>Date</div>
-                        <div className='event_header event_time'>Time</div>
-                        <div className='event_header event_type'>Type</div>
-                        <div className='event_header event_place'>Place</div>
-                        <div className='event_header event_name'>Name</div>
-                        <div className='event_header event_materials'>Materials</div>
-                        <div className='event_header event_deadline'>Deadline</div>
-                    </div>
                     {loaderState ? <div className='loader_table__container'>{loader}</div>
-                        : eventRows || errorText}
-                </div>
+                        : <Table columns={columnsTable} dataSource={myData} /> || errorText}
             </section>
         </main>
     )
