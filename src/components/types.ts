@@ -1,15 +1,15 @@
 export interface Event {
-    id: Number,
-        name: String,
-        type: String,
+    id: number,
+        name: string,
+        type: string,
         optional: {
-            date: Date,
-            description:  String,
-            organizer:  String,
-            place:  String,
-            materials:  String,
-            deadline: String
+            date: string,
+            description:  string,
+            organizer:  string,
+            place:  string,
+            materials:  string,
+            deadline: string
     },
-    course: String,
+    course: string,
 }
 

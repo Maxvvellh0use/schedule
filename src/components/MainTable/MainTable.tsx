@@ -30,7 +30,7 @@ const MainTable: React.FC = () => {
                 <div>
                     <div className='table_header_container'>
                         <div className='event_header event_date'>Date</div>
-                        <div className='event_header event_description'>Description</div>
+                        <div className='event_header event_time'>Time</div>
                         <div className='event_header event_type'>Type</div>
                         <div className='event_header event_place'>Place</div>
                         <div className='event_header event_name'>Name</div>
