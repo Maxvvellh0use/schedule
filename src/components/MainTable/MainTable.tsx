@@ -1,19 +1,19 @@
-import React , {useEffect , useState} from "react";
-import axios from 'axios';
-import { urlApi } from "../../data/const";
-import {Event , Name} from "../types";
+import React from "react";
+import { EventData , Name } from "../types";
 import './main-table.scss';
 import loaderThreeDots from '../../assets/img/svg/loaders/three-dots.svg';
 import { Table, Tag, Space } from 'antd';
-import 'antd/dist/antd.css';
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 
+interface Props {
+    allEventsData: EventData[];
+    loaderState: boolean,
 
-const MainTable: React.FC = () => {
-    const [allEventsState, setAllEventsState] = useState<Event[]>([]);
-    const [loaderState, setLoaderState] = useState(true);
-    const [errorText, setErrorText] = useState('');
+}
+
+const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
+    const errorText = 'Error data request!';
     const columnsTable = [
         {
             title: 'Date',
@@ -59,16 +59,8 @@ const MainTable: React.FC = () => {
             key: 'action',
         },
     ];
-    useEffect(() => {
-        axios.get(`${urlApi}/events`).then((res) => {
-            setAllEventsState(res.data);
-            setLoaderState(false);
-        }).catch(() => {
-            setLoaderState(false);
-            setErrorText('Error data request!');
-        })
-    },[]);
-    const tableEventsData = allEventsState.map((event) => {
+
+    const tableEventsData = allEventsData.map((event) => {
         return {
             key: event.id,
             date: getCorrectDate(event.optional.date),
@@ -83,6 +75,7 @@ const MainTable: React.FC = () => {
             deadline: event.optional.deadline,
         };
     });
+
     const loader = <img className='loader_table' src={loaderThreeDots} alt='Загрузка...'/>;
     return (
         <main>
