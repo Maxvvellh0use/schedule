@@ -35,9 +35,7 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
     const getMonthData = (value: any) => {
         const findEventsMonth = allEventsDataParseDate.filter((event) =>
             value.month() === event.date.getMonth());
-        if (findEventsMonth.length && value.month() === findEventsMonth[anyIndex].date.getMonth()) {
-            return findEventsMonth.map((event) => event.name);
-        }
+        return findEventsMonth.map((event) => event.name);
     }
 
     const monthCellRender = (value: any) => {
