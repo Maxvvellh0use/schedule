@@ -1,8 +1,7 @@
 import React from "react";
 import { EventData , NameEventType } from "../types";
 import './main-table.scss';
-import loaderThreeDots from '../../assets/img/svg/loaders/three-dots.svg';
-import { Table, Tag, Space } from 'antd';
+import { Table, Spin } from 'antd';
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 
@@ -76,7 +75,7 @@ const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
         };
     });
 
-    const loader = <img className='loader_table' src={loaderThreeDots} alt='Загрузка...'/>;
+    const loader = <Spin size="large" />;
     return (
         <main>
             <section className='main_table_section'>

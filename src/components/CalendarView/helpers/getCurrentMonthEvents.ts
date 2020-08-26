@@ -1,4 +1,4 @@
-import {MutableEventData , NameEventType} from "../../types";
+import { MutableEventData , NameEventType } from "../../types";
 
 export const getCurrentMonthEvents = (moment: any, allEventsDataParseDate:
     MutableEventData[]): NameEventType[] => {
