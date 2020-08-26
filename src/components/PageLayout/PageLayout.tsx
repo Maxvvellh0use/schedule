@@ -3,6 +3,7 @@ import { Layout} from 'antd';
 
 import MainTable from '../MainTable/MainTable';
 import PageHeader from '../PageHeader/PageHeader';
+import SideBar from '../SideBar/SideBar';
 
 import './PageLayout.scss';
 
@@ -16,7 +17,9 @@ const PageLayout: React.FC = () => {
           <PageHeader/>
         </Header>
         <Layout>
-          <Sider>Sider</Sider>
+          <Sider>
+            <SideBar/>
+          </Sider>
           <Content>
             <MainTable />
           </Content>         

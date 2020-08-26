@@ -1,0 +1,36 @@
+.ant-layout-sider {
+  background-color: white;
+  width: 300px!important;
+  flex: 0 0 300px!important;
+  max-width: 300px!important;
+  min-width: 300px!important;
+  width: 300px!important;
+}
+
+.side-bar-content {
+
+  list-style: none;
+  padding: 40px 5px 5px 5px;
+
+  & .announce-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: #F0F2F5;
+    border: 1px solid #E7E7E7;
+    box-sizing: border-box;
+    border-radius: 4px;
+    position: relative;
+  }
+}
+
+.announce-icon {
+  font-size: 16px;
+  color: black; 
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+
+
