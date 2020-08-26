@@ -23,6 +23,7 @@ export interface MutableEventData {
 export interface NameEventType {
     text: string,
     link: string,
+    type: string,
 }
 
 export interface ListTypes {

@@ -31,7 +31,12 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
                 return (
                     <div key={eventData.text} className="notes-month">
                         <div>{index + unitOffset}.
-                            <a href={eventData.link}> {eventData.text}</a>
+                            {
+                                eventData.type === 'Deadline' ?
+                                <a className='month_deadline_link' href={eventData.link}> {eventData.text}</a>
+                                    :
+                                <a href={eventData.link}> {eventData.text}</a>
+                            }
                         </div>
                     </div>
                 )

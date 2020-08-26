@@ -4,7 +4,7 @@ import './main-table.scss';
 import { Table, Spin } from 'antd';
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
-import {getCorrectDeadline} from "./helpers/getCorrectDeadline";
+import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 
 interface Props {
     allEventsData: EventData[];

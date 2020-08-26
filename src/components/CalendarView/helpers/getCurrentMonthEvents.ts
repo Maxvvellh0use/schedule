@@ -8,6 +8,7 @@ export const getCurrentMonthEvents = (moment: any, allEventsDataParseDate:
         return {
             text: event.name,
             link: event.description,
+            type: event.type,
         }
     });
 }
