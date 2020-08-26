@@ -4,10 +4,10 @@ import './calendar-view.scss';
 
 import { Calendar, Badge } from 'antd';
 import { EventData , ListTypes , NameEventType } from "../types";
-import {linkColor , unitOffset} from "./consts";
+import { linkColor , unitOffset } from "./consts";
 import { parseDateEvent } from "./helpers/parseDateEvent";
 import { getCurrentDayEvents } from "./helpers/getCurrentDayEvents";
-import {getCurrentMonthEvents} from "./helpers/getCurrentMonthEvents";
+import { getCurrentMonthEvents } from "./helpers/getCurrentMonthEvents";
 
 interface Props {
     allEventsData: EventData[];
