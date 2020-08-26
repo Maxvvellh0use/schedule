@@ -4,32 +4,30 @@ export interface EventData {
         type: string,
         optional: {
             date: string,
-            description:  string,
-            organizer:  string,
-            place:  string,
-            materials:  string,
+            description: string,
+            organizer: string,
+            place: string,
+            materials: string,
             deadline: string
     },
     course: string,
 }
 
 export interface MutableEventData {
-    id: number,
-        name: string,
-        type: string,
-        optional: {
-            date: Date,
-            description:  string,
-            organizer:  string,
-            place:  string,
-            materials:  string,
-            deadline: string
-    },
-    course: string,
+    name: string,
+    type: string,
+    date: Date,
+    description: string,
 }
 
-export interface Name {
+export interface NameEventType {
     text: string,
+    link: string,
+}
+
+export interface ListTypes {
+    type: "success" | "processing" | "error" | "default" | "warning" | undefined,
+    content: string,
     link: string,
 }
 

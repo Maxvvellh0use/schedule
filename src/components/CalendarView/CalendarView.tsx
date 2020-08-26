@@ -1,63 +1,57 @@
 import React from "react";
+
+import './calendar-view.scss';
+
 import { Calendar, Badge } from 'antd';
-import { EventData } from "../types";
-import {anyIndex , unitOffset} from "./consts";
+import { EventData , ListTypes , NameEventType } from "../types";
+import {linkColor , unitOffset} from "./consts";
+import { parseDateEvent } from "./helpers/parseDateEvent";
+import { getCurrentDayEvents } from "./helpers/getCurrentDayEvents";
+import {getCurrentMonthEvents} from "./helpers/getCurrentMonthEvents";
 
 interface Props {
     allEventsData: EventData[];
 }
 
-interface ListTypes {
-    type: string,
-    content: string,
-}
-
 const CalendarView: React.FC<Props> = ({ allEventsData }) => {
-    const allEventsDataParseDate = allEventsData.map((event) => {
-       return { date: new Date(event.optional.date), name: event.name, type: event.type };
-    });
-    const getListData = (value: any): any[] => {
-        const findEventsDay = allEventsDataParseDate.filter((event) =>
-            value.month() === event.date.getMonth() && value.date() === event.date.getDay());
-        if (findEventsDay.length) {
-            return findEventsDay.map((eventDay) => {
-                if (eventDay.type === 'Deadline') {
-                    return {type: 'error' , content: eventDay.name}
-                }
-                return {type: 'success' , content: eventDay.name}
-            })
-        }
-        return [
-            {type: '' , content: ''} ,
-        ];
+    const allEventsDataParseDate = parseDateEvent(allEventsData);
+
+    const getMonthData = (moment: any): NameEventType[]  => {
+       return getCurrentMonthEvents(moment, allEventsDataParseDate);
     }
 
-    const getMonthData = (value: any) => {
-        const findEventsMonth = allEventsDataParseDate.filter((event) =>
-            value.month() === event.date.getMonth());
-        return findEventsMonth.map((event) => event.name);
+    const getListData = (moment: any): ListTypes[]  => {
+        return getCurrentDayEvents(moment, allEventsDataParseDate);
     }
 
-    const monthCellRender = (value: any) => {
-        const eventsData = getMonthData(value);
+    const monthCellRender = (moment: any) => {
+        const eventsData = getMonthData(moment);
         return eventsData ? (
             eventsData.map((eventData, index) => {
                 return (
-                    <div className="notes-month">
-                        <div>{index + unitOffset}. {eventData}</div>
+                    <div key={eventData.text} className="notes-month">
+                        <div>{index + unitOffset}.
+                            <a href={eventData.link}> {eventData.text}</a>
+                        </div>
                     </div>
                 )
             })
         ) : null
     }
 
-    const dateCellRender = (value: any) => {
-        const listData = getListData(value);
+    const dateCellRender = (moment: any) => {
+        const listData = getListData(moment);
         return (
-            <ul className="events">
+            <ul className="calendar_events_list">
                 {listData.map(item => (
-                    <li key={item.content}>
-                        <Badge status={item.type} text={item.content} />
+                    <li className='calendar_events_list__item'
+                        key={item.content}>
+                        <a className='event_day_link'
+                            href={item.link}>
+                            <Badge style={{color: linkColor}}
+                                   status={item.type}
+                                   text={item.content} />
+                        </a>
                     </li>
                 ))}
             </ul>

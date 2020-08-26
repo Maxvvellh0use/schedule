@@ -1,5 +1,5 @@
 import React from "react";
-import { EventData , Name } from "../types";
+import { EventData , NameEventType } from "../types";
 import './main-table.scss';
 import loaderThreeDots from '../../assets/img/svg/loaders/three-dots.svg';
 import { Table, Tag, Space } from 'antd';
@@ -39,7 +39,7 @@ const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name: Name) => <a href={name.link}>{name.text}</a>,
+            render: (name: NameEventType) => <a href={name.link}>{name.text}</a>,
         },
         {
             title: 'Materials',

@@ -1,0 +1,16 @@
+.calendar_events_list {
+  padding: 0;
+  margin: 0;
+}
+
+.calendar_events_list__item {
+  list-style: none;
+}
+
+.event_day_link {
+  &:hover {
+    transform: scale(1.7) !important;
+  }
+}
+
+
