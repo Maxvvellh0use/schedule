@@ -1,0 +1,19 @@
+
+
+.top-panel {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & .save-container, .settings-btn  {
+    margin: 0 10px;
+  }
+
+  & .save-container {
+   & p {
+     margin: 0;
+   }
+  }
+}
+
