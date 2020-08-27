@@ -3,7 +3,6 @@ import { Calendar, Typography } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 
 import './SideBar.scss'
-import { AnyAaaaRecord } from "dns";
 
 function onPanelChange(value: any, mode: any) {
   console.log(value, mode);
@@ -21,7 +20,7 @@ const SideBar: React.FC = () => {
         <p>Monotonectally develop visionary benefits vis-a-vis granular data. Completely transform bleeding-edge.</p>
         <ThunderboltOutlined className="announce-icon" style={{ }}/>
       </li>
-      
+
     </ul>
   );
 }

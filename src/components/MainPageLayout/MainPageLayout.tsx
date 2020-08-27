@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Layout} from 'antd';
+import { Layout } from 'antd';
+import 'antd/dist/antd.css';
 
-import MainTable from '../MainTable/MainTable';
+import TabView from "../TabView/TabView";
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import SideBar from '../SideBar/SideBar';
 import TopPanel from '../TopPanel/TopPanel';
@@ -23,9 +24,9 @@ const MainPageLayout: React.FC = () => {
           </Sider>
           <Content>
             <TopPanel/>
-            <MainTable/>
-          </Content>         
-        </Layout>        
+            <TabView />
+          </Content>
+        </Layout>
         <Footer>Footer</Footer>
       </Layout>
     </>
