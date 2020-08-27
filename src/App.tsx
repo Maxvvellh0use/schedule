@@ -1,10 +1,10 @@
 import React from 'react';
-import MainTable from "./components/MainTable/MainTable";
+import MainPageLayout from "./components/MainPageLayout/MainPageLayout";
 
 function App() {
   return (
     <div className="App">
-      <MainTable />
+      <MainPageLayout />
     </div>
   );
 }

@@ -1,0 +1,36 @@
+ul li {
+  list-style: none;
+}
+
+.ant-layout-header ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+
+  & li:nth-child(3) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+
+    & label {
+      margin-right: 5px;
+    }
+  }
+}
+
+.ant-layout-header {
+  background-color: white;
+  padding: 0 20px;
+}
+
+.header-logo {
+  height: 30px;
+  margin-right: 5px;
+}
+
+.avatar {
+  margin-right: 5px;
+}
