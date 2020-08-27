@@ -1,12 +1,9 @@
-export const SET_EVENTS_DATA: string = 'GET_EVENTS_DATA';
+export const GET_EVENTS: string = 'EVENTS_DATA/GET_EVENTS';
+export const SHOW_LOADER: string = 'APP/SHOW_LOADER';
+export const HIDE_LOADER: string = 'APP/HIDE_LOADER';
 
 export interface SystemState {
    allEventsData: EventData[];
-}
-
-export interface SetEventsData {
-    type: typeof SET_EVENTS_DATA;
-    payload: SystemState
 }
 
 export interface EventData {

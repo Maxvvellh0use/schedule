@@ -1,23 +1,12 @@
-import { SET_EVENTS_DATA, EventData } from "../types";
+import { EventData , SystemState , GET_EVENTS } from "../types";
 
-const initialState: EventData = {
-    id: 1,
-    name: '',
-    type: '',
-    optional: {
-        date: '',
-        description: '',
-        organizer: '',
-        place: '',
-        materials: '',
-        deadline: '',
-    },
-    course: '',
+const initialState: SystemState = {
+    allEventsData: [],
 }
 
-export const setEventsDataReducer = (state = initialState, action: { type: string, payload: any }) => {
+export const setEventsDataReducer = (state = initialState, action: { type: string, payload: EventData[] }) => {
     switch (action.type) {
-        case SET_EVENTS_DATA:
+        case GET_EVENTS:
             return action.payload
         default: return state
     }

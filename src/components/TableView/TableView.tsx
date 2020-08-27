@@ -1,27 +1,30 @@
 import React , {useEffect} from "react";
-import { EventData , NameEventType } from "../types";
 import { Table, Spin } from 'antd';
+import { useDispatch , useSelector } from 'react-redux';
+
+import { EventData , NameEventType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
-import { Document, Page } from '@react-pdf/renderer'
-import { connect } from 'react-redux';
-import { setEventsData } from "../../redux/actions";
+import { getEventsData } from "../../redux/actions";
 
 import './TableView.scss';
-import { SystemState } from "../../redux/types";
 
-interface Props {
+interface RootState {
     allEventsData: EventData[];
-    loaderState: boolean,
-    setEventsData: any,
+    app: {
+        loading: boolean
+    },
 }
 
-const TableView: React.FC<Props> = ({ allEventsData, loaderState, setEventsData }) => {
+const TableView: React.FC = () => {
     const errorText = 'Error data request!';
+    const dispatch = useDispatch();
+    const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
+    const loading = useSelector<RootState, boolean>(state => state.app.loading);
     useEffect(() => {
-        setEventsData(allEventsData);
-    }, [setEventsData, allEventsData])
+        dispatch(getEventsData());
+    }, [dispatch])
     const columnsTable = [
         {
             title: 'Date',
@@ -68,7 +71,7 @@ const TableView: React.FC<Props> = ({ allEventsData, loaderState, setEventsData 
         },
     ];
 
-    const tableEventsData = allEventsData.map((event) => {
+    const tableEventsData = allEventsData.length ? allEventsData.map((event) => {
         return {
             key: event.id,
             date: getCorrectDate(event.optional.date),
@@ -82,21 +85,19 @@ const TableView: React.FC<Props> = ({ allEventsData, loaderState, setEventsData 
             materials: event.optional.materials,
             deadline: getCorrectDeadline(event.optional.deadline),
         };
-    });
+    }) : undefined;
 
     const loader = <Spin size="large" />;
     return (
         <main>
-            <Document>
-                <Page>
-                    <section className='main_table_section'>
-                        {loaderState ? <div className='loader_table__container'>{loader}</div>
-                            : <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText}
-                    </section>
-                </Page>
-            </Document>
+            <section className='main_table_section'>
+                {
+                    loading ? <div className='loader_table__container'>{loader}</div> :
+                    <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText
+                }
+            </section>
         </main>
     )
 }
 
-export default connect(null, {setEventsData})(TableView);
+export default TableView;
