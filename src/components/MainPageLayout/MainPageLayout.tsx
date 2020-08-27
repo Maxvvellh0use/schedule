@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Layout} from 'antd';
 
 import MainTable from '../MainTable/MainTable';
-import PageHeader from '../PageHeader/PageHeader';
+import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import SideBar from '../SideBar/SideBar';
 import TopPanel from '../TopPanel/TopPanel';
 
-import './PageLayout.scss';
+import './MainPageLayout.scss';
 
-const PageLayout: React.FC = () => {
+const MainPageLayout: React.FC = () => {
   const { Header, Footer, Sider, Content } = Layout;
 
   return (
      <>
       <Layout>
         <Header>
-          <PageHeader/>
+          <MainPageHeader/>
         </Header>
         <Layout>
           <Sider>
@@ -32,6 +32,6 @@ const PageLayout: React.FC = () => {
   );
 }
 
-export default PageLayout;
+export default MainPageLayout;
 
 

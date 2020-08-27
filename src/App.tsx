@@ -1,10 +1,10 @@
 import React from 'react';
-import PageLayout from "./components/PageLayout/PageLayout";
+import MainPageLayout from "./components/MainPageLayout/MainPageLayout";
 
 function App() {
   return (
     <div className="App">
-      <PageLayout />
+      <MainPageLayout />
     </div>
   );
 }

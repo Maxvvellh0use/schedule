@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Avatar, Switch, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-import './PageHeader.scss';
+import './MainPageHeader.scss';
 
 import logo from '../../assets/img/logo-rsschool3.png';
 
-const PageHeader: React.FC = () => {
+const MainPageHeader: React.FC = () => {
 
   const { Title } = Typography;
 
@@ -37,7 +37,10 @@ const PageHeader: React.FC = () => {
           <Button
             className="profile-btn"
             type="dashed">
-            <Avatar size="small" icon={<UserOutlined />} />
+            <Avatar
+              className="avatar"
+              size="small"
+              icon={<UserOutlined />} />
             My profile
           </Button>
         </li>
@@ -46,4 +49,4 @@ const PageHeader: React.FC = () => {
   )
 }
 
-export default PageHeader;
+export default MainPageHeader;
