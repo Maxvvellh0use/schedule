@@ -1,19 +1,27 @@
-import React from "react";
+import React , {useEffect} from "react";
 import { EventData , NameEventType } from "../types";
-import './main-table.scss';
 import { Table, Spin } from 'antd';
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
+import { Document, Page } from '@react-pdf/renderer'
+import { connect } from 'react-redux';
+import { setEventsData } from "../../redux/actions";
+
+import './TableView.scss';
+import { SystemState } from "../../redux/types";
 
 interface Props {
     allEventsData: EventData[];
     loaderState: boolean,
-
+    setEventsData: any,
 }
 
-const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
+const TableView: React.FC<Props> = ({ allEventsData, loaderState, setEventsData }) => {
     const errorText = 'Error data request!';
+    useEffect(() => {
+        setEventsData(allEventsData);
+    }, [setEventsData, allEventsData])
     const columnsTable = [
         {
             title: 'Date',
@@ -79,12 +87,16 @@ const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
     const loader = <Spin size="large" />;
     return (
         <main>
-            <section className='main_table_section'>
-                    {loaderState ? <div className='loader_table__container'>{loader}</div>
-                        : <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText}
-            </section>
+            <Document>
+                <Page>
+                    <section className='main_table_section'>
+                        {loaderState ? <div className='loader_table__container'>{loader}</div>
+                            : <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText}
+                    </section>
+                </Page>
+            </Document>
         </main>
     )
 }
 
-export default MainTable;
+export default connect(null, {setEventsData})(TableView);

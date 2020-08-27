@@ -1,14 +1,17 @@
 import React , { useEffect , useState } from "react";
 import { Tabs } from 'antd';
-import MainTable from "../MainTable/MainTable";
+import MainTable from "../TableView/TableView";
 import CalendarView from "../CalendarView/CalendarView";
 import axios from "axios";
 import { urlApi } from "../../data/const";
 import { EventData } from "../types";
+import { connect } from 'react-redux';
 
-import './tab-view.scss'
 
-const TabView: React.FC = () => {
+import './MainTab.scss'
+import TableView from "../TableView/TableView";
+
+const MainTab: React.FC = () => {
     const { TabPane } = Tabs;
     const [allEventsData, setAllEventsData] = useState<EventData[]>([]);
     const [loaderState, setLoaderState] = useState(true);
@@ -24,10 +27,10 @@ const TabView: React.FC = () => {
         <section className='main_tab_section'>
             <Tabs type="card">
                 <TabPane tab="TABLE" key="1">
-                    <MainTable loaderState={loaderState} allEventsData={allEventsData}  />
+                    <TableView allEventsData={allEventsData} loaderState={loaderState}/>
                 </TabPane>
                 <TabPane tab="CALENDAR" key="2">
-                    <CalendarView allEventsData={allEventsData} />
+                    <CalendarView />
                 </TabPane>
                 <TabPane tab="LIST" key="3">
                     Content of Tab Pane 3
@@ -37,4 +40,4 @@ const TabView: React.FC = () => {
     )
 }
 
-export default TabView;
+export default MainTab;
