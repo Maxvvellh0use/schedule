@@ -1,6 +1,7 @@
 export const GET_EVENTS: string = 'EVENTS_DATA/GET_EVENTS';
 export const SHOW_LOADER: string = 'APP/SHOW_LOADER';
 export const HIDE_LOADER: string = 'APP/HIDE_LOADER';
+export const SHOW_ERROR: string = 'APP/SHOW_ERROR';
 
 export interface SystemState {
    allEventsData: EventData[];

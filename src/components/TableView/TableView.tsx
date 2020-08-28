@@ -13,13 +13,14 @@ import './TableView.scss';
 interface RootState {
     allEventsData: EventData[];
     app: {
-        loading: boolean
+        loading: boolean,
+        errorText: string,
     },
 }
 
 const TableView: React.FC = () => {
-    const errorText = 'Error data request!';
     const dispatch = useDispatch();
+    const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     useEffect(() => {
@@ -86,14 +87,15 @@ const TableView: React.FC = () => {
             deadline: getCorrectDeadline(event.optional.deadline),
         };
     }) : undefined;
-
+    const tableView = errorText ? <div>{errorText}</div> :
+        <Table columns={columnsTable} dataSource={tableEventsData} />;
     const loader = <Spin size="large" />;
     return (
         <main>
             <section className='main_table_section'>
                 {
                     loading ? <div className='loader_table__container'>{loader}</div> :
-                    <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText
+                        tableView
                 }
             </section>
         </main>
