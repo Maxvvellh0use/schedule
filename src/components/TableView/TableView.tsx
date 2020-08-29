@@ -1,19 +1,31 @@
-import React from "react";
-import { EventData , NameEventType } from "../types";
-import './main-table.scss';
+import React , {useEffect} from "react";
 import { Table, Spin } from 'antd';
+import { useDispatch , useSelector } from 'react-redux';
+
+import { EventData , NameEventType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
+import { getEventsData } from "../../redux/actions";
 
-interface Props {
+import './TableView.scss';
+
+interface RootState {
     allEventsData: EventData[];
-    loaderState: boolean,
-
+    app: {
+        loading: boolean,
+        errorText: string,
+    },
 }
 
-const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
-    const errorText = 'Error data request!';
+const TableView: React.FC = () => {
+    const dispatch = useDispatch();
+    const errorText = useSelector<RootState, string>(state => state.app.errorText);
+    const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
+    const loading = useSelector<RootState, boolean>(state => state.app.loading);
+    useEffect(() => {
+        dispatch(getEventsData());
+    }, [dispatch])
     const columnsTable = [
         {
             title: 'Date',
@@ -60,7 +72,7 @@ const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
         },
     ];
 
-    const tableEventsData = allEventsData.map((event) => {
+    const tableEventsData = allEventsData.length ? allEventsData.map((event) => {
         return {
             key: event.id,
             date: getCorrectDate(event.optional.date),
@@ -74,17 +86,20 @@ const MainTable: React.FC<Props> = ({ allEventsData, loaderState }) => {
             materials: event.optional.materials,
             deadline: getCorrectDeadline(event.optional.deadline),
         };
-    });
-
+    }) : undefined;
+    const tableView = errorText ? <div>{errorText}</div> :
+        <Table columns={columnsTable} dataSource={tableEventsData} />;
     const loader = <Spin size="large" />;
     return (
         <main>
             <section className='main_table_section'>
-                    {loaderState ? <div className='loader_table__container'>{loader}</div>
-                        : <Table columns={columnsTable} dataSource={tableEventsData} /> || errorText}
+                {
+                    loading ? <div className='loader_table__container'>{loader}</div> :
+                        tableView
+                }
             </section>
         </main>
     )
 }
 
-export default MainTable;
+export default TableView;

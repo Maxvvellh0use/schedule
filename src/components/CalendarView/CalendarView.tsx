@@ -8,6 +8,8 @@ import { linkColor , unitOffset } from "./consts";
 import { parseDateEvent } from "./helpers/parseDateEvent";
 import { getCurrentDayEvents } from "./helpers/getCurrentDayEvents";
 import { getCurrentMonthEvents } from "./helpers/getCurrentMonthEvents";
+import { connect } from 'react-redux';
+import {SystemState} from "../../redux/types";
 
 interface Props {
     allEventsData: EventData[];
@@ -65,5 +67,9 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
     )
 }
 
+const mapStateToProps = (state: SystemState) => ({
+    allEventsData: state.allEventsData,
+})
 
-export default CalendarView;
+
+export default connect(mapStateToProps)(CalendarView);

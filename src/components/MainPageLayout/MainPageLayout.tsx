@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 
-import TabView from "../TabView/TabView";
+import MainTab from "../MainTab/MainTab";
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import SideBar from '../SideBar/SideBar';
 import TopPanel from '../TopPanel/TopPanel';
@@ -24,7 +24,7 @@ const MainPageLayout: React.FC = () => {
           </Sider>
           <Content>
             <TopPanel/>
-            <TabView />
+            <MainTab />
           </Content>
         </Layout>
         <Footer>Footer</Footer>
@@ -32,6 +32,7 @@ const MainPageLayout: React.FC = () => {
     </>
   );
 }
+
 
 export default MainPageLayout;
 
