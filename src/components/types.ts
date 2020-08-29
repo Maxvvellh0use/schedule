@@ -8,7 +8,11 @@ export interface EventData {
             organizer: string,
             place: string,
             materials: string,
-            deadline: string
+            deadline: string,
+            details: string,
+            duration: string,
+            result: string,
+            notate: string
     },
     course: string,
 }
@@ -31,4 +35,3 @@ export interface ListTypes {
     content: string,
     link: string,
 }
-
