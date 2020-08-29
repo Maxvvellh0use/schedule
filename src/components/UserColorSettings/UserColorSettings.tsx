@@ -9,18 +9,9 @@ const { Option } = Select;
 const UserColorSettings: React.FC = () => {
 
   
-  const [color, setColor] = useState('eeeeee');
+  const [color, setColor] = useState('#eeeeee');
   const [property, setProperty] = useState('color');
   const [task, setTask] = useState('Deadline');
-
-  const setColorSettingsLocalStorage = ( localStorageKey: string, colorProperty: string ) => {
-    let styles = localStorage.getItem(localStorageKey);
-    if (styles) {
-      const colorData = JSON.parse(styles);
-      colorData[colorProperty] = color;
-      localStorage.setItem(task, JSON.stringify(colorData))
-    } else {  localStorage.setItem(task, JSON.stringify({colorProperty: color}))}
-  }
 
   const saveLocalStorageData = () => {
 
@@ -30,7 +21,11 @@ const UserColorSettings: React.FC = () => {
       const colorData = JSON.parse(styles);
       colorData[property] = color;
       localStorage.setItem(task, JSON.stringify(colorData))
-    } else { localStorage.setItem(task, JSON.stringify({colorProperty: color}))}
+    } else { 
+      const colorData: {[index: string]:string}  = {};
+      colorData[property] = color;
+      localStorage.setItem(task, JSON.stringify(colorData))
+    }
   }
 
   const handleChange = (value: string) => {
