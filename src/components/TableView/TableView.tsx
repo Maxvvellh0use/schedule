@@ -27,7 +27,10 @@ const TableView: React.FC = () => {
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch]);
-    const [columnsVisible, setColumnsVisible] = useState(defaultColumnsVisible);
+    const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
+        JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
+    localStorage.columnsVisible = localStorage.columnsVisible ?
+        JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
     const columnsTable = [
         {
             title: 'Date',
