@@ -10,23 +10,37 @@ const UserColorSettings: React.FC = () => {
 
   
   const [color, setColor] = useState('eeeeee');
-  const [property, setProperty] = useState('text');
+  const [property, setProperty] = useState('color');
   const [task, setTask] = useState('Deadline');
 
+  const setColorSettingsLocalStorage = ( localStorageKey: string, colorProperty: string ) => {
+    let styles = localStorage.getItem(localStorageKey);
+    if (styles) {
+      const colorData = JSON.parse(styles);
+      colorData[colorProperty] = color;
+      localStorage.setItem(task, JSON.stringify(colorData))
+    } else {  localStorage.setItem(task, JSON.stringify({colorProperty: color}))}
+  }
+
   const saveLocalStorageData = () => {
-    localStorage.setItem(task, JSON.stringify({backgroundColor: color, color}))
+
+    let styles = localStorage.getItem(task);
+
+    if (styles) {
+      const colorData = JSON.parse(styles);
+      colorData[property] = color;
+      localStorage.setItem(task, JSON.stringify(colorData))
+    } else { localStorage.setItem(task, JSON.stringify({colorProperty: color}))}
   }
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
     setTask(value);
-    saveLocalStorageData();
   }
 
   const handleStyleProperty = (e: any) => {
     console.log('radio checked', e.target.value);
     setProperty(e.target.value);
-    saveLocalStorageData();
   }
 
   const handleColor = (color: string) => {
@@ -36,6 +50,7 @@ const UserColorSettings: React.FC = () => {
 
   return(
     <div>
+      <p className="color-settings-title">Select task</p>
       <Select 
         defaultValue="Deadline" 
         style={{ width: 120 }} 
@@ -43,19 +58,21 @@ const UserColorSettings: React.FC = () => {
           <Option value="Deadline">Deadline</Option>
           <Option value="Test">Test</Option>
       </Select>
+      <p className="color-settings-title">Select property</p>
       <Radio.Group 
-        defaultValue="Text" 
+        defaultValue="color" 
         onChange={handleStyleProperty}
         >
-        <Radio.Button value="Text">Text</Radio.Button>
-        <Radio.Button value="Background">Background</Radio.Button>
+        <Radio.Button value="color">Text</Radio.Button>
+        <Radio.Button value="backgroundColor">Background</Radio.Button>
       </Radio.Group>
+      <p className="color-settings-title">Select color</p>
       <SliderPicker 
-      color={color}
-      onChangeComplete={ (color) => {
-        setColor(color.hex)
-        handleColor(color.hex)
-      }
+        color={color}
+        onChangeComplete={ (color) => {
+          setColor(color.hex)
+          handleColor(color.hex)
+        }
       }/>
       <div style={{
         height: '50px',
