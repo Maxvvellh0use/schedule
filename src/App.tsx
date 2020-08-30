@@ -1,10 +1,11 @@
 import React from 'react';
 import MainPageLayout from "./components/MainPageLayout/MainPageLayout";
+import TaskCreatorPage from './components/TaskCreatorLayout/TaskCreatorLayout'
 
 function App() {
   return (
     <div className="App">
-      <MainPageLayout />
+      <TaskCreatorPage />
     </div>
   );
 }
