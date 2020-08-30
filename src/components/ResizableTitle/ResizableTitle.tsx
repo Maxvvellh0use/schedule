@@ -3,7 +3,7 @@ import { Resizable } from 'react-resizable';
 
 import './ResizableTitle.scss'
 
-export const ResizableTitle = (props: any) => {
+export const ResizableTitle: React.FC = (props: any) => {
     const { onResize, width, ...restProps } = props;
 
     if (!width) {

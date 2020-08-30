@@ -9,7 +9,7 @@ import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 import { getEventsData } from "../../redux/actions";
 
 import './TableView.scss';
-import { columnNames , defaultColumnsVisible } from "./consts";
+import {columnNames , defaultColumnsVisible , filtersType} from "./consts";
 import {ResizableTitle} from "../ResizableTitle/ResizableTitle";
 import {TestTable} from "./testTable";
 import {getNewVisibility} from "./helpers/getNewVisibility";
@@ -55,6 +55,8 @@ const TableView: React.FC = () => {
             key: 'type',
             width: 70,
             visibility: columnsVisible['Type'],
+            filters: filtersType,
+            onFilter: (value: string, record: any) => record.type.indexOf(value) === 0,
         },
         {
             title: 'Place',
