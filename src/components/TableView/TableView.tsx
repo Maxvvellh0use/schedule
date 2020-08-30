@@ -1,5 +1,5 @@
 import React , {EventHandler , useEffect , useState} from "react";
-import { Table, Spin, Menu, Dropdown, Checkbox, Button } from 'antd';
+import { Table, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 
 import { EventData , NameEventType } from "../types";
@@ -7,12 +7,11 @@ import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 import { getEventsData } from "../../redux/actions";
+import { columnNames , defaultColumnsVisible , filtersType } from "./consts";
+import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
+import { getNewVisibility } from "./helpers/getNewVisibility";
 
 import './TableView.scss';
-import {columnNames , defaultColumnsVisible , filtersType} from "./consts";
-import {ResizableTitle} from "../ResizableTitle/ResizableTitle";
-import {TestTable} from "./testTable";
-import {getNewVisibility} from "./helpers/getNewVisibility";
 
 interface RootState {
     allEventsData: EventData[];
@@ -164,8 +163,8 @@ const TableView: React.FC = () => {
     const menu = (
         <Menu>
             {
-                columnNames.map(columnName =>
-                <Menu.Item>
+                columnNames.map((columnName, index) =>
+                <Menu.Item key={`${columnName}${index}`}>
                     <Checkbox checked={columnsVisible[columnName]}
                               onChange={() => hideColumn(columnName)}>
                         {columnName}
