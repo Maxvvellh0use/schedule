@@ -156,7 +156,7 @@ const TableView: React.FC = () => {
             <section className='main_table_section'>
                 <div className='dropdown_container'>
                     <Dropdown className='dropdown_columns_visible' overlay={menu} placement="bottomLeft">
-                        <Button>Columns Visible</Button>
+                        <Button>Columns Visibility</Button>
                     </Dropdown>
                 </div>
 
