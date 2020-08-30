@@ -1,10 +1,12 @@
 import React from "react";
 import { Tabs } from 'antd';
-import CalendarView from "../CalendarView/CalendarView";
 import { useSelector } from "react-redux";
 
 import './MainTab.scss'
+
+import CalendarView from "../CalendarView/CalendarView";
 import TableView from "../TableView/TableView";
+import ListView from "../ListView/ListView";
 
 interface RootState {
     app: {
@@ -31,7 +33,7 @@ const MainTab: React.FC = () => {
                 <TabPane tab="LIST" key="3">
                     {
                         errorText ? <div>{errorText}</div> :
-                        <div>Content of Tab Pane 3</div>
+                        <ListView/>
                     }
                 </TabPane>
             </Tabs>
