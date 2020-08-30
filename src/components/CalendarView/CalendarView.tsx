@@ -29,7 +29,7 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
         return eventsData ? (
             eventsData.map((eventData, index) => {
                 return (
-                    <div key={eventData.text} className="notes-month">
+                    <div key={`${eventData.text}${index}`} className="notes-month">
                         <div>{index + unitOffset}.
                             {
                                 eventData.type === 'Deadline' ?
@@ -48,9 +48,10 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
         const listData = getListData(moment);
         return (
             <ul className="calendar_events_list">
-                {listData.map(item => (
+                {
+                    listData.map((item, index) => (
                     <li className='calendar_events_list__item'
-                        key={item.content}>
+                        key={`${item.content}${index}`}>
                         <a className='event_day_link'
                             href={item.link}>
                             <Badge style={{color: linkColor}}
