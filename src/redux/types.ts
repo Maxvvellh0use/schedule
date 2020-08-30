@@ -17,7 +17,11 @@ export interface EventData {
         organizer: string,
         place: string,
         materials: string,
-        deadline: string
+        deadline: string,
+        details: string,
+        duration: string,
+        result: string,
+        notate: string
     },
     course: string,
 }
