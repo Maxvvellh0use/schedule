@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactMapboxGl, {
-  ScaleControl,
-  ZoomControl,
-  RotationControl,
   Layer,
   Feature,
-  Marker
+  MapContext 
 } from "react-mapbox-gl"
 
 import { MAPBOX_TOKEN } from './consts';
 import getCurrentCoordinates from './helpers';
 
 import './MapComponent.scss';
+import { AnyARecord } from 'dns';
+
+
+interface Props {
+  onMarkerMove: Function;
+}
 
 const Map = ReactMapboxGl({
   accessToken: MAPBOX_TOKEN
 });
+
 const zoom = 10;
 
-const MapComponent: React.FC = () => {
+
+
+const MapComponent: React.FC<Props> = ({ onMarkerMove}) => {
   const [coords, setCoords] = useState();
   const [errorText, setErrorText] = useState('');
 
@@ -36,15 +42,15 @@ const MapComponent: React.FC = () => {
       className="map-container"
       style="mapbox://styles/mapbox/streets-v8"
       zoom={[zoom]}
-      center={coords}>
+      center={coords}>        
         <Layer
           type="symbol"
           id="marker"
           layout={{ "icon-image": "marker-15" }} >
             <Feature 
-            coordinates={coords}
+            coordinates={coords || [0,0]}
             draggable={true}
-            onDragEnd={(mapWithEvt: object): void =>  {console.log(mapWithEvt)}}/>
+            onDragEnd={({ lngLat }: any): void => { onMarkerMove(lngLat.lat + ' ' + lngLat.lng)}}/>
         </Layer>         
     </Map>
   )  
