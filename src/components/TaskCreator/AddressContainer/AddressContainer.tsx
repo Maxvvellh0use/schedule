@@ -10,8 +10,6 @@ import MapComponent from '../MapComponent/MapComponent';
 
 import './AddressContainer.scss';
 
-
-
 const AddressContainer: React.FC = () => {
   const [address, setAddress] = useState('');
 
