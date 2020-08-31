@@ -50,7 +50,8 @@ const MapComponent: React.FC<Props> = ({ onMarkerMove}) => {
             <Feature 
             coordinates={coords || [0,0]}
             draggable={true}
-            onDragEnd={({ lngLat }: any): void => { onMarkerMove(lngLat.lat + ' ' + lngLat.lng)}}/>
+          onDragEnd={({ lngLat }: any): void => {
+            onMarkerMove(`Lat:${lngLat.lat.toFixed(4)} Lng:${lngLat.lng.toFixed(4)}`)}}/>
         </Layer>         
     </Map>
   )  

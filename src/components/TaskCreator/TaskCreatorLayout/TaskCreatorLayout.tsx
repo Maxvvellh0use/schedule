@@ -19,9 +19,16 @@ const TaskCreatorLayout: React.FC = () => {
   const { Header, Content } = Layout;
   const formItemLayout = {
     labelCol: { span: 20 },
-    wrapperCol: { span: 20 },
+    wrapperCol: { span: 100 },
   };
-  
+
+  const [form] = Form.useForm();
+
+  function onMarkerMove(value: string) {
+    form.setFieldsValue({
+      place: value,
+    });
+  }  
 
   function onFinish(values: any): any {
     console.log('Received values of form: ', values);
@@ -32,6 +39,7 @@ const TaskCreatorLayout: React.FC = () => {
         <MainPageHeader />
       </Header>
       <Form
+        form={form}
         onFinish={onFinish}
         {...formItemLayout}
         layout="vertical"
@@ -45,9 +53,9 @@ const TaskCreatorLayout: React.FC = () => {
               </Col>
               <Col flex={3}>
                 <div className="container">
-                  <AddressContainer />
+                <AddressContainer onMarkerMove={onMarkerMove} />
                 </div>
-              <div className="container">
+              <div className="container bottom-container">
                 <BottomContainer/>
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
                   <Button type="primary" htmlType="submit">

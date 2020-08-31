@@ -84,10 +84,8 @@ const LeftPanel: React.FC = () => {
       rules={[{ type: 'object', required: true, message: 'Please select time!' }]}>
       <TimePicker />
     </Form.Item>
-    <Form.Item
-      label="Task has deadline"
-      name="hasDeadline">
-      <Checkbox onChange={onHasDeadlineChange} value=""></Checkbox>
+    <Form.Item name="hasDeadline">
+      <Checkbox onChange={onHasDeadlineChange} value="">Task has deadline</Checkbox>
     </Form.Item>
     <Form.Item
       name="deadlineDate"
@@ -131,6 +129,11 @@ const LeftPanel: React.FC = () => {
                 block>
                   <PlusOutlined /> Add Material URL
               </Button>
+            </Form.Item>
+            <Form.Item
+              name="result"
+              label="Expected results description">
+                <Input.TextArea rows={2} />
             </Form.Item>
           </div>
         );
