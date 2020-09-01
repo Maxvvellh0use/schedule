@@ -13,11 +13,13 @@ import {
 import 'antd/dist/antd.css';
 import { MinusCircleOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons';
 
+import { TASK_TYPES } from './const';
+
 import './LeftPanel.scss';
 
 const LeftPanel: React.FC = () => {
   const [taskTypes, setTaskTypes] = useState({
-    initialTypes: ["Self Education", "Task", "YouTube Live", "Meetup", "Test", "Optional Lesson", "Interview", "Crosscheck", "Registration"],
+    initialTypes: TASK_TYPES,
     newType: ''
   });
   const [deadlineFormEnabled, setDeadlineFormEnabled] = useState(false);

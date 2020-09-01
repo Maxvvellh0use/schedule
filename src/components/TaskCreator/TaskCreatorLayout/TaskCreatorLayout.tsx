@@ -12,6 +12,7 @@ import MainPageHeader from '../../MainPageHeader/MainPageHeader';
 import LeftPanel from '../LeftPanel/LeftPanel';
 import AddressContainer from '../AddressContainer/AddressContainer';
 import BottomContainer from '../BottomContainer/BottomContainer';
+import { useHistory } from 'react-router-dom';
 
 import './TaskCreatorLayout.scss';
 
@@ -23,6 +24,8 @@ const TaskCreatorLayout: React.FC = () => {
   };
 
   const [form] = Form.useForm();
+
+  const history = useHistory();
 
   function onMarkerMove(value: string) {
     form.setFieldsValue({
@@ -38,6 +41,9 @@ const TaskCreatorLayout: React.FC = () => {
       <Header>
         <MainPageHeader />
       </Header>
+      <Button type="link" onClick={() => history.push('/')} >
+        Back to schedule
+      </Button> 
       <Form
         form={form}
         onFinish={onFinish}
@@ -61,7 +67,10 @@ const TaskCreatorLayout: React.FC = () => {
                   <Button type="primary" htmlType="submit">
                     Create
                   </Button>
-                </Form.Item>                
+                </Form.Item>
+                <Button type="link" onClick={() => history.push('/')} >
+                  Back to schedule
+                </Button>                
               </div>
             </Col>         
           </Row>

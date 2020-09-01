@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from 'antd';
-import '../TaskCreator/TaskCreatorLayout/node_modules/antd/dist/antd.css';
+import 'antd/dist/antd.css';
 
 import MainTab from "../MainTab/MainTab";
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
