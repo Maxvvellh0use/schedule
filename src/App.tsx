@@ -1,13 +1,19 @@
 import React from 'react';
-import MainPageLayout from "./components/MainPageLayout/MainPageLayout";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import MainPageLayout from './components/MainPageLayout/MainPageLayout';
+import { MainPage } from './pages/MainPage';
+import { TaskCreatorPage } from './pages/TaskCreatorPage';
 
 import './style/index.scss'
 
 function App() {
   return (
-    <div className="App">
-      <MainPageLayout />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route component={MainPage} path="/" exact/>
+        <Route component={TaskCreatorPage} path="/task-creator"/>
+      </Switch>      
+    </BrowserRouter>
   );
 }
 
