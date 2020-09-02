@@ -48,7 +48,7 @@ const BottomContainer: React.FC = () => {
         <Form.Item
           name="notate"
           label="Other notes">
-            <Input.TextArea rows={4} />
+            <Input.TextArea rows={5} />
         </Form.Item>
       </div>           
     </>

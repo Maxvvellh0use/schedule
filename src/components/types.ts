@@ -7,7 +7,7 @@ export interface EventData {
             description: string,
             organizer: string,
             place: string,
-            materials: string,
+            materials: string | string[],
             deadline: string,
             details: string,
             duration: string,
