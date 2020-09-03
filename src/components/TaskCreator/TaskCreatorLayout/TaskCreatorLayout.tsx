@@ -16,8 +16,8 @@ import AddressContainer from '../AddressContainer/AddressContainer';
 import BottomContainer from '../BottomContainer/BottomContainer';
 
 import './TaskCreatorLayout.scss';
-import { parseFormValuesToEventData } from './helpers';
-import { createEvent, getEventsData } from '../../../redux/actions';
+import { parseFormValuesToEventData, createEvent } from './helpers';
+import { getEventsData } from '../../../redux/actions';
 import { Store } from 'antd/lib/form/interface';
 
 
@@ -46,7 +46,7 @@ const TaskCreatorLayout: React.FC = () => {
   function onFinish(values: Store): void {
     console.log('Received values of form: ', values);
     const eventData = parseFormValuesToEventData(values);
-    dispatch(createEvent(eventData));
+    createEvent(eventData);
     dispatch(getEventsData());
   }
 

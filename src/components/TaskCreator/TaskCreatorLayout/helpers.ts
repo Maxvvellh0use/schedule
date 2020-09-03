@@ -1,6 +1,7 @@
 import { EventData } from "../../types";
 import { Store } from "antd/lib/form/interface";
 import moment from "moment";
+import { urlApi } from "../../../data/const";
 
 const dateFormat = 'MMMM DD, YYYY hh:mm:ss';
 
@@ -28,43 +29,65 @@ export const parseFormValuesToEventData = (values: Store
   const deadlineString = deadlineDate ?
     `${deadlineDate.format('MMMM DD, YYYY')} ${deadlineTime.format('hh:mm:ss')}` :
     '';
+  const materialsData = materials ?
+    materials.length > 1 ? materials : materials[0] :
+    '';
 
   console.log({
     id: 0,
     name,
     type,
     optional: {
-      date: dateString,
-      description,
-      organizer: organizer,
-      place,
-      materials: materials.length > 1 ? materials : materials[0],
-      deadline: deadlineString,
-      details,
-      duration: duration.toString(),
-      result,
-      notate,
+      date: dateString || '',
+      description: description || '',
+      organizer: organizer || '',
+      place: place || '',
+      materials: materialsData || '',
+      deadline: deadlineString || '',
+      details: details || '',
+      duration: duration ? duration.toString() : '',
+      result: result || '',
+      notate: notate || '',
     },
-    course,
+    course: course || '',
   })
 
   return {
     id: 0,
     name,
     type,
-      optional: {
-        date: dateString,
-        description,
-        organizer: organizer,
-        place,
-        materials: materials.length > 1 ? materials : materials[0],
-        deadline: deadlineString,
-        details,
-        duration: duration.toString(),
-        result,
-        notate,
+    optional: {
+      date: dateString || '',
+      description: description || '',
+      organizer: organizer || '',
+      place: place || '',
+      materials: materialsData || '',
+      deadline: deadlineString || '',
+      details: details || '',
+      duration: duration ? duration.toString() : '',
+      result: result || '',
+      notate: notate || '',
+    },
+    course: course || '',
+  }
+}
+
+
+export const createEvent = async (eventData: EventData) => {
+  console.log(JSON.stringify(eventData))
+  try {
+    const res = await fetch(`${urlApi}/event_create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',        
       },
-    course,
+      body: JSON.stringify(eventData),
+    });
+    console.log(res)
+    const data = await res.json();
+    console.log(data)    
+  } catch (e) {     
+    console.log(e)
   }
 }
 

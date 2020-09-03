@@ -77,7 +77,8 @@ const LeftPanel: React.FC = () => {
       </Form.Item>
       
     <Form.Item name="course"
-      label="Select course">
+      label="Select course"
+        rules={[{ required: true, message: 'Please select course!' }]}>
       <Select
         showSearch
         placeholder="Select course">
