@@ -10,6 +10,7 @@ import { getEventsData } from "../../redux/actions";
 
 import './TableView.scss';
 import { columnNames , defaultColumnsVisible } from "./consts";
+import { Link } from "react-router-dom";
 
 interface RootState {
     allEventsData: EventData[];
@@ -60,7 +61,7 @@ const TableView: React.FC = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name: NameEventType) => <a href={name.link}>{name.text}</a>,
+            render: (name: NameEventType) => <Link to={`/task/${name.id}`}>{name.text}</Link>,
             visible: columnsVisible['Name'],
         },
         {
@@ -113,6 +114,7 @@ const TableView: React.FC = () => {
             name: {
                 text: event.name,
                 link: event.optional.description,
+                id: event.id
             },
             duration: event.optional.duration,
             result: event.optional.result,

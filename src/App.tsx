@@ -5,15 +5,19 @@ import { MainPage } from './pages/MainPage';
 import { TaskCreatorPage } from './pages/TaskCreatorPage';
 
 import './style/index.scss'
+import TaskPage from './components/TaskPage/TaskPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
+     <BrowserRouter>
       <Switch>
         <Route component={MainPage} path="/" exact/>
-        <Route component={TaskCreatorPage} path="/task-creator"/>
-      </Switch>      
-    </BrowserRouter>
+        <Route component={TaskCreatorPage} path="/task-creator" />
+        <Route component={TaskPage} path="/task/:id" />
+       </Switch>      
+     </BrowserRouter>      
+    </>
   );
 }
 

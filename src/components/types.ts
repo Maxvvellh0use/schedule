@@ -22,12 +22,14 @@ export interface MutableEventData {
     type: string,
     date: Date,
     description: string,
+    id: number,
 }
 
 export interface NameEventType {
     text: string,
     link: string,
     type: string,
+    id: number,
 }
 
 export interface ListTypes {
