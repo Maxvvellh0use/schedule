@@ -9,11 +9,10 @@ import { MAPBOX_TOKEN } from './consts';
 import getCurrentCoordinates from './helpers';
 
 import './MapComponent.scss';
-import { AnyARecord } from 'dns';
-
 
 interface Props {
-  onMarkerMove: Function;
+  onMarkerMove: Function,
+  coordinates: [number, number] | undefined
 }
 
 const Map = ReactMapboxGl({
@@ -24,17 +23,21 @@ const zoom = 10;
 
 
 
-const MapComponent: React.FC<Props> = ({ onMarkerMove}) => {
-  const [coords, setCoords] = useState();
+const MapComponent: React.FC<Props> = ({ onMarkerMove, coordinates}) => {
+  const [coords, setCoords] = useState<[number, number] | undefined>();
   const [errorText, setErrorText] = useState('');
 
   useEffect(() => {
-    getCurrentCoordinates()
-      .then((res) => { 
-        setCoords(res);
-        console.log(res);
-      })
-      .catch(() => { setErrorText('Error data request!');})
+    if (!coordinates) {
+      getCurrentCoordinates()
+        .then((res) => {
+          setCoords(res);
+          console.log(res);
+        })
+        .catch(() => { setErrorText('Error data request!'); })
+    } else {
+      setCoords(coordinates);
+    }
   },[])
 
   return (
@@ -51,7 +54,7 @@ const MapComponent: React.FC<Props> = ({ onMarkerMove}) => {
             coordinates={coords || [0,0]}
             draggable={true}
           onDragEnd={({ lngLat }: any): void => {
-            onMarkerMove(`Lat:${lngLat.lat.toFixed(4)} Lng:${lngLat.lng.toFixed(4)}`)}}/>
+            onMarkerMove(`${lngLat.lat} ${lngLat.lng}`)}}/>
         </Layer>         
     </Map>
   )  
