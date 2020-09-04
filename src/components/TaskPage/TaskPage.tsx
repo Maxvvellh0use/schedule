@@ -9,6 +9,7 @@ import { Layout, Divider, Typography, Button, Popconfirm, message, Rate } from '
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import MapComponent from '../TaskCreator/MapComponent/MapComponent';
 import { getRawContent, isMarkdown, getCoordinates } from './helpers';
+import TaskDescription from '../TaskDescription/TaskDescription';
 
 interface RootState {
   allEventsData: EventData[];
@@ -51,7 +52,7 @@ const TaskPage: React.FC = () => {
       <Content>
         <div className="container">
           <div className="top-container">
-            <Title level={4}>{curEvent ? curEvent.name : 'Title'}</Title>
+            <Title level={4}>Event Info</Title>
             <div className="right-panel">
               <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
               <Popconfirm
@@ -67,14 +68,15 @@ const TaskPage: React.FC = () => {
           </div>
           <Divider />
           <div className="task-description">
-            {source ? <ReactMarkdown source={source} /> : <a href={curEvent?.optional.description}>Task</a>}
+            {source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/>}
           </div>
           <Divider />
           <MapComponent
             onMarkerMove={() => { }}
             coordinates={getCoordinates(curEvent)} />
+          <Divider />
           <div className="rate-container" >
-            <Rate /> How do you like this task?
+            <Rate /> <span>How do you like this task?</span>
           </div>
         </div>
       </Content>

@@ -25,6 +25,16 @@
   & .task-description img {
     width: 100%;
   }
+
+  & .rate-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & span {
+      margin: 10px;
+    }
+  }
 }
 
 
