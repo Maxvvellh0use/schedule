@@ -1,5 +1,5 @@
 import React , {EventHandler , useEffect , useState} from "react";
-import { Table, Spin, Menu, Dropdown, Checkbox, Button } from 'antd';
+import { Table, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 
 import { EventData , NameEventType } from "../types";
@@ -7,9 +7,11 @@ import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 import { getEventsData } from "../../redux/actions";
+import { columnNames , defaultColumnsVisible , filtersType } from "./consts";
+import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
+import { getNewVisibility } from "./helpers/getNewVisibility";
 
 import './TableView.scss';
-import { columnNames , defaultColumnsVisible } from "./consts";
 
 interface RootState {
     allEventsData: EventData[];
@@ -31,77 +33,105 @@ const TableView: React.FC = () => {
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
-    const columnsTable = [
+    const [columnsTable, setColumnsTable] = useState([
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
-            visible: columnsVisible['Date']
+            width: 120,
+            visibility: columnsVisible['Date']
         },
         {
             title: 'Time',
             dataIndex: 'time',
             key: 'time',
-            visible: columnsVisible['Time']
+            width: 50,
+            visibility: columnsVisible['Time']
         },
         {
             title: 'Type',
             dataIndex: 'type',
             key: 'type',
-            visible: columnsVisible['Type'],
+            width: 70,
+            visibility: columnsVisible['Type'],
+            filters: filtersType,
+            onFilter: (value: string, record: any) => record.type.indexOf(value) === 0,
         },
         {
             title: 'Place',
             dataIndex: 'place',
             key: 'place',
-            visible: columnsVisible['Place'],
+            width: 70,
+            visibility: columnsVisible['Place'],
         },
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            width: 200,
             render: (name: NameEventType) => <a href={name.link}>{name.text}</a>,
-            visible: columnsVisible['Name'],
+            visibility: columnsVisible['Name'],
         },
         {
             title: 'Duration',
             dataIndex: 'duration',
             key: 'duration',
-            visible: columnsVisible['Duration'],
+            width: 30,
+            visibility: columnsVisible['Duration'],
         },
         {
             title: 'Result',
             dataIndex: 'result',
             key: 'result',
-            visible: columnsVisible['Result'],
+            width: 50,
+            visibility: columnsVisible['Result'],
         },
         {
             title: 'Notate',
             dataIndex: 'notate',
             key: 'notate',
-            visible: columnsVisible['Notate'],
+            width: 30,
+            visibility: columnsVisible['Notate'],
         },
         {
             title: 'Materials',
             dataIndex: 'materials',
             key: 'materials',
             ellipsis: true,
+            width: 200,
             render: (material: string) => <a href={material}>{material}</a>,
-            visible: columnsVisible['Materials'],
+            visibility: columnsVisible['Materials'],
         },
         {
             title: 'Deadline',
             dataIndex: 'deadline',
             key: 'deadline',
-            visible: columnsVisible['Deadline'],
+            width: 200,
+            visibility: columnsVisible['Deadline'],
         },
         {
             title: 'Action',
             dataIndex: 'action',
             key: 'action',
-            visible: columnsVisible['Action'],
+            width: 100,
+            visibility: columnsVisible['Action'],
         },
-    ];
+    ]);
+
+   const components = {
+        header: {
+            cell: ResizableTitle,
+        },
+    };
+
+    const handleResize = (index: number) => (e: any , {size}: any) => {
+        const nextColumns = [...columnsTable];
+        nextColumns[index] = {
+            ...nextColumns[index],
+            width: size.width,
+        };
+        setColumnsTable(nextColumns);
+    };
 
     const tableEventsData = allEventsData.length ? allEventsData.map((event) => {
         return {
@@ -123,27 +153,20 @@ const TableView: React.FC = () => {
         };
     }) : undefined;
 
-    const tableView = errorText ? <div>{errorText}</div> :
-        <Table columns={columnsTable.filter((column) => column.visible)}
-               expandable={{
-                   expandedRowRender: record => <span>{record.description}</span> ,
-               }}
-               dataSource={tableEventsData} />;
-
-    const loader = <Spin size="large" />;
-
     const hideColumn = (columnName: string) => {
-        const newColumnsVisible = Object.assign({}, columnsVisible);
-        newColumnsVisible[columnName] = !newColumnsVisible[columnName];
-        setColumnsVisible(newColumnsVisible);
+        const updateColumnsVisibility =
+            getNewVisibility(columnsTable, columnsVisible, columnName);
+        setColumnsVisible(updateColumnsVisibility.newColumnsVisible);
+        setColumnsTable(updateColumnsVisibility.newColumnsTable);
     };
 
     const menu = (
         <Menu>
             {
-                columnNames.map(columnName =>
-                <Menu.Item>
-                    <Checkbox checked={columnsVisible[columnName]} onChange={() => hideColumn(columnName)}>
+                columnNames.map((columnName, index) =>
+                <Menu.Item key={`${columnName}${index}`}>
+                    <Checkbox checked={columnsVisible[columnName]}
+                              onChange={() => hideColumn(columnName)}>
                         {columnName}
                     </Checkbox>
                 </Menu.Item>
@@ -151,19 +174,34 @@ const TableView: React.FC = () => {
         </Menu>
     );
 
+    const columns = columnsTable.map((col: any , index: number) => ({
+        ...col,
+        onHeaderCell: (column: { width: any; visibility: boolean;  }) => ({
+            width: column.width,
+            onResize: handleResize(index),
+        }),
+        })
+    );
+
+    const tableView = errorText ? <div>{errorText}</div> :
+        <Table components={components}
+               columns={columns.filter(column => column.visibility)}
+               rowSelection={{checkStrictly: true, selections: true}}
+               loading={loading}
+               dataSource={tableEventsData}
+               bordered />;
+
     return (
         <main>
             <section className='main_table_section'>
                 <div className='dropdown_container'>
-                    <Dropdown className='dropdown_columns_visible' overlay={menu} placement="bottomLeft">
+                    <Dropdown className='dropdown_columns_visible'
+                              overlay={menu}
+                              placement="bottomLeft">
                         <Button>Columns Visibility</Button>
                     </Dropdown>
                 </div>
-
-                {
-                    loading ? <div className='loader_table__container'>{loader}</div> :
-                        tableView
-                }
+                { tableView }
             </section>
         </main>
     )
