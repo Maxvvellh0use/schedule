@@ -32,17 +32,17 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
 }
 
 export const defaultColumnsWidths: { [key: string]: number } = {
-    Date: 120,
+    Date: 65,
     Time: 50,
     Type: 70,
     Place: 70,
-    Name: 200,
+    Name: 100,
     Duration: 30,
     Result: 50,
     Notate: 30,
     Materials: 100,
-    Deadline: 200,
-    Tags: 100,
+    Deadline: 110,
+    Tags: 70,
     Action: 100,
 }
 
