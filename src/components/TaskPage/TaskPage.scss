@@ -1,0 +1,41 @@
+.container {
+  margin: 20px;
+  padding: 10px;
+  background: #FFFFFF;
+  border: 1px solid #DADADA; 
+  border-radius: 4px;
+
+  & .top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .right-panel {
+      width: 20%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      & .task-btn {
+        margin: 5px;
+      }
+    }
+  }
+
+  & .task-description img {
+    width: 100%;
+  }
+
+  & .rate-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & span {
+      margin: 10px;
+    }
+  }
+}
+
+
+
