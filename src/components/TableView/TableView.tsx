@@ -14,9 +14,6 @@ import { getNewVisibility } from "./helpers/getNewVisibility";
 
 import './TableView.scss';
 
-
-
-
 interface RootState {
     allEventsData: EventData[];
     app: {
@@ -133,7 +130,7 @@ const TableView: React.FC = () => {
         },
     };
 
-    const handleResize = (index: number) => (e: any , {size}: any) => {
+    const handleResize = (index: number) => (e: any , size: { width: number }) => {
         const nextColumns = [...columnsTable];
         nextColumns[index] = {
             ...nextColumns[index],
@@ -220,7 +217,7 @@ const TableView: React.FC = () => {
                    selections: [
                        Table.SELECTION_ALL,
                        {
-                           key: '',
+                           key: 'hide',
                            text: 'Hide selected row',
                            onSelect: () => hideRows()
                        },
