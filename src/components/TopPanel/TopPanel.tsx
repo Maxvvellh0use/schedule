@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Avatar, Switch, Typography } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
-<<<<<<< HEAD
 import { connect, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-=======
-import { connect , useSelector } from 'react-redux';
 import UserColorSettings from '../UserColorSettings/UserColorSettings'
->>>>>>> 495a147... feat: add modal window to user color settings
+import { getEventTypes } from './helpers/getEventTypes'
 
 import './TopPanel.scss';
 
@@ -18,8 +15,10 @@ interface Props {
     allEventsData: EventData[];
 }
 
-
 const TopPanel: React.FC<Props> = () => {
+
+  const allEventsData = useSelector<Props, EventData[]>(state => state.allEventsData);
+  const eventsData = allEventsData.length ? getEventTypes(allEventsData) : [];
 
   const [isShowModal, setModal] = useState(false);
 
@@ -52,8 +51,6 @@ const TopPanel: React.FC<Props> = () => {
         </div>
         <Button className="settings-btn">Settings <SettingOutlined /> </Button>
       </div>
-<<<<<<< HEAD
-=======
       <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
       <Modal
           title="Settings"
@@ -61,15 +58,14 @@ const TopPanel: React.FC<Props> = () => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-        <UserColorSettings />
+        <UserColorSettings eventsData={eventsData}/>
       </Modal>
->>>>>>> 495a147... feat: add modal window to user color settings
     </div>
   )
 }
 
 const mapStateToProps = (state: SystemState) => ({
-    allEventsData: state.allEventsData,
+  allEventsData: state.allEventsData,
 })
 
 export default connect(mapStateToProps)(TopPanel);

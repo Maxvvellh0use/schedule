@@ -4,11 +4,14 @@ import { SliderPicker } from 'react-color';
 
 import './user-color-settings.scss';
 
+interface Events {
+  eventsData: string[];
+}
+
 const { Option } = Select;
 
-const UserColorSettings: React.FC = () => {
+const UserColorSettings: React.FC<Events> = ({eventsData}) => {
 
-  
   const [color, setColor] = useState('#eeeeee');
   const [property, setProperty] = useState('color');
   const [task, setTask] = useState('Deadline');
@@ -43,6 +46,8 @@ const UserColorSettings: React.FC = () => {
     saveLocalStorageData();
   }
 
+  const events = eventsData.map(event =>  <Option value={event} key={event}>{event}</Option>)
+
   return(
     <div>
       <p className="color-settings-title">Select task</p>
@@ -50,8 +55,7 @@ const UserColorSettings: React.FC = () => {
         defaultValue="Deadline" 
         style={{ width: 120 }} 
         onChange={handleChange}>
-          <Option value="Deadline">Deadline</Option>
-          <Option value="Test">Test</Option>
+          {events}
       </Select>
       <p className="color-settings-title">Select property</p>
       <Radio.Group 
