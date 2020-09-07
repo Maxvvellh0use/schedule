@@ -7,7 +7,7 @@ export interface EventData {
             description: string,
             organizer: string,
             place: string,
-            materials: string,
+            materials: string[] | string,
             deadline: string,
             details: string,
             duration: string,
@@ -22,12 +22,14 @@ export interface MutableEventData {
     type: string,
     date: Date,
     description: string,
+    id: number,
 }
 
 export interface NameEventType {
     text: string,
     link: string,
     type: string,
+    id: number,
 }
 
 export interface ListTypes {

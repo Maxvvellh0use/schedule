@@ -24,7 +24,7 @@ const AddressContainer: React.FC<Props> = ({onMarkerMove}) => {
         >
         <Input placeholder="Enter address or choose coordinates on the map below"/>
       </Form.Item>
-      <MapComponent onMarkerMove={onMarkerMove} />
+      <MapComponent onMarkerMove={onMarkerMove} coordinates={undefined}/>
     </>
   )
 }
