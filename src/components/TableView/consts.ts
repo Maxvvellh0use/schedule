@@ -1,3 +1,6 @@
+export const deadlineColor = 'volcano';
+export const taskColor = 'green';
+
 export const columnNames = [
     'Date',
     'Time',

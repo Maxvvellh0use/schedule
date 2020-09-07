@@ -9,7 +9,7 @@ import { parseDateEvent } from "./helpers/parseDateEvent";
 import { getCurrentDayEvents } from "./helpers/getCurrentDayEvents";
 import { getCurrentMonthEvents } from "./helpers/getCurrentMonthEvents";
 import { connect } from 'react-redux';
-import {SystemState} from "../../redux/types";
+import { SystemState } from "../../redux/types";
 
 interface Props {
     allEventsData: EventData[];

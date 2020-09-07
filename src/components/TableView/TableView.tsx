@@ -8,7 +8,7 @@ import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 import { getEventsData } from "../../redux/actions";
-import { columnNames , defaultColumnsVisible , filtersType } from "./consts";
+import {columnNames , deadlineColor , defaultColumnsVisible , filtersType , taskColor} from "./consts";
 import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
 
@@ -121,14 +121,13 @@ const TableView: React.FC = () => {
             dataIndex: 'tags',
             render: (tags: string[]) => (
                 <>
-                    {tags.map(tag => {
-                        let color = tag === 'deadline' ? 'volcano' : 'green';
-                        return (
-                            <Tag color={color} key={tag}>
+                    {
+                        tags.map(tag =>
+                            <Tag color={tag === 'deadline' ? deadlineColor : taskColor}
+                                 key={tag}>
                                 {tag.toUpperCase()}
                             </Tag>
-                        );
-                    })}
+                    )}
                 </>
             ),
             width: 100,
