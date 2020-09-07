@@ -1,6 +1,7 @@
-import React , {EventHandler , useEffect , useState} from "react";
+import React , { ReactText , useEffect , useState} from "react";
 import { Table, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import { EventData , NameEventType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
@@ -13,8 +14,7 @@ import { getNewVisibility } from "./helpers/getNewVisibility";
 
 import './TableView.scss';
 
-import { columnNames , defaultColumnsVisible } from "./consts";
-import { Link } from "react-router-dom";
+
 
 
 interface RootState {
@@ -35,6 +35,10 @@ const TableView: React.FC = () => {
     }, [dispatch]);
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
+    const [rowSelect, setRowSelect] = useState<ReactText[]>([]);
+    const newSelectRows = (newRowSelect: ReactText[]) => {
+        setRowSelect(newRowSelect);
+    }
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
     const [columnsTable, setColumnsTable] = useState([
@@ -138,9 +142,11 @@ const TableView: React.FC = () => {
         setColumnsTable(nextColumns);
     };
 
-    const tableEventsData = allEventsData.length ? allEventsData.map((event) => {
+    const [tableData, setTableData] = useState();
+
+    const initialTableData = allEventsData.length ? allEventsData.map((event, index) => {
         return {
-            key: event.id,
+            key: index,
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
@@ -158,6 +164,12 @@ const TableView: React.FC = () => {
             description: event.optional.details,
         };
     }) : undefined;
+
+    useEffect(() => {
+        if (!loading) {
+            setTableData(initialTableData)
+        }
+    }, [loading, allEventsData])
 
     const hideColumn = (columnName: string) => {
         const updateColumnsVisibility =
@@ -180,21 +192,47 @@ const TableView: React.FC = () => {
         </Menu>
     );
 
-    const columns = columnsTable.map((col: any , index: number) => ({
+    const columns = columnsTable.map((col: any, index: number) => ({
         ...col,
-        onHeaderCell: (column: { width: any; visibility: boolean;  }) => ({
+        onHeaderCell: (column: { width: number, visibility: boolean }) => ({
             width: column.width,
             onResize: handleResize(index),
-        }),
+            }),
         })
     );
+
+    const hideRows = () => {
+        setTableData(tableData.filter((elem: { key: number }) =>
+            !rowSelect.includes(elem.key)));
+    }
+
+
+    const showAllRows = () => {
+        setTableData(initialTableData);
+    }
 
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
                columns={columns.filter(column => column.visibility)}
-               rowSelection={{checkStrictly: true, selections: true}}
+               rowSelection={{
+                   checkStrictly: true,
+                   onChange: newSelectRows,
+                   selections: [
+                       Table.SELECTION_ALL,
+                       {
+                           key: '',
+                           text: 'Hide selected row',
+                           onSelect: () => hideRows()
+                       },
+                       {
+                           key: 'show',
+                           text: 'Show all rows',
+                           onSelect: () => showAllRows()
+                       },
+                   ]}
+               }
                loading={loading}
-               dataSource={tableEventsData}
+               dataSource={tableData}
                bordered />;
 
     return (
