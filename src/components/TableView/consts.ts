@@ -8,6 +8,7 @@ export const columnNames = [
     'Result',
     'Notate',
     'Deadline',
+    'Tags',
     'Action',
 ]
 
@@ -21,6 +22,7 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
     Result: true,
     Notate: true,
     Deadline: true,
+    Tags: true,
     Action: true,
 }
 

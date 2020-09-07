@@ -1,5 +1,5 @@
 import React , { ReactText , useEffect , useState} from "react";
-import { Table, Menu, Dropdown, Checkbox, Button } from 'antd';
+import { Table, Tag, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
@@ -116,6 +116,25 @@ const TableView: React.FC = () => {
             visibility: columnsVisible['Deadline'],
         },
         {
+            title: 'Tags',
+            key: 'tags',
+            dataIndex: 'tags',
+            render: (tags: string[]) => (
+                <>
+                    {tags.map(tag => {
+                        let color = tag === 'deadline' ? 'volcano' : 'green';
+                        return (
+                            <Tag color={color} key={tag}>
+                                {tag.toUpperCase()}
+                            </Tag>
+                        );
+                    })}
+                </>
+            ),
+            width: 100,
+            visibility: columnsVisible['Tags'],
+        },
+        {
             title: 'Action',
             dataIndex: 'action',
             key: 'action',
@@ -159,12 +178,13 @@ const TableView: React.FC = () => {
             materials: event.optional.materials,
             deadline: getCorrectDeadline(event.optional.deadline),
             description: event.optional.details,
+            tags: event.type === 'Deadline' ? ['deadline'] : [],
         };
     }) : undefined;
 
     useEffect(() => {
         if (!loading) {
-            setTableData(initialTableData)
+            setTableData(initialTableData);
         }
     }, [loading, allEventsData])
 
@@ -199,8 +219,10 @@ const TableView: React.FC = () => {
     );
 
     const hideRows = () => {
+        console.log(rowSelect);
         setTableData(tableData.filter((elem: { key: number }) =>
             !rowSelect.includes(elem.key)));
+        setRowSelect([]);
     }
 
 
@@ -218,7 +240,7 @@ const TableView: React.FC = () => {
                        Table.SELECTION_ALL,
                        {
                            key: 'hide',
-                           text: 'Hide selected row',
+                           text: 'Hide selected rows',
                            onSelect: () => hideRows()
                        },
                        {
