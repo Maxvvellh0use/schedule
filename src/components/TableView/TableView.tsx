@@ -8,7 +8,14 @@ import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 import { getEventsData } from "../../redux/actions";
-import {columnNames , deadlineColor , defaultColumnsVisible , filtersType , taskColor} from "./consts";
+import {
+    columnNames ,
+    deadlineColor ,
+    defaultColumnsVisible ,
+    defaultColumnsWidths ,
+    filtersType ,
+    taskColor
+} from "./consts";
 import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
 
@@ -32,32 +39,33 @@ const TableView: React.FC = () => {
     }, [dispatch]);
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
+    const [columnsWidths, setColumnsWidths] = useState(defaultColumnsWidths);
     const [rowSelect, setRowSelect] = useState<ReactText[]>([]);
     const newSelectRows = (newRowSelect: ReactText[]) => {
         setRowSelect(newRowSelect);
     }
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
-    const [columnsTable, setColumnsTable] = useState([
+    const columnsTable = [
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
-            width: 120,
+            width: columnsWidths['Date'],
             visibility: columnsVisible['Date']
         },
         {
             title: 'Time',
             dataIndex: 'time',
             key: 'time',
-            width: 50,
+            width: columnsWidths['Time'],
             visibility: columnsVisible['Time']
         },
         {
             title: 'Type',
             dataIndex: 'type',
             key: 'type',
-            width: 70,
+            width: columnsWidths['Type'],
             visibility: columnsVisible['Type'],
             filters: filtersType,
             onFilter: (value: string, record: any) => record.type.indexOf(value) === 0,
@@ -66,7 +74,7 @@ const TableView: React.FC = () => {
             title: 'Place',
             dataIndex: 'place',
             key: 'place',
-            width: 70,
+            width: columnsWidths['Place'],
             visibility: columnsVisible['Place'],
         },
         {
@@ -74,7 +82,7 @@ const TableView: React.FC = () => {
             dataIndex: 'name',
             key: 'name',
             render: (name: NameEventType) => <Link to={`/task/${name.id}`}>{name.text}</Link>,
-            width: 200,
+            width: columnsWidths['Name'],
             visibility: columnsVisible['Name'],
 
         },
@@ -82,21 +90,21 @@ const TableView: React.FC = () => {
             title: 'Duration',
             dataIndex: 'duration',
             key: 'duration',
-            width: 30,
+            width: columnsWidths['Duration'],
             visibility: columnsVisible['Duration'],
         },
         {
             title: 'Result',
             dataIndex: 'result',
             key: 'result',
-            width: 50,
+            width: columnsWidths['Result'],
             visibility: columnsVisible['Result'],
         },
         {
             title: 'Notate',
             dataIndex: 'notate',
             key: 'notate',
-            width: 30,
+            width: columnsWidths['Notate'],
             visibility: columnsVisible['Notate'],
         },
         {
@@ -104,7 +112,7 @@ const TableView: React.FC = () => {
             dataIndex: 'materials',
             key: 'materials',
             ellipsis: true,
-            width: 200,
+            width: columnsWidths['Materials'],
             render: (material: string) => <a href={material}>{material}</a>,
             visibility: columnsVisible['Materials'],
         },
@@ -112,7 +120,7 @@ const TableView: React.FC = () => {
             title: 'Deadline',
             dataIndex: 'deadline',
             key: 'deadline',
-            width: 200,
+            width: columnsWidths['Deadline'],
             visibility: columnsVisible['Deadline'],
         },
         {
@@ -130,17 +138,17 @@ const TableView: React.FC = () => {
                     )}
                 </>
             ),
-            width: 100,
+            width: columnsWidths['Tags'],
             visibility: columnsVisible['Tags'],
         },
         {
             title: 'Action',
             dataIndex: 'action',
             key: 'action',
-            width: 100,
+            width: columnsWidths['Action'],
             visibility: columnsVisible['Action'],
         },
-    ]);
+    ];
 
    const components = {
         header: {
@@ -148,13 +156,10 @@ const TableView: React.FC = () => {
         },
     };
 
-    const handleResize = (index: number) => (e: any , size: { width: number }) => {
-        const nextColumns = [...columnsTable];
-        nextColumns[index] = {
-            ...nextColumns[index],
-            width: size.width,
-        };
-        setColumnsTable(nextColumns);
+    const handleResize = (title: string) => (e: any , sizeNode: { size: { width: number } }) => {
+        const nextColumnsWidths = Object.assign({}, columnsWidths);
+        nextColumnsWidths[title] = sizeNode.size.width;
+        setColumnsWidths(nextColumnsWidths);
     };
 
     const [tableData, setTableData] = useState();
@@ -191,7 +196,6 @@ const TableView: React.FC = () => {
         const updateColumnsVisibility =
             getNewVisibility(columnsTable, columnsVisible, columnName);
         setColumnsVisible(updateColumnsVisibility.newColumnsVisible);
-        setColumnsTable(updateColumnsVisibility.newColumnsTable);
     };
 
     const menu = (
@@ -208,17 +212,16 @@ const TableView: React.FC = () => {
         </Menu>
     );
 
-    const columns = columnsTable.map((col: any, index: number) => ({
+    const columns = columnsTable.map((col: any) => ({
         ...col,
-        onHeaderCell: (column: { width: number, visibility: boolean }) => ({
-            width: column.width,
-            onResize: handleResize(index),
+        onHeaderCell: () => ({
+            width: columnsWidths[col.title],
+            onResize: handleResize(col.title),
             }),
         })
     );
 
     const hideRows = () => {
-        console.log(rowSelect);
         setTableData(tableData.filter((elem: { key: number }) =>
             !rowSelect.includes(elem.key)));
         setRowSelect([]);

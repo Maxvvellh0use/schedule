@@ -10,6 +10,7 @@ export const columnNames = [
     'Duration',
     'Result',
     'Notate',
+    'Materials',
     'Deadline',
     'Tags',
     'Action',
@@ -24,9 +25,25 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
     Duration: true,
     Result: true,
     Notate: true,
+    Materials: true,
     Deadline: true,
     Tags: true,
     Action: true,
+}
+
+export const defaultColumnsWidths: { [key: string]: number } = {
+    Date: 120,
+    Time: 50,
+    Type: 70,
+    Place: 70,
+    Name: 200,
+    Duration: 30,
+    Result: 50,
+    Notate: 30,
+    Materials: 100,
+    Deadline: 200,
+    Tags: 100,
+    Action: 100,
 }
 
 export const filtersType = [
