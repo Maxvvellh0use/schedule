@@ -23,3 +23,38 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
     Deadline: true,
     Action: true,
 }
+
+export const filtersType = [
+    {
+        text: 'Task',
+        value: 'Task',
+    },
+    {
+        text: 'YouTube Live',
+        value: 'YouTube Live',
+    },
+    {
+        text: 'Meetup',
+        value: 'Meetup',
+    },
+    {
+        text: 'Test',
+        value: 'Test',
+    },
+    {
+        text: 'Self Education',
+        value: 'Self Education',
+    },
+    {
+        text: 'Deadline',
+        value: 'Deadline',
+    },
+    {
+        text: 'Interview',
+        value: 'Interview',
+    },
+    {
+        text: 'Registration',
+        value: 'Registration',
+    },
+]
