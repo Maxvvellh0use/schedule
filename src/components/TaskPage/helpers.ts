@@ -12,7 +12,8 @@ export async function getRawContent(url: string) {
 }
 
 export function isMarkdown(url: string): boolean {
-  return url.slice(-3) === '.md';
+  const FILE_EXTENSION_LENGTH = 3;
+  return url.slice(-FILE_EXTENSION_LENGTH) === '.md';
 }
 
 export function transformLinkToRawContent(url: string): string {
@@ -20,11 +21,13 @@ export function transformLinkToRawContent(url: string): string {
 }
 
 export function getCoordinates(eventObj: EventData | undefined): any{
+  const COORDS_COUNT = 2;
+
   if (eventObj?.optional.place === 'online') return undefined;
   const supposedCoords = eventObj?.optional.place.split(' ').map((item) => +item);
   if (
     Array.isArray(supposedCoords)
-    && supposedCoords.length === 2
+    && supposedCoords.length === COORDS_COUNT
     && supposedCoords.every((item) => !isNaN(item))
   ) return supposedCoords
   else return undefined;
