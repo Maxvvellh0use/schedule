@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Avatar, Switch, Typography } from 'antd';
+import { Button, Modal, Avatar, Switch, Typography } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
+<<<<<<< HEAD
 import { connect, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+=======
+import { connect , useSelector } from 'react-redux';
+import UserColorSettings from '../UserColorSettings/UserColorSettings'
+>>>>>>> 495a147... feat: add modal window to user color settings
 
 import './TopPanel.scss';
 
@@ -15,6 +20,23 @@ interface Props {
 
 
 const TopPanel: React.FC<Props> = () => {
+
+  const [isShowModal, setModal] = useState(false);
+
+  const showModal = () => {
+    setModal(true);
+  };
+
+  const handleOk = (e: any) => {
+    console.log(e);
+    setModal(false);
+  };
+
+  const handleCancel = (e: any) => {
+    console.log(e);
+    setModal(false);
+  };
+
   return (
     <div className="top-panel">
       <NavLink to="/task-creator">
@@ -30,6 +52,18 @@ const TopPanel: React.FC<Props> = () => {
         </div>
         <Button className="settings-btn">Settings <SettingOutlined /> </Button>
       </div>
+<<<<<<< HEAD
+=======
+      <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
+      <Modal
+          title="Settings"
+          visible={isShowModal}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+        <UserColorSettings />
+      </Modal>
+>>>>>>> 495a147... feat: add modal window to user color settings
     </div>
   )
 }
