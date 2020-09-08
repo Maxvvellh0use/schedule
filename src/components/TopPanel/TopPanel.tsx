@@ -49,7 +49,6 @@ const TopPanel: React.FC<Props> = () => {
             <DownloadOutlined />
           </p>
         </div>
-        <Button className="settings-btn">Settings <SettingOutlined /> </Button>
       </div>
       <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
       <Modal
