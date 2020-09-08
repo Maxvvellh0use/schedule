@@ -23,7 +23,8 @@ export const parseFormValuesToEventData = (values: Store
     type,
     result,
     organizer,
-    course
+    course,
+    feedback,
   } = values;
 
   const dateString = `${date.format('MMMM DD, YYYY')} ${time.format('hh:mm:ss')}`;
@@ -49,6 +50,7 @@ export const parseFormValuesToEventData = (values: Store
       duration: duration ? duration.toString() : '',
       result: result || '',
       notate: notate || '',
+      feedback: feedback.checked + ''
     },
     course: course || '',
   }

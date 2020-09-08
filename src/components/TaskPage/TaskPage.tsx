@@ -75,9 +75,11 @@ const TaskPage: React.FC = () => {
             onMarkerMove={() => { }}
             coordinates={getCoordinates(curEvent)} />
           <Divider />
-          <div className="rate-container" >
-            <Rate /> <span>How do you like this task?</span>
-          </div>
+          {curEvent && curEvent.optional.feedback === 'true'
+            ? <div className="rate-container" >
+                <Rate /> <span>How do you like this task?</span>
+              </div>
+            : null}
         </div>
       </Content>
    </Layout>

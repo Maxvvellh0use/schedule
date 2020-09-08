@@ -12,7 +12,8 @@ export interface EventData {
             details: string,
             duration: string,
             result: string,
-            notate: string
+            notate: string, 
+            feedback: string
     },
     course: string,
 }

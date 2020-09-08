@@ -82,7 +82,7 @@ const LeftPanel: React.FC = () => {
       <Select
         showSearch
         placeholder="Select course">
-          {COURSES.map((course) => <Select.Option value={course}>{course}</Select.Option>)}
+          {COURSES.map((course: any) => <Select.Option value={course}>{course}</Select.Option>)}
       </Select>      
     </Form.Item>
       
