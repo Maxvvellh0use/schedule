@@ -238,7 +238,6 @@ const TableView: React.FC = () => {
                    checkStrictly: true,
                    onChange: newSelectRows,
                    selections: [
-                       Table.SELECTION_ALL,
                        {
                            key: 'hide',
                            text: 'Hide selected rows',
