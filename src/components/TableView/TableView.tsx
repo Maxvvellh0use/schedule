@@ -18,6 +18,7 @@ import {
 } from "./consts";
 import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
+import { ActionPanel } from "./ActionPanel/ActionPanel";
 
 import './TableView.scss';
 
@@ -44,8 +45,10 @@ const TableView: React.FC = () => {
     const newSelectRows = (newRowSelect: ReactText[]) => {
         setRowSelect(newRowSelect);
     }
+
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
+
     const columnsTable = [
         {
             title: 'Date',
@@ -81,7 +84,7 @@ const TableView: React.FC = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name: NameEventType) => <Link to={`/task/${name.id}`}>{name.text}</Link>,
+            render: (name: NameEventType) => <Link to={`/task/${name._id}`}>{name.text}</Link>,
             width: columnsWidths['Name'],
             visibility: columnsVisible['Name'],
 
@@ -147,6 +150,12 @@ const TableView: React.FC = () => {
             key: 'action',
             width: columnsWidths['Action'],
             visibility: columnsVisible['Action'],
+            render: (action: { _id: number, key: number }) =>
+                <ActionPanel
+                    currentEvent={action}
+                    setTableData={setTableData}
+                    tableData={tableData}
+                />,
         },
     ];
 
@@ -174,7 +183,11 @@ const TableView: React.FC = () => {
             name: {
                 text: event.name,
                 link: event.optional.description,
-                id: event.id
+                _id: event._id
+            },
+            action: {
+                _id: event._id,
+                key: index,
             },
             duration: event.optional.duration,
             result: event.optional.result,
@@ -198,6 +211,11 @@ const TableView: React.FC = () => {
         setColumnsVisible(updateColumnsVisibility.newColumnsVisible);
     };
 
+    const hideRows = () => {
+        setTableData(tableData.filter((elem: { key: number }) =>
+            !rowSelect.includes(elem.key)));
+    }
+
     const menu = (
         <Menu>
             {
@@ -220,12 +238,6 @@ const TableView: React.FC = () => {
             }),
         })
     );
-
-    const hideRows = () => {
-        setTableData(tableData.filter((elem: { key: number }) =>
-            !rowSelect.includes(elem.key)));
-    }
-
 
     const showAllRows = () => {
         setTableData(initialTableData);

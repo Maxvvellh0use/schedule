@@ -23,15 +23,15 @@ const TaskPage: React.FC = () => {
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
-  const curEvent = allEventsData.find((event) => event.id == id);
+  const curEvent = allEventsData.find((event) => event._id === id);
   const { Header, Content } = Layout;
-  const { Title } = Typography;  
+  const { Title } = Typography;
 
   useEffect(() => {
     if (curEvent && isMarkdown(curEvent.optional.description)) {
       getRawContent(curEvent.optional.description)
         .then(res => setSource(res));
-    }   
+    }
   },[])
 
   function confirmDeletion(e: any) {

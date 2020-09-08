@@ -7,7 +7,7 @@ export const parseDateEvent = (allEventsData: EventData[]): MutableEventData[] =
             name: event.name,
             type: event.type,
             description: event.optional.description,
-            id: event.id
+            _id: event._id
         };
     });
 };
