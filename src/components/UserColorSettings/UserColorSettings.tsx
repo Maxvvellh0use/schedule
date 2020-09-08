@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Select, Radio } from 'antd';
+import { Select, Radio, Button } from 'antd';
 import { SliderPicker } from 'react-color';
 import { useDispatch } from 'react-redux';
 import { getTableColors } from '../../redux/actions'
@@ -52,6 +52,14 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
     saveLocalStorageData();
   }
 
+  const setDefaultColors = () => {
+    const defaultColors = {backgroundColor: '#ffffff', color: '#595959'};
+    localStorage.setItem(task, JSON.stringify(defaultColors));
+    if( property === 'color' ) {
+      setColor('#595959')
+    } else { setColor('#ffffff') }
+  }
+
   const events = eventsData.map(event =>  <Option value={event} key={event}>{event}</Option>)
 
   return(
@@ -73,16 +81,20 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
         <Radio.Button value="backgroundColor">Background</Radio.Button>
       </Radio.Group>
       <p className="color-settings-title">Select color</p>
+      <div className="color-swatch" style={{
+        backgroundColor: color 
+      }}>
+        { defaultColorMessage }
+     </div>
       <SliderPicker 
         color={color}
         onChangeComplete={ (color) => {
           setColor(color.hex)
         }
       }/>
-      <div className="color-swatch" style={{
-        backgroundColor: color
-      }}>
-        { defaultColorMessage }
+     <div className="default-colors"> 
+       <p className="default-colors__annotation">Set default colors:</p>
+       <Button onClick={ setDefaultColors } type="primary">Default colors</Button>
      </div>
     </div>
   )

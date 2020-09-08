@@ -52,7 +52,7 @@ const TopPanel: React.FC<Props> = () => {
           onCancel={handleCancel}
           footer={[
             <Button key="submit" type="primary" onClick={handleCancel}>
-              Return
+              Close
             </Button>,
           ]}
         >
