@@ -5,6 +5,7 @@ import {
   Col,
   Form,
   Button,
+  notification 
 } from 'antd';
 import 'antd/dist/antd.css';
 import { useHistory } from 'react-router-dom';
@@ -16,7 +17,7 @@ import AddressContainer from '../AddressContainer/AddressContainer';
 import BottomContainer from '../BottomContainer/BottomContainer';
 
 import './TaskCreatorLayout.scss';
-import { parseFormValuesToEventData, createEvent } from './helpers';
+import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification } from './helpers';
 import { getEventsData } from '../../../redux/actions';
 import { Store } from 'antd/lib/form/interface';
 
@@ -27,6 +28,7 @@ interface RootState {
 }
 
 const TaskCreatorLayout: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const { Header, Content } = Layout;
   const formItemLayout = {
     labelCol: { span: 20 },
@@ -35,7 +37,7 @@ const TaskCreatorLayout: React.FC = () => {
   const [form] = Form.useForm();
   const history = useHistory();
   const dispatch = useDispatch();
-  const loading = useSelector<RootState, boolean>(state => state.loading);
+  
 
   function onMarkerMove(value: string) {
     form.setFieldsValue({
@@ -43,11 +45,19 @@ const TaskCreatorLayout: React.FC = () => {
     });
   }  
 
-  function onFinish(values: Store): void {
-    console.log('Received values of form: ', values);
-    const eventData = parseFormValuesToEventData(values);
-    createEvent(eventData);
+  async function onFinish(values: Store) {
+    setLoading(true);
+    const eventData = parseFormValuesToEventData(values);  
+    const res1 = await createEvent(eventData);
+    if (res1 && res1.ok) {
+      if (values.deadlineDate) {
+        const res2 = await createDeadlineEvent(eventData);
+        openNotification(res2);
+      }
+    }
+    openNotification(res1);   
     dispatch(getEventsData());
+    setLoading(false);
   }
 
   return (

@@ -1,6 +1,7 @@
 import React , {EventHandler , useEffect , useState} from "react";
 import { Table, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import { EventData , NameEventType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
@@ -12,10 +13,6 @@ import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
 
 import './TableView.scss';
-
-import { columnNames , defaultColumnsVisible } from "./consts";
-import { Link } from "react-router-dom";
-
 
 interface RootState {
     allEventsData: EventData[];
