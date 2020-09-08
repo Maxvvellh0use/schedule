@@ -224,7 +224,6 @@ const TableView: React.FC = () => {
     const hideRows = () => {
         setTableData(tableData.filter((elem: { key: number }) =>
             !rowSelect.includes(elem.key)));
-        setRowSelect([]);
     }
 
 
