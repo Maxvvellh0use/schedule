@@ -1,4 +1,4 @@
-import {GET_EVENTS , HIDE_LOADER , SHOW_ERROR , SHOW_LOADER} from "./types";
+import {GET_EVENTS ,  HIDE_LOADER , SHOW_ERROR , SHOW_LOADER} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 
@@ -34,6 +34,3 @@ export const getEventsData = () => {
         }
     }
 }
-
-
-

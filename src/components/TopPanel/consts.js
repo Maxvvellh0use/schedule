@@ -12,7 +12,8 @@ export const emptyEventsData = [{
         details: '',
         duration: '',
         result: '',
-        notate: ''
+        notate: '',
+        feedback: ''
     },
     course: '',
 }];

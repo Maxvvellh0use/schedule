@@ -13,7 +13,7 @@ import {
 import 'antd/dist/antd.css';
 import { MinusCircleOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons';
 
-import { TASK_TYPES } from './const';
+import { TASK_TYPES, COURSES } from './const';
 
 import './LeftPanel.scss';
 
@@ -40,7 +40,6 @@ const LeftPanel: React.FC = () => {
   }
 
   function onHasDeadlineChange(e: { target: { checked: boolean; }; }) {
-    console.log(`checked = ${e.target.checked}`);
     setDeadlineFormEnabled(e.target.checked);
   }
 
@@ -55,26 +54,44 @@ const LeftPanel: React.FC = () => {
     <Form.Item
       name="type"
       label="Select type of your task"
-      hasFeedback
+      hasFeedback      
       rules={[{ required: true, message: 'Please select type of your task!' }]}>
-      <Select placeholder="Please, select type of your task"
-        dropdownRender={menu => (
-          <div className="type-options">
-            {menu}
-            <Divider />
-            <div className="new-type-add-container">
-              <Input value={taskTypes.newType} onChange={onTypeChange} />
-              <a onClick={addItem}>
-                <PlusOutlined /> Add type
-              </a>
+        <Select placeholder="Please, select type of your task"
+          showSearch
+          dropdownRender={menu => (
+            <div className="type-options">
+              {menu}
+              <Divider />
+              <div className="new-type-add-container">
+                <Input value={taskTypes.newType} onChange={onTypeChange} />
+                <a onClick={addItem}>
+                  <PlusOutlined /> Add type
+                </a>
+              </div>
             </div>
-          </div>
-        )}>
-        {taskTypes.initialTypes.map(item => (
-          <Select.Option value={item} key={item}>{item}</Select.Option>
-        ))}
+          )}>
+          {taskTypes.initialTypes.map(item => (
+            <Select.Option value={item} key={item}>{item}</Select.Option>
+          ))}
       </Select>
-    </Form.Item>      
+      </Form.Item>
+      
+    <Form.Item name="course"
+      label="Select course"
+        rules={[{ required: true, message: 'Please select course!' }]}>
+      <Select
+        showSearch
+        placeholder="Select course">
+          {COURSES.map((course: any) => <Select.Option value={course}>{course}</Select.Option>)}
+      </Select>      
+    </Form.Item>
+      
+    <Form.Item
+      name="organizer"
+      label="Organizer">
+      <Input placeholder="Organizer github url" />
+    </Form.Item>
+      
     <Form.Item
       name="date"
       label="Start date and time"
@@ -87,7 +104,7 @@ const LeftPanel: React.FC = () => {
       <TimePicker />
     </Form.Item>
     <Form.Item name="hasDeadline">
-      <Checkbox onChange={onHasDeadlineChange} value="">Task has deadline</Checkbox>
+      <Checkbox onChange={onHasDeadlineChange}>Task has deadline</Checkbox>
     </Form.Item>
     <Form.Item
       name="deadlineDate"
