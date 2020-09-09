@@ -1,8 +1,8 @@
 export interface EventData {
-    id: number,
-        name: string,
-        type: string,
-        optional: {
+    _id: number,
+    name: string,
+    type: string,
+    optional: {
             date: string,
             description: string,
             organizer: string,
@@ -22,14 +22,14 @@ export interface MutableEventData {
     type: string,
     date: Date,
     description: string,
-    id: number,
+    _id: number,
 }
 
 export interface NameEventType {
     text: string,
     link: string,
     type: string,
-    id: number,
+    _id: number,
 }
 
 export interface ListTypes {

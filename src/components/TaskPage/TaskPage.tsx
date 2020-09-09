@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './TaskPage.scss'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { EventData } from '../types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import { Layout, Divider, Typography, Button, Popconfirm, message, Rate } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import MapComponent from '../TaskCreator/MapComponent/MapComponent';
-import { getRawContent, isMarkdown, getCoordinates } from './helpers';
+import { getRawContent, isMarkdown, getCoordinates, deleteEventById } from './helpers';
 import TaskDescription from '../TaskDescription/TaskDescription';
+import { getEventsData } from '../../redux/actions';
 
 interface RootState {
   allEventsData: EventData[];
@@ -22,8 +23,9 @@ interface RootState {
 const TaskPage: React.FC = () => {
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
+  const dispatch = useDispatch();
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
-  const curEvent = allEventsData.find((event) => event.id == id);
+  const curEvent = allEventsData.find((event) => event._id === id);
   const { Header, Content } = Layout;
   const { Title } = Typography;  
 
@@ -34,16 +36,17 @@ const TaskPage: React.FC = () => {
     }   
   },[])
 
-  function confirmDeletion(e: any) {
-  console.log(e);
-    message.success('Click on Yes');
-    //TODO delete event from db ???
+  async function confirmDeletion(e: any) {
+    console.log(e);
+    await deleteEventById(curEvent?._id);
+    dispatch(getEventsData()); 
+    message.success('Event deleted');
 }
 
   function cancelDeletion(e: any) {
   console.log(e);
-  message.error('Click on No');
-}
+  }
+  
   return (
     <Layout>
       <Header>
@@ -54,7 +57,9 @@ const TaskPage: React.FC = () => {
           <div className="top-container">
             <Title level={4}>Event Info</Title>
             <div className="right-panel">
-              <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+              <Link to={`/task-editor/${id}`}>
+                <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+              </Link>              
               <Popconfirm
                 title="Are you sure delete this task?"
                 onConfirm={confirmDeletion}

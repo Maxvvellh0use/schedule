@@ -1,6 +1,7 @@
 import React , {EventHandler , useEffect , useState} from "react";
 import { Table, Menu, Dropdown, Checkbox, Button } from 'antd';
-import { useDispatch , useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import { EventData , NameEventType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
@@ -12,10 +13,6 @@ import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
 
 import './TableView.scss';
-
-import { columnNames , defaultColumnsVisible } from "./consts";
-import { Link } from "react-router-dom";
-
 
 interface RootState {
     allEventsData: EventData[];
@@ -72,7 +69,7 @@ const TableView: React.FC = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name: NameEventType) => <Link to={`/task/${name.id}`}>{name.text}</Link>,
+            render: (name: NameEventType) => <Link to={`/task/${name._id}`}>{name.text}</Link>,
             width: 200,
             visibility: columnsVisible['Name'],
 
@@ -140,7 +137,7 @@ const TableView: React.FC = () => {
 
     const tableEventsData = allEventsData.length ? allEventsData.map((event) => {
         return {
-            key: event.id,
+            key: event._id,
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
@@ -148,7 +145,7 @@ const TableView: React.FC = () => {
             name: {
                 text: event.name,
                 link: event.optional.description,
-                id: event.id
+                _id: event._id
             },
             duration: event.optional.duration,
             result: event.optional.result,
