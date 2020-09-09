@@ -1,5 +1,5 @@
 export const emptyEventsData = [{
-    id: 0,
+    _id: 0,
     name: '',
     type: '',
     optional: {

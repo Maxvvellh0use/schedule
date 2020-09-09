@@ -17,7 +17,7 @@ const ListView: React.FC<Props> = ({ allEventsData }) => {
     return (
       <Timeline.Item
         color={ event.type === "Deadline" ? "red" : "green" }
-        key={event.id}>
+        key={event._id}>
           <a href={event.optional.description}>
             { event.optional.date.slice(0, -9) + " " + event.name }
           </a>

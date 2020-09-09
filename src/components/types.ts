@@ -1,5 +1,5 @@
 export interface EventData {
-    id: number,
+    _id: number,
         name: string,
         type: string,
         optional: {
@@ -12,7 +12,7 @@ export interface EventData {
             details: string,
             duration: string,
             result: string,
-            notate: string, 
+            notate: string,
             feedback: string
     },
     course: string,
@@ -23,18 +23,42 @@ export interface MutableEventData {
     type: string,
     date: Date,
     description: string,
-    id: number,
+    _id: number,
 }
 
 export interface NameEventType {
     text: string,
     link: string,
     type: string,
-    id: number,
+    _id: number,
 }
 
 export interface ListTypes {
     type: "success" | "processing" | "error" | "default" | "warning" | undefined,
     content: string,
     link: string,
+}
+
+export interface TableData {
+    key: number,
+    date: string,
+    time: string,
+    type: string,
+    place: string,
+    name: {
+        text: string,
+        link: string,
+        _id: number
+    },
+    action: {
+        _id: number,
+        key: number,
+    },
+    duration: string,
+    result: string,
+    notate: string,
+    materials: string,
+    deadline: string,
+    description: string,
+    tags: string[],
 }
