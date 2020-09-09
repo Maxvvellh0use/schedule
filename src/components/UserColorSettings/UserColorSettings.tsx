@@ -23,7 +23,7 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   useEffect(() => {
     handleColor()
     dispatch(getTableColors());
-  })
+  }, [color])
 
   const saveLocalStorageData = () => {
 
@@ -53,7 +53,7 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   }
 
   const setDefaultColors = () => {
-    const defaultColors = {backgroundColor: '#ffffff', color: '#595959'};
+    const defaultColors = {};
     localStorage.setItem(task, JSON.stringify(defaultColors));
     if( property === 'color' ) {
       setColor('#595959')

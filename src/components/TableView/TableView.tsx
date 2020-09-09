@@ -37,7 +37,6 @@ const TableView: React.FC = () => {
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
-    console.log(tableColorStyle)
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch]);
@@ -52,8 +51,7 @@ const TableView: React.FC = () => {
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
 
-    const colorHandler = (childrenElement:  any, eventType: string) => {
-        console.log(childrenElement)
+    const colorHandler = (childrenElement:  JSX.Element[] | JSX.Element, eventType: string) => {
         return {
             children: childrenElement,
             props: {
@@ -116,7 +114,7 @@ const TableView: React.FC = () => {
             width: columnsWidths['Name'],
             visibility: columnsVisible['Name'],
             render: (name: NameEventType, record: {type: string}) => {
-                const child = <Link to={`/task/${name.id}`}>{name.text}</Link>;
+                const child = <Link to={`/task/${name._id}`}>{name.text}</Link>;
                 return colorHandler(child, record.type);
             },
 
@@ -198,14 +196,12 @@ const TableView: React.FC = () => {
             key: 'action',
             width: columnsWidths['Action'],
             visibility: columnsVisible['Action'],
-            render: (action: { _id: number, key: number }, record: {type: string}) => {
-                const child = <ActionPanel
-                                  currentEvent={action}
-                                  setTableData={setTableData}
-                                  tableData={tableData}
-                              />;
-                return colorHandler(child, record.type);
-            },
+            render: (action: { _id: number, key: number }) =>
+            <ActionPanel
+                currentEvent={action}
+                setTableData={setTableData}
+                tableData={tableData}
+            />,
         },
     ];
 
