@@ -62,3 +62,13 @@ export interface TableData {
     description: string,
     tags: string[],
 }
+
+
+export interface RootStateType {
+    allEventsData: EventData[];
+    app: {
+        loading: boolean,
+        errorText: string,
+        mode: string,
+    },
+}

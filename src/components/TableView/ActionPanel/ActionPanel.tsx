@@ -4,9 +4,10 @@ import { DeleteOutlined , EditOutlined } from "@ant-design/icons";
 import axios from 'axios'
 
 import { urlApi } from "../../../data/const";
-import { TableData } from "../../types";
+import {RootStateType , TableData} from "../../types";
 
 import './ActionPanel.scss';
+import {useDispatch , useSelector} from "react-redux";
 
 interface Props {
     currentEvent: {
@@ -18,6 +19,8 @@ interface Props {
 }
 
 export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableData}) => {
+
+    const mode = useSelector<RootStateType, string>(state => state.app.mode);
 
     const removeRow = (removeKey: number) => {
         setTableData(tableData.filter((elem: { key: number }) =>
@@ -37,7 +40,14 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
 
     return (
         <div className='action_panel'>
-            <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+            {
+                mode === 'mentor' ? <Button
+                    className="task-btn"
+                    type="dashed"
+                    shape="circle"
+                    icon={<EditOutlined />} /> :
+                    null
+            }
             <Popconfirm
             title="Are you sure delete this event?"
             onConfirm={confirmDeletion}
