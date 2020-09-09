@@ -28,6 +28,7 @@ interface RootState {
         loading: boolean,
         errorText: string,
     },
+    tableColorStyle: {[key: string]: object}
 }
 
 const TableView: React.FC = () => {
@@ -35,6 +36,8 @@ const TableView: React.FC = () => {
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
+    const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
+    console.log(tableColorStyle)
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch]);
@@ -49,13 +52,27 @@ const TableView: React.FC = () => {
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
 
+    const colorHandler = (childrenElement: any, eventType: string) => {
+        console.log(childrenElement)
+        return {
+            children: childrenElement,
+            props: {
+                style: tableColorStyle[eventType],
+            }
+          }
+    };
+
     const columnsTable = [
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
             width: columnsWidths['Date'],
-            visibility: columnsVisible['Date']
+            visibility: columnsVisible['Date'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>
+                colorHandler(child, record.type)
+            },
         },
         {
             title: 'Time',
