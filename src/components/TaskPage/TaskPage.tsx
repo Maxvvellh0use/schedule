@@ -27,13 +27,13 @@ const TaskPage: React.FC = () => {
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
   const curEvent = allEventsData.find((event) => event._id === id);
   const { Header, Content } = Layout;
-  const { Title } = Typography;  
+  const { Title } = Typography;
 
   useEffect(() => {
     if (curEvent && isMarkdown(curEvent.optional.description)) {
       getRawContent(curEvent.optional.description)
         .then(res => setSource(res));
-    }   
+    }
   },[])
 
   async function confirmDeletion(e: any) {
@@ -80,9 +80,11 @@ const TaskPage: React.FC = () => {
             onMarkerMove={() => { }}
             coordinates={getCoordinates(curEvent)} />
           <Divider />
-          <div className="rate-container" >
-            <Rate /> <span>How do you like this task?</span>
-          </div>
+          {curEvent && curEvent.optional.feedback === 'true'
+            ? <div className="rate-container" >
+                <Rate /> <span>How do you like this task?</span>
+              </div>
+            : null}
         </div>
       </Content>
    </Layout>

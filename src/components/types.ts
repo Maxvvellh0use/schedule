@@ -3,6 +3,7 @@ export interface EventData {
     name: string,
     type: string,
     optional: {
+
             date: string,
             description: string,
             organizer: string,
@@ -12,7 +13,8 @@ export interface EventData {
             details: string,
             duration: string,
             result: string,
-            notate: string
+            notate: string,
+            feedback: string
     },
     course: string,
 }
@@ -36,4 +38,28 @@ export interface ListTypes {
     type: "success" | "processing" | "error" | "default" | "warning" | undefined,
     content: string,
     link: string,
+}
+
+export interface TableData {
+    key: number,
+    date: string,
+    time: string,
+    type: string,
+    place: string,
+    name: {
+        text: string,
+        link: string,
+        _id: number
+    },
+    action: {
+        _id: number,
+        key: number,
+    },
+    duration: string,
+    result: string,
+    notate: string,
+    materials: string,
+    deadline: string,
+    description: string,
+    tags: string[],
 }

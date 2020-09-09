@@ -1,44 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Layout,
   Row,
   Col,
   Form,
   Button,
+  notification 
 } from 'antd';
 import 'antd/dist/antd.css';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import MainPageHeader from '../../MainPageHeader/MainPageHeader';
 import LeftPanel from '../LeftPanel/LeftPanel';
 import AddressContainer from '../AddressContainer/AddressContainer';
 import BottomContainer from '../BottomContainer/BottomContainer';
-import { useHistory, useParams } from 'react-router-dom';
 
 import './TaskCreatorLayout.scss';
-import { useSelector } from 'react-redux';
+
 import { EventData } from '../../types';
-import moment from 'moment';
+import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification } from './helpers';
+import { getEventsData } from '../../../redux/actions';
+import { Store } from 'antd/lib/form/interface';
 
 interface RootState {
   allEventsData: EventData[];
 }
 
 const TaskCreatorLayout: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  console.log(id);
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
-  console.log(allEventsData);
   const curEvent = allEventsData.find((event) => event._id === id);
-  console.log(curEvent);
   const { Header, Content } = Layout;
   const formItemLayout = {
     labelCol: { span: 20 },
     wrapperCol: { span: 100 },
   };
-
   const [form] = Form.useForm();
 
   const history = useHistory();  
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (curEvent) {
@@ -69,8 +72,19 @@ const TaskCreatorLayout: React.FC = () => {
     });
   }  
 
-  function onFinish(values: any): any {
-    console.log('Received values of form: ', values);
+  async function onFinish(values: Store) {
+    setLoading(true);
+    const eventData = parseFormValuesToEventData(values);  
+    const res1 = await createEvent(eventData);
+    if (res1 && res1.ok) {
+      if (values.deadlineDate) {
+        const res2 = await createDeadlineEvent(eventData);
+        openNotification(res2);
+      }
+    }
+    openNotification(res1);   
+    dispatch(getEventsData());
+    setLoading(false);
   }
 
   return (

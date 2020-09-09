@@ -3,7 +3,8 @@ import {
   Form,
   Input,
   Upload,
-  InputNumber 
+  InputNumber, 
+  Checkbox
 } from 'antd';
 import 'antd/dist/antd.css';
 import { InboxOutlined } from '@ant-design/icons';
@@ -48,9 +49,14 @@ const BottomContainer: React.FC = () => {
         <Form.Item
           name="notate"
           label="Other notes">
-            <Input.TextArea rows={4} />
+            <Input.TextArea rows={5} />
         </Form.Item>
-      </div>           
+      </div>
+      <div className="inner-container">
+        <Form.Item name="feedback">
+          <Checkbox >Request feedback</Checkbox>
+        </Form.Item>
+      </div>
     </>
   )
 }
