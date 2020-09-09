@@ -33,10 +33,10 @@ export const parseFormValuesToEventData = (values: Store
     '';
   const materialsData = materials ?
     materials.length > 1 ? materials : materials[0] :
-    '';   
+    '';
 
   return {
-    id: 0,
+    _id: 0,
     name,
     type,
     optional: {
@@ -62,13 +62,13 @@ export const createEvent = async (eventData: EventData) => {
     const res = await fetch(`${urlApi}/event_create`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',        
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(eventData),
     });
     console.log(res)
-    return res;  
-  } catch (e) {     
+    return res;
+  } catch (e) {
     console.log(e)
   }
 }
@@ -77,7 +77,7 @@ export const createDeadlineEvent = async (eventData: EventData) => {
   const deadlineEvent = { ...eventData, type: 'Deadline', name: `Deadline: ${eventData.name}` };
   deadlineEvent.optional = { ...eventData.optional, deadline: '', date: eventData.optional.deadline }
   console.log(deadlineEvent);
-  return await createEvent(deadlineEvent);  
+  return await createEvent(deadlineEvent);
 }
 
 export const openNotification = (res: any) => {

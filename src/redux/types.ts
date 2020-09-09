@@ -8,7 +8,7 @@ export interface SystemState {
 }
 
 export interface EventData {
-    id: number,
+    _id: number,
     name: string,
     type: string,
     optional: {
