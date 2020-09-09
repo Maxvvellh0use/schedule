@@ -86,8 +86,8 @@ const LeftPanel: React.FC = () => {
       rules={[{ type: 'object', required: true, message: 'Please select time!' }]}>
       <TimePicker />
     </Form.Item>
-    <Form.Item name="hasDeadline">
-      <Checkbox onChange={onHasDeadlineChange} value="">Task has deadline</Checkbox>
+    <Form.Item name="hasDeadline" valuePropName="checked">
+      <Checkbox onChange={onHasDeadlineChange}>Task has deadline</Checkbox>
     </Form.Item>
     <Form.Item
       name="deadlineDate"

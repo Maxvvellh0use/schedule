@@ -38,10 +38,11 @@ const TaskCreatorLayout: React.FC = () => {
 
   const [form] = Form.useForm();
 
-  const history = useHistory();
+  const history = useHistory();  
 
   useEffect(() => {
     if (curEvent) {
+      const { materials } = curEvent?.optional;
       form.setFieldsValue({
         name: curEvent.name,
         course: curEvent.course,
@@ -52,7 +53,7 @@ const TaskCreatorLayout: React.FC = () => {
         deadlineDate: moment(curEvent.optional.deadline),
         deadlineTime: moment(curEvent.optional.deadline),
         description: curEvent.optional.description,
-        materials: curEvent.optional.materials,
+        materials: Array.isArray(materials) ? materials : [ curEvent.optional.materials],
         result: curEvent.optional.result,
         place: curEvent.optional.place,
         details: curEvent.optional.details,
@@ -60,7 +61,7 @@ const TaskCreatorLayout: React.FC = () => {
         notate: curEvent.optional.notate,
       });
     }
-  }, [curEvent, form, moment]);    
+  }, []);    
 
   function onMarkerMove(value: string) {
     form.setFieldsValue({
