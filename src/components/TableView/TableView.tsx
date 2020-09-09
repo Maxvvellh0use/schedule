@@ -22,12 +22,6 @@ import { ActionPanel } from "./ActionPanel/ActionPanel";
 
 import './TableView.scss';
 
-<<<<<<< HEAD
-=======
-import { Link } from "react-router-dom";
-
-
->>>>>>> ffe6532... feat: add color style props reduser
 interface RootState {
     allEventsData: EventData[];
     app: {

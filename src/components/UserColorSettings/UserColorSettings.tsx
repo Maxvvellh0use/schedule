@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, Radio } from 'antd';
 import { SliderPicker } from 'react-color';
+import { useDispatch } from 'react-redux';
+import { getTableColors } from '../../redux/actions'
 
 import './user-color-settings.scss';
 
@@ -15,6 +17,13 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   const [color, setColor] = useState('#eeeeee');
   const [property, setProperty] = useState('color');
   const [task, setTask] = useState('Deadline');
+  const defaultColorMessage = (color === '#eeeeee') ? <p>Color example</p> : null;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    handleColor()
+    dispatch(getTableColors());
+  })
 
   const saveLocalStorageData = () => {
 
@@ -32,17 +41,14 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   }
 
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
     setTask(value);
   }
 
   const handleStyleProperty = (e: any) => {
-    console.log('radio checked', e.target.value);
     setProperty(e.target.value);
   }
 
-  const handleColor = (color: string) => {
-    console.log('color', color);
+  const handleColor = () => {
     saveLocalStorageData();
   }
 
@@ -52,6 +58,7 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
     <div>
       <p className="color-settings-title">Select task</p>
       <Select 
+        getPopupContainer={trigger => trigger.parentNode}
         defaultValue="Deadline" 
         style={{ width: 120 }} 
         onChange={handleChange}>
@@ -70,13 +77,12 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
         color={color}
         onChangeComplete={ (color) => {
           setColor(color.hex)
-          handleColor(color.hex)
         }
       }/>
-      <div style={{
-        height: '50px',
+      <div className="color-swatch" style={{
         backgroundColor: color
       }}>
+        { defaultColorMessage }
      </div>
     </div>
   )

@@ -26,13 +26,7 @@ const TopPanel: React.FC<Props> = () => {
     setModal(true);
   };
 
-  const handleOk = (e: any) => {
-    console.log(e);
-    setModal(false);
-  };
-
-  const handleCancel = (e: any) => {
-    console.log(e);
+  const handleCancel = () => {
     setModal(false);
   };
 
@@ -52,10 +46,15 @@ const TopPanel: React.FC<Props> = () => {
       </div>
       <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
       <Modal
+          style={{top: 20}}
           title="Settings"
           visible={isShowModal}
-          onOk={handleOk}
           onCancel={handleCancel}
+          footer={[
+            <Button key="submit" type="primary" onClick={handleCancel}>
+              Return
+            </Button>,
+          ]}
         >
         <UserColorSettings eventsData={eventsData}/>
       </Modal>
