@@ -10,6 +10,7 @@ import './TopPanel.scss';
 
 import { SystemState } from "../../redux/types";
 import { EventData } from "../types";
+import TimezoneContainer from "./Timezone/TimezoneContainer";
 
 interface Props {
     allEventsData: EventData[];
@@ -43,6 +44,8 @@ const TopPanel: React.FC<Props> = () => {
             <DownloadOutlined />
           </p>
         </div>
+        <TimezoneContainer/>
+        <Button className="settings-btn">Settings <SettingOutlined /> </Button>
       </div>
       <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
       <Modal
