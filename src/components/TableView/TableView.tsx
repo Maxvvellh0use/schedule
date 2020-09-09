@@ -28,6 +28,7 @@ interface RootState {
         loading: boolean,
         errorText: string,
     },
+    tableColorStyle: {[key: string]: object}
 }
 
 const TableView: React.FC = () => {
@@ -35,6 +36,7 @@ const TableView: React.FC = () => {
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
+    const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch]);
@@ -49,20 +51,37 @@ const TableView: React.FC = () => {
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
 
+    const colorHandler = (childrenElement:  JSX.Element[] | JSX.Element, eventType: string) => {
+        return {
+            children: childrenElement,
+            props: {
+                style: tableColorStyle[eventType],
+            }
+          }
+    };
+
     const columnsTable = [
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
             width: columnsWidths['Date'],
-            visibility: columnsVisible['Date']
+            visibility: columnsVisible['Date'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Time',
             dataIndex: 'time',
             key: 'time',
             width: columnsWidths['Time'],
-            visibility: columnsVisible['Time']
+            visibility: columnsVisible['Time'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Type',
@@ -72,6 +91,10 @@ const TableView: React.FC = () => {
             visibility: columnsVisible['Type'],
             filters: filtersType,
             onFilter: (value: string, record: any) => record.type.indexOf(value) === 0,
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Place',
@@ -79,14 +102,21 @@ const TableView: React.FC = () => {
             key: 'place',
             width: columnsWidths['Place'],
             visibility: columnsVisible['Place'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name: NameEventType) => <Link to={`/task/${name._id}`}>{name.text}</Link>,
             width: columnsWidths['Name'],
             visibility: columnsVisible['Name'],
+            render: (name: NameEventType, record: {type: string}) => {
+                const child = <Link to={`/task/${name._id}`}>{name.text}</Link>;
+                return colorHandler(child, record.type);
+            },
 
         },
         {
@@ -95,6 +125,10 @@ const TableView: React.FC = () => {
             key: 'duration',
             width: columnsWidths['Duration'],
             visibility: columnsVisible['Duration'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Result',
@@ -102,6 +136,10 @@ const TableView: React.FC = () => {
             key: 'result',
             width: columnsWidths['Result'],
             visibility: columnsVisible['Result'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Notate',
@@ -109,6 +147,10 @@ const TableView: React.FC = () => {
             key: 'notate',
             width: columnsWidths['Notate'],
             visibility: columnsVisible['Notate'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Materials',
@@ -116,8 +158,11 @@ const TableView: React.FC = () => {
             key: 'materials',
             ellipsis: true,
             width: columnsWidths['Materials'],
-            render: (material: string) => <a href={material}>{material}</a>,
             visibility: columnsVisible['Materials'],
+            render: (text: string, record: {type: string}) => {
+                const child = <a href={text}>{text}</a>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Deadline',
@@ -125,24 +170,25 @@ const TableView: React.FC = () => {
             key: 'deadline',
             width: columnsWidths['Deadline'],
             visibility: columnsVisible['Deadline'],
+            render: (text: string, record: {type: string}) => {
+                const child = <div>{text}</div>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
-            render: (tags: string[]) => (
-                <>
-                    {
-                        tags.map(tag =>
-                            <Tag color={tag === 'deadline' ? deadlineColor : taskColor}
-                                 key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                    )}
-                </>
-            ),
             width: columnsWidths['Tags'],
             visibility: columnsVisible['Tags'],
+            render: (tags: string[], record: {type: string}) => {
+                const child = tags.map(tag =>
+                                <Tag color={tag === 'deadline' ? deadlineColor : taskColor}
+                                     key={tag}>
+                                    {tag.toUpperCase()}
+                                </Tag>);
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Action',
@@ -151,11 +197,11 @@ const TableView: React.FC = () => {
             width: columnsWidths['Action'],
             visibility: columnsVisible['Action'],
             render: (action: { _id: number, key: number }) =>
-                <ActionPanel
-                    currentEvent={action}
-                    setTableData={setTableData}
-                    tableData={tableData}
-                />,
+            <ActionPanel
+                currentEvent={action}
+                setTableData={setTableData}
+                tableData={tableData}
+            />,
         },
     ];
 

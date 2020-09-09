@@ -1,4 +1,4 @@
-import {GET_EVENTS ,  HIDE_LOADER , SHOW_ERROR , SHOW_LOADER} from "./types";
+import {GET_EVENTS , HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, GET_TABLE_COLORS} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 
@@ -32,5 +32,11 @@ export const getEventsData = () => {
             const errorText = `Error request: ${e}`;
             dispatch({ type: SHOW_ERROR, payload: errorText});
         }
+    }
+}
+
+export const getTableColors = () => {
+    return {
+        type: GET_TABLE_COLORS,
     }
 }
