@@ -20,7 +20,7 @@ interface Props {
 
 export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableData}) => {
 
-    const mode = useSelector<RootStateType, string>(state => state.app.mode);
+
 
     const removeRow = (removeKey: number) => {
         setTableData(tableData.filter((elem: { key: number }) =>
@@ -40,14 +40,11 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
 
     return (
         <div className='action_panel'>
-            {
-                mode === 'mentor' ? <Button
+                <Button
                     className="task-btn"
                     type="dashed"
                     shape="circle"
-                    icon={<EditOutlined />} /> :
-                    null
-            }
+                    icon={<EditOutlined />} />
             <Popconfirm
             title="Are you sure delete this event?"
             onConfirm={confirmDeletion}

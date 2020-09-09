@@ -45,6 +45,21 @@ const TaskPage: React.FC = () => {
   console.log(e);
   message.error('Click on No');
 }
+
+const editPanel = (
+    <div className="right-panel">
+      <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+      <Popconfirm
+          title="Are you sure delete this task?"
+          onConfirm={confirmDeletion}
+          onCancel={cancelDeletion}
+          okText="Yes"
+          cancelText="No"
+      >
+        <Button className="task-btn" type="dashed" shape="circle" icon={<DeleteOutlined />} />
+      </Popconfirm>
+    </div>
+)
   return (
     <Layout>
       <Header>
@@ -54,25 +69,11 @@ const TaskPage: React.FC = () => {
         <div className="container">
           <div className="top-container">
             <Title level={4}>Event Info</Title>
-            <div className="right-panel">
-              {
-                mode === 'mentor' ? <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
-                : null
-              }
-              <Popconfirm
-                title="Are you sure delete this task?"
-                onConfirm={confirmDeletion}
-                onCancel={cancelDeletion}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button className="task-btn" type="dashed" shape="circle" icon={<DeleteOutlined />} />
-              </Popconfirm>
-            </div>
+            { mode === 'mentor' ? editPanel : null }
           </div>
           <Divider />
           <div className="task-description">
-            {source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/>}
+            { source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/> }
           </div>
           <Divider />
           <MapComponent

@@ -13,7 +13,6 @@ export const columnNames = [
     'Materials',
     'Deadline',
     'Tags',
-    'Action',
 ]
 
 export const defaultColumnsVisible: { [key: string]: boolean } = {
@@ -28,7 +27,6 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
     Materials: true,
     Deadline: true,
     Tags: true,
-    Action: true,
 }
 
 export const defaultColumnsWidths: { [key: string]: number } = {
