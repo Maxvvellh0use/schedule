@@ -42,6 +42,7 @@ export const getTableColors = () => {
 }
 
 export const changeMode = (mode: string) => {
+    localStorage.mode = mode;
     return {
         type: CHANGE_MODE,
         payload: mode,

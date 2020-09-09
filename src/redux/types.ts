@@ -8,6 +8,9 @@ export const CHANGE_MODE: string = 'APP/CHANGE_MODE';
 
 export interface SystemState {
    allEventsData: EventData[];
+   app: {
+       mode: string,
+   }
 }
 
 export interface EventData {

@@ -9,20 +9,13 @@ import App from './App';
 
 import './style/index.scss';
 
-const initialStateStore =  {
-    allEventsData: undefined,
-    loading: true,
-    errorText: '',
-    mode: 'student'
-}
-
 const composedEnhancers = compose(
     applyMiddleware(
         thunk,
     )
 )
 
-const store = createStore(rootReducer, initialStateStore, composedEnhancers)
+const store = createStore(rootReducer, composedEnhancers)
 
 ReactDOM.render(
   <React.StrictMode>

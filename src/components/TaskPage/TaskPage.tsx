@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './TaskPage.scss'
 import { useParams } from 'react-router-dom';
-import { EventData } from '../types';
+import {EventData , RootStateType} from '../types';
 import { useSelector } from 'react-redux';
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import { Layout, Divider, Typography, Button, Popconfirm, message, Rate } from 'antd';
@@ -20,6 +20,7 @@ interface RootState {
 }
 
 const TaskPage: React.FC = () => {
+  const mode = useSelector<RootStateType>(state => state.app.mode);
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
@@ -54,7 +55,10 @@ const TaskPage: React.FC = () => {
           <div className="top-container">
             <Title level={4}>Event Info</Title>
             <div className="right-panel">
-              <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+              {
+                mode === 'mentor' ? <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+                : null
+              }
               <Popconfirm
                 title="Are you sure delete this task?"
                 onConfirm={confirmDeletion}

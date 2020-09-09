@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Radio, Modal, Avatar, Switch, Typography } from 'antd';
+import { Button, Select, Modal, Avatar, Switch, Typography } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
 import {connect , useDispatch , useSelector} from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -18,6 +18,7 @@ interface Props {
 
 
 const TopPanel: React.FC<Props> = () => {
+    const { Option } = Select;
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
     const allEventsData = useSelector<Props, EventData[]>(state => state.allEventsData);
@@ -36,10 +37,11 @@ const TopPanel: React.FC<Props> = () => {
   return (
     <div className="top-panel">
         <div>
-            <Radio.Group value={mode} onChange={(e) => dispatch(changeMode(e.target.value))}>
-                <Radio.Button value="student">Student</Radio.Button>
-                <Radio.Button value="mentor">Mentor</Radio.Button>
-            </Radio.Group>
+            <Select defaultValue={mode}
+                    onChange={(value) => dispatch(changeMode(value))}>
+                <Option value="student">Student</Option>
+                <Option value="mentor">Mentor</Option>
+            </Select>
             {
                 mode === 'mentor' ?
                     <NavLink to="/task-creator">

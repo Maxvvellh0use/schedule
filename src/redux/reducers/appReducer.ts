@@ -3,7 +3,7 @@ import { CHANGE_MODE , HIDE_LOADER , SHOW_ERROR , SHOW_LOADER } from "../types";
 const initialState = {
     loading: false,
     errorText: '',
-    mode: 'student',
+    mode: localStorage.mode ? localStorage.mode : 'student',
 }
 
 export const appReducer = (state = initialState, action: { type: string, payload: boolean | string }) => {
