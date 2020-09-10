@@ -3,7 +3,7 @@ import { Table, Tag, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
-import { EventData , NameEventType } from "../types";
+import {EventData , NameEventType , RootStateType} from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
@@ -33,6 +33,7 @@ interface RootState {
 
 const TableView: React.FC = () => {
     const dispatch = useDispatch();
+    const mode = useSelector<RootStateType, string>(state => state.app.mode);
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
@@ -190,19 +191,20 @@ const TableView: React.FC = () => {
                 return colorHandler(child, record.type);
             },
         },
+        mode === 'mentor' ?
         {
             title: 'Action',
             dataIndex: 'action',
             key: 'action',
             width: columnsWidths['Action'],
-            visibility: columnsVisible['Action'],
+            visibility: true,
             render: (action: { _id: number, key: number }) =>
             <ActionPanel
                 currentEvent={action}
                 setTableData={setTableData}
                 tableData={tableData}
             />,
-        },
+        } : {},
     ];
 
    const components = {
