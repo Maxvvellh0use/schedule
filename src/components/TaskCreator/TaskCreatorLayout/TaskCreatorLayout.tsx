@@ -7,8 +7,7 @@ import {
   Button,
   notification 
 } from 'antd';
-import 'antd/dist/antd.css';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
@@ -90,6 +89,9 @@ const TaskCreatorLayout: React.FC = () => {
     }
     dispatch(getEventsData());
     setLoading(false);
+    setTimeout(() => {
+      history.push('/')
+    }, 2000)
   }
 
   return (
