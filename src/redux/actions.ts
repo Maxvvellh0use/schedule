@@ -1,4 +1,12 @@
-import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER} from "./types";
+import {
+    GET_EVENTS ,
+    CHANGE_MODE ,
+    GET_TABLE_COLORS ,
+    HIDE_LOADER ,
+    SHOW_ERROR ,
+    SHOW_LOADER ,
+    CHANGE_THEME
+} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 
@@ -48,3 +56,13 @@ export const changeMode = (mode: string) => {
         payload: mode,
     }
 }
+
+export const changeTheme = (theme: string) => {
+    console.log(theme)
+    localStorage.theme = theme;
+    return {
+        type: CHANGE_THEME,
+        payload: theme,
+    }
+}
+

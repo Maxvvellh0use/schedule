@@ -6,8 +6,12 @@ import { TaskCreatorPage } from './pages/TaskCreatorPage';
 
 import './style/index.scss'
 import TaskPage from './components/TaskPage/TaskPage';
+import {useSelector} from "react-redux";
+import {RootStateType} from "./components/types";
 
 function App() {
+    const theme = useSelector<RootStateType>(state => state.app.theme);
+   theme === 'dark' ? require('antd/dist/antd.dark.css') : require('antd/dist/antd.css');
   return (
     <>
      <BrowserRouter>
@@ -15,8 +19,8 @@ function App() {
         <Route component={MainPage} path="/" exact/>
         <Route component={TaskCreatorPage} path="/task-creator" />
         <Route component={TaskPage} path="/task/:id" />
-       </Switch>      
-     </BrowserRouter>      
+       </Switch>
+     </BrowserRouter>
     </>
   );
 }

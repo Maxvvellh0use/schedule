@@ -5,9 +5,8 @@ import {
   Col,
   Form,
   Button,
-  notification 
+  notification
 } from 'antd';
-import 'antd/dist/antd.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -37,17 +36,17 @@ const TaskCreatorLayout: React.FC = () => {
   const [form] = Form.useForm();
   const history = useHistory();
   const dispatch = useDispatch();
-  
+
 
   function onMarkerMove(value: string) {
     form.setFieldsValue({
       place: value,
     });
-  }  
+  }
 
   async function onFinish(values: Store) {
     setLoading(true);
-    const eventData = parseFormValuesToEventData(values);  
+    const eventData = parseFormValuesToEventData(values);
     const res1 = await createEvent(eventData);
     if (res1 && res1.ok) {
       if (values.deadlineDate) {
@@ -55,7 +54,7 @@ const TaskCreatorLayout: React.FC = () => {
         openNotification(res2);
       }
     }
-    openNotification(res1);   
+    openNotification(res1);
     dispatch(getEventsData());
     setLoading(false);
   }
@@ -67,7 +66,7 @@ const TaskCreatorLayout: React.FC = () => {
       </Header>
       <Button type="link" onClick={() => history.push('/')} >
         Back to schedule
-      </Button> 
+      </Button>
       <Form
         form={form}
         onFinish={onFinish}
@@ -75,10 +74,10 @@ const TaskCreatorLayout: React.FC = () => {
         layout="vertical"
       >
         <Content>
-          <Row>          
+          <Row>
               <Col flex={1}>
                 <div className="container">
-                  <LeftPanel />                  
+                  <LeftPanel />
                 </div>
               </Col>
               <Col flex={3}>
@@ -87,16 +86,16 @@ const TaskCreatorLayout: React.FC = () => {
                 </div>
               <div className="container bottom-container">
                 <BottomContainer/>
-                <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
+                <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Create
                   </Button>
                 </Form.Item>
                 <Button type="link" onClick={() => history.push('/')} >
                   Back to schedule
-                </Button>                
+                </Button>
               </div>
-            </Col>         
+            </Col>
           </Row>
         </Content>
       </Form>

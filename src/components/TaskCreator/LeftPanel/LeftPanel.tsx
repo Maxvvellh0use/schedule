@@ -10,7 +10,6 @@ import {
   Space,
   Divider
 } from 'antd';
-import 'antd/dist/antd.css';
 import { MinusCircleOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { TASK_TYPES, COURSES } from './const';
@@ -54,7 +53,7 @@ const LeftPanel: React.FC = () => {
     <Form.Item
       name="type"
       label="Select type of your task"
-      hasFeedback      
+      hasFeedback
       rules={[{ required: true, message: 'Please select type of your task!' }]}>
         <Select placeholder="Please, select type of your task"
           showSearch
@@ -75,7 +74,7 @@ const LeftPanel: React.FC = () => {
           ))}
       </Select>
       </Form.Item>
-      
+
     <Form.Item name="course"
       label="Select course"
         rules={[{ required: true, message: 'Please select course!' }]}>
@@ -83,15 +82,15 @@ const LeftPanel: React.FC = () => {
         showSearch
         placeholder="Select course">
           {COURSES.map((course: any) => <Select.Option value={course}>{course}</Select.Option>)}
-      </Select>      
+      </Select>
     </Form.Item>
-      
+
     <Form.Item
       name="organizer"
       label="Organizer">
       <Input placeholder="Organizer github url" />
     </Form.Item>
-      
+
     <Form.Item
       name="date"
       label="Start date and time"
@@ -157,7 +156,7 @@ const LeftPanel: React.FC = () => {
           </div>
         );
       }}
-    </Form.List> 
+    </Form.List>
   </>
  )
 }

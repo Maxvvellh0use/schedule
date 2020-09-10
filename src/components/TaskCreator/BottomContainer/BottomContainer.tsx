@@ -3,10 +3,9 @@ import {
   Form,
   Input,
   Upload,
-  InputNumber, 
+  InputNumber,
   Checkbox
 } from 'antd';
-import 'antd/dist/antd.css';
 import { InboxOutlined } from '@ant-design/icons';
 
 import './BottomContainer.scss';

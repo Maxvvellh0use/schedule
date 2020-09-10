@@ -1,9 +1,12 @@
-export const GET_EVENTS: string = 'EVENTS_DATA/GET_EVENTS';
 export const SHOW_LOADER: string = 'APP/SHOW_LOADER';
 export const HIDE_LOADER: string = 'APP/HIDE_LOADER';
 export const SHOW_ERROR: string = 'APP/SHOW_ERROR';
-export const GET_TABLE_COLORS: string = 'TABLE_COLOR_STYLE/GET_TABLE_COLORS';
 export const CHANGE_MODE: string = 'APP/CHANGE_MODE';
+export const CHANGE_THEME: string = 'APP/CHANGE_THEME';
+
+export const GET_EVENTS: string = 'EVENTS_DATA/GET_EVENTS';
+
+export const GET_TABLE_COLORS: string = 'TABLE_COLOR_STYLE/GET_TABLE_COLORS';
 
 
 export interface SystemState {

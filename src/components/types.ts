@@ -70,5 +70,6 @@ export interface RootStateType {
         loading: boolean,
         errorText: string,
         mode: string,
+        theme: string,
     },
 }
