@@ -53,7 +53,7 @@ const BottomContainer: React.FC = () => {
         </Form.Item>
       </div>
       <div className="inner-container">
-        <Form.Item name="feedback">
+        <Form.Item name="feedback" valuePropName="checked">
           <Checkbox >Request feedback</Checkbox>
         </Form.Item>
       </div>

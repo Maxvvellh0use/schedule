@@ -6,8 +6,8 @@ import { notification } from "antd";
 
 const dateFormat = 'MMMM DD, YYYY hh:mm:ss';
 
-export const parseFormValuesToEventData = (values: Store
-  ): EventData => {
+export const parseFormValuesToEventData = (values: Store): EventData => {
+  console.log(values);
   const {
     date,
     deadlineDate,
@@ -50,7 +50,7 @@ export const parseFormValuesToEventData = (values: Store
       duration: duration ? duration.toString() : '',
       result: result || '',
       notate: notate || '',
-      feedback: feedback.checked + ''
+      feedback: feedback,
     },
     course: course || '',
   }
@@ -69,7 +69,7 @@ export const createEvent = async (eventData: EventData) => {
     console.log(res)
     return res;
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 
@@ -92,7 +92,7 @@ export const changeEvent = async (id:number, eventData: EventData) => {
     console.log(res)
     return res;
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 

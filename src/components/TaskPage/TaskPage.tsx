@@ -26,6 +26,7 @@ const TaskPage: React.FC = () => {
   const dispatch = useDispatch();
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
   const curEvent = allEventsData.find((event) => event._id === id);
+  console.log(curEvent)
   const { Header, Content } = Layout;
   const { Title } = Typography;
 
@@ -80,7 +81,7 @@ const TaskPage: React.FC = () => {
             onMarkerMove={() => { }}
             coordinates={getCoordinates(curEvent)} />
           <Divider />
-          {curEvent && curEvent.optional.feedback === 'true'
+          {(curEvent && curEvent.optional.feedback) 
             ? <div className="rate-container" >
                 <Rate /> <span>How do you like this task?</span>
               </div>

@@ -14,7 +14,7 @@ export interface EventData {
             duration: string,
             result: string,
             notate: string,
-            feedback: string
+            feedback: boolean
     },
     course: string,
 }

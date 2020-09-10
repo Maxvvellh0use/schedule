@@ -13,7 +13,7 @@ export const emptyEventsData = [{
         duration: '',
         result: '',
         notate: '',
-        feedback: ''
+        feedback: false,
     },
     course: '',
 }];
