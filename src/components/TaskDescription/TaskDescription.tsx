@@ -6,7 +6,7 @@ import { EventData } from '../types';
 
 const TaskDescription: React.FC<{ event: EventData | undefined }> = ({ event }) => {
   const materials = Array.isArray(event?.optional.materials)
-    ? event?.optional.materials.map((mat) => <a href={mat} key={mat}>{mat}</a>) 
+    ? event?.optional.materials.map((mat) => <li><a href={mat} key={mat}>{mat}</a></li>) 
     : <a href={event?.optional.materials}>{event?.optional.materials}</a>
   return (
     <Descriptions title={event?.name} layout="vertical" bordered>
@@ -26,7 +26,7 @@ const TaskDescription: React.FC<{ event: EventData | undefined }> = ({ event }) 
       </Descriptions.Item>
       <Descriptions.Item label="Duration" span={1}>{event?.optional.duration}</Descriptions.Item>
       <Descriptions.Item label="Result" span={2}>{event?.optional.result}</Descriptions.Item>      
-      <Descriptions.Item label="Materials" span={3}>{ materials }</Descriptions.Item>
+      <Descriptions.Item label="Materials" span={3}><ul>{materials}</ul></Descriptions.Item>
       <Descriptions.Item label="Notate" span={3}> {event?.optional.notate} </Descriptions.Item>
   </Descriptions>   
 )

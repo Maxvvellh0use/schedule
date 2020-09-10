@@ -7,6 +7,7 @@ import { urlApi } from "../../../data/const";
 import { TableData } from "../../types";
 
 import './ActionPanel.scss';
+import { Link } from "react-router-dom";
 
 interface Props {
     currentEvent: {
@@ -37,7 +38,9 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
 
     return (
         <div className='action_panel'>
-            <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+            <Link to={`/task-editor/${currentEvent._id}`}>
+                <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined/>} />
+            </Link>
             <Popconfirm
             title="Are you sure delete this event?"
             onConfirm={confirmDeletion}

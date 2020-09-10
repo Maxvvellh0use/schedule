@@ -56,7 +56,7 @@ const TaskCreatorLayout: React.FC = () => {
         deadlineDate: moment(curEvent.optional.deadline),
         deadlineTime: moment(curEvent.optional.deadline),
         description: curEvent.optional.description,
-        materials: Array.isArray(materials) ? materials : [ curEvent.optional.materials],
+        materials: Array.isArray(materials) ? materials : materials ? [ materials ] : undefined,
         result: curEvent.optional.result,
         place: curEvent.optional.place,
         details: curEvent.optional.details,
@@ -120,7 +120,7 @@ const TaskCreatorLayout: React.FC = () => {
               <div className="container bottom-container">
                 <BottomContainer/>
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" loading={loading}>
                     {curEvent ? 'Complete edition' : 'Create'}
                   </Button>
                 </Form.Item>

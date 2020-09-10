@@ -1,12 +1,11 @@
-import { EventData } from "../../types";
 import { Store } from "antd/lib/form/interface";
-import moment from "moment";
 import { urlApi } from "../../../data/const";
 import { notification } from "antd";
 
+
 const dateFormat = 'MMMM DD, YYYY hh:mm:ss';
 
-export const parseFormValuesToEventData = (values: Store): EventData => {
+export const parseFormValuesToEventData = (values: Store): any => {
   console.log(values);
   const {
     date,
@@ -36,7 +35,6 @@ export const parseFormValuesToEventData = (values: Store): EventData => {
     '';
 
   return {
-    _id: 0,
     name,
     type,
     optional: {
@@ -57,7 +55,7 @@ export const parseFormValuesToEventData = (values: Store): EventData => {
 }
 
 
-export const createEvent = async (eventData: EventData) => {
+export const createEvent = async (eventData: any) => {
   try {
     const res = await fetch(`${urlApi}/event_create`, {
       method: 'POST',
@@ -73,15 +71,17 @@ export const createEvent = async (eventData: EventData) => {
   }
 }
 
-export const createDeadlineEvent = async (eventData: EventData) => {
+export const createDeadlineEvent = async (eventData: any) => {
   const deadlineEvent = { ...eventData, type: 'Deadline', name: `Deadline: ${eventData.name}` };
   deadlineEvent.optional = { ...eventData.optional, deadline: '', date: eventData.optional.deadline }
   console.log(deadlineEvent);
   return await createEvent(deadlineEvent);
 }
 
-export const changeEvent = async (id:number, eventData: EventData) => {
+export const changeEvent = async (id:number, eventData: any) => {
+  console.log(eventData)
   try {
+
     const res = await fetch(`${urlApi}/update_event/${id}`, {
       method: 'PUT',
       headers: {
@@ -97,6 +97,7 @@ export const changeEvent = async (id:number, eventData: EventData) => {
 }
 
 export const openNotification = (res: any, id: number) => {
+  console.log(res)
   if (id) {
     notification.open({
       message: res.ok ? 'Event Successfully Updated' : 'Event Editing Failed',
@@ -111,8 +112,7 @@ export const openNotification = (res: any, id: number) => {
         ? 'Your event successfully added to schedule.'
         : `Your event did not add to schedule. Fail status: ${res.status}`
     });
-  }
- 
+  } 
 }
 
 
