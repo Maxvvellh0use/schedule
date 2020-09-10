@@ -80,13 +80,39 @@ export const createDeadlineEvent = async (eventData: EventData) => {
   return await createEvent(deadlineEvent);
 }
 
-export const openNotification = (res: any) => {
-  notification.open({
-    message: res.ok ? 'Event Successfully Created' : 'Event Creation Failed',
-    description: res.ok
-      ? 'Your event successfully added to schedule.'
-      : `Your event successfully did not add to schedule. Fail status: ${res.status}`
-  });
+export const changeEvent = async (id:number, eventData: EventData) => {
+  try {
+    const res = await fetch(`${urlApi}/update_event/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(eventData),
+    });
+    console.log(res)
+    return res;
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const openNotification = (res: any, id: number) => {
+  if (id) {
+    notification.open({
+      message: res.ok ? 'Event Successfully Updated' : 'Event Editing Failed',
+      description: res.ok
+        ? 'Your event successfully updated.'
+        : `Your event did not update. Fail status: ${res.status}`
+    });
+  } else {
+    notification.open({
+      message: res.ok ? 'Event Successfully Created' : 'Event Creation Failed',
+      description: res.ok
+        ? 'Your event successfully added to schedule.'
+        : `Your event did not add to schedule. Fail status: ${res.status}`
+    });
+  }
+ 
 }
 
 

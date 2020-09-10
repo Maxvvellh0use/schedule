@@ -20,7 +20,7 @@ import BottomContainer from '../BottomContainer/BottomContainer';
 import './TaskCreatorLayout.scss';
 
 import { EventData } from '../../types';
-import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification } from './helpers';
+import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification, changeEvent } from './helpers';
 import { getEventsData } from '../../../redux/actions';
 import { Store } from 'antd/lib/form/interface';
 
@@ -74,15 +74,20 @@ const TaskCreatorLayout: React.FC = () => {
 
   async function onFinish(values: Store) {
     setLoading(true);
-    const eventData = parseFormValuesToEventData(values);  
-    const res1 = await createEvent(eventData);
-    if (res1 && res1.ok) {
-      if (values.deadlineDate) {
-        const res2 = await createDeadlineEvent(eventData);
-        openNotification(res2);
+    const eventData = parseFormValuesToEventData(values);
+    if (!id) {      
+      const res1 = await createEvent(eventData);
+      if (res1 && res1.ok) {
+        if (values.deadlineDate) {
+          const res2 = await createDeadlineEvent(eventData);
+          openNotification(res2, id);
+        }
       }
+      openNotification(res1, id);      
+    } else {
+      const res1 = await changeEvent(id, eventData);
+      openNotification(res1, id);
     }
-    openNotification(res1);   
     dispatch(getEventsData());
     setLoading(false);
   }
