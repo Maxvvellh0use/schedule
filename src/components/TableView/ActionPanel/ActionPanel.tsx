@@ -4,7 +4,7 @@ import { DeleteOutlined , EditOutlined } from "@ant-design/icons";
 import axios from 'axios'
 
 import { urlApi } from "../../../data/const";
-import { TableData } from "../../types";
+import {RootStateType , TableData} from "../../types";
 
 import './ActionPanel.scss';
 import { Link } from "react-router-dom";
@@ -39,7 +39,11 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
     return (
         <div className='action_panel'>
             <Link to={`/task-editor/${currentEvent._id}`}>
-                <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined/>} />
+                <Button
+                    className="task-btn"
+                    type="dashed"
+                    shape="circle"
+                    icon={<EditOutlined />} />
             </Link>
             <Popconfirm
             title="Are you sure delete this event?"

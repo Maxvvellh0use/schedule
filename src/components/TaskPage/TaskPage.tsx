@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './TaskPage.scss'
+
 import { useParams, Link } from 'react-router-dom';
-import { EventData } from '../types';
 import { useSelector, useDispatch } from 'react-redux';
+import {EventData , RootStateType} from '../types';
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import { Layout, Divider, Typography, Button, Popconfirm, message, Rate } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -21,6 +22,7 @@ interface RootState {
 }
 
 const TaskPage: React.FC = () => {
+  const mode = useSelector<RootStateType>(state => state.app.mode);
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -47,7 +49,22 @@ const TaskPage: React.FC = () => {
   function cancelDeletion(e: any) {
   console.log(e);
   }
-  
+
+
+const editPanel = (
+    <div className="right-panel">
+      <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
+      <Popconfirm
+          title="Are you sure delete this task?"
+          onConfirm={confirmDeletion}
+          onCancel={cancelDeletion}
+          okText="Yes"
+          cancelText="No"
+      >
+        <Button className="task-btn" type="dashed" shape="circle" icon={<DeleteOutlined />} />
+      </Popconfirm>
+    </div>
+)
   return (
     <Layout>
       <Header>
@@ -57,24 +74,11 @@ const TaskPage: React.FC = () => {
         <div className="container">
           <div className="top-container">
             <Title level={4}>Event Info</Title>
-            <div className="right-panel">
-              <Link to={`/task-editor/${id}`}>
-                <Button className="task-btn" type="dashed" shape="circle" icon={<EditOutlined />} />
-              </Link>              
-              <Popconfirm
-                title="Are you sure delete this task?"
-                onConfirm={confirmDeletion}
-                onCancel={cancelDeletion}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button className="task-btn" type="dashed" shape="circle" icon={<DeleteOutlined />} />
-              </Popconfirm>
-            </div>
+            { mode === 'mentor' ? editPanel : null }
           </div>
           <Divider />
           <div className="task-description">
-            {source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/>}
+            { source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/> }
           </div>
           <Divider />
           <MapComponent
