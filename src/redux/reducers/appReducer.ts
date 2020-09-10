@@ -13,7 +13,7 @@ export const appReducer = (state = initialState, action: { type: string, payload
         case HIDE_LOADER:
             return Object.assign({...state},{ loading: false })
         case SHOW_ERROR:
-            return { errorText: action.payload }
+            return Object.assign({...state},{ errorText: action.payload })
         case CHANGE_MODE:
             return Object.assign({...state},{ mode: action.payload })
         default: return state;
