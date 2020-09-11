@@ -25,6 +25,7 @@ const TaskPage: React.FC = () => {
   const { id } = useParams();
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
   const curEvent = allEventsData.find((event) => event._id === id);
+  console.log(curEvent)
   const { Header, Content } = Layout;
   const { Title } = Typography;
 

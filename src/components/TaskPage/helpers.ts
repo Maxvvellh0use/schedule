@@ -24,7 +24,7 @@ export function getCoordinates(eventObj: EventData | undefined): any{
   const COORDS_COUNT = 2;
 
   if (eventObj?.optional.place === 'online') return undefined;
-  const supposedCoords = eventObj?.optional.place.split(' ').map((item) => +item);
+  const supposedCoords = eventObj?.optional.place?.split(' ').map((item) => +item);
   if (
     Array.isArray(supposedCoords)
     && supposedCoords.length === COORDS_COUNT

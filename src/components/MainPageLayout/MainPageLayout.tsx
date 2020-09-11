@@ -8,10 +8,11 @@ import SideBar from '../SideBar/SideBar';
 import TopPanel from '../TopPanel/TopPanel';
 
 import './MainPageLayout.scss';
+import { getEventsData } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 const MainPageLayout: React.FC = () => {
-  const { Header, Footer, Sider, Content } = Layout;
-
+  const { Header, Footer, Sider, Content } = Layout;  
   return (
      <>
       <Layout>
@@ -27,7 +28,6 @@ const MainPageLayout: React.FC = () => {
             <MainTab />
           </Content>
         </Layout>
-        <Footer>Footer</Footer>
       </Layout>
     </>
   );
