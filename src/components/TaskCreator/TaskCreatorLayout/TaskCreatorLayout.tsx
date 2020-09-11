@@ -88,10 +88,8 @@ const TaskCreatorLayout: React.FC = () => {
       openNotification(res1, id);
     }
     dispatch(getEventsData());
-    setLoading(false);
-    setTimeout(() => {
-      history.push('/')
-    }, 2000)
+    setLoading(false);    
+    history.push('/');    
   }
 
   return (
