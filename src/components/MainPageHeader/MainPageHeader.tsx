@@ -8,6 +8,7 @@ import logo from '../../assets/img/logo-rsschool3.png';
 import {useDispatch , useSelector} from "react-redux";
 import {changeTheme} from "../../redux/actions";
 import {RootStateType} from "../types";
+import {useThemeSwitcher} from "react-css-theme-switcher";
 
 const MainPageHeader: React.FC = () => {
 
@@ -20,6 +21,16 @@ const MainPageHeader: React.FC = () => {
   function onChange(checked: any) {
     console.log(`switch to ${checked}`);
   }
+
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const { switcher, themes, currentTheme } = useThemeSwitcher();
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(previous => {
+      switcher({ theme: previous ? themes.light : themes.dark });
+      return !previous;
+    });
+  };
 
   return (
     <nav>
@@ -40,7 +51,7 @@ const MainPageHeader: React.FC = () => {
           <div>
             <label> Dark mode </label>
             <Switch checked={theme === 'dark'}
-                    onChange={(checked) => dispatch(changeTheme(checked ? 'dark' : 'light'))} />
+                    onChange={(checked) => toggleDarkMode()} />
           </div>
           <Button
             className="profile-btn"
