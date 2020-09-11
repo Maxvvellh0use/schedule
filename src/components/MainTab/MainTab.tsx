@@ -14,6 +14,7 @@ import {EventData} from "../types";
 interface RootState {
     app: {
         errorText: string,
+        language: string
     },
 }
 
@@ -25,20 +26,26 @@ interface Props {
 const MainTab: React.FC<Props> = ({ allEventsData }) => {
     const { TabPane } = Tabs;
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
+    const language = useSelector<RootState, string>(state => state.app.language);
     const isEventsDataReceived = () => Boolean(!allEventsData.length);
+    
+    const tableTab = (language === 'eng') ? 'TABLE' : 'ТАБЛИЦА';
+    const calendarTab = (language === 'eng') ? 'CALENDAR' : 'КАЛЕНДАРЬ';
+    const listTab = (language === 'eng') ? 'LIST' : 'СПИСОК';
+    
     return (
         <section className='main_tab_section'>
             <Tabs type="card">
-                <TabPane tab="TABLE" key="1">
+                <TabPane tab={tableTab} key="1">
                     <TableView />
                 </TabPane>
-                <TabPane disabled={isEventsDataReceived()} tab="CALENDAR" key="2">
+                <TabPane disabled={isEventsDataReceived()} tab={calendarTab} key="2">
                     {
                         errorText ? <div>{errorText}</div> :
                     <CalendarView />
                     }
                 </TabPane>
-                <TabPane disabled={isEventsDataReceived()} tab="LIST" key="3">
+                <TabPane disabled={isEventsDataReceived()} tab={listTab} key="3">
                     {
                         errorText ? <div>{errorText}</div> :
                         <ListView/>

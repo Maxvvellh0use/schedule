@@ -34,10 +34,14 @@ interface RootState {
 const TableView: React.FC = () => {
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
+    const language = useSelector<RootStateType, string>(state => state.app.language);
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
+    
+    const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
+      
     useEffect(() => {
         dispatch(getEventsData());              
     }, [dispatch]);
@@ -63,7 +67,7 @@ const TableView: React.FC = () => {
 
     const columnsTable = [
         {
-            title: 'Date',
+            title: (language === 'eng') ? 'Date' : 'Дата',
             dataIndex: 'date',
             key: 'date',
             width: columnsWidths['Date'],
@@ -74,7 +78,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Time',
+            title: (language === 'eng') ? 'Time' : 'Время',
             dataIndex: 'time',
             key: 'time',
             width: columnsWidths['Time'],
@@ -85,7 +89,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Type',
+            title: (language === 'eng') ? 'Type' : 'Тип',
             dataIndex: 'type',
             key: 'type',
             width: columnsWidths['Type'],
@@ -98,7 +102,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Place',
+            title: (language === 'eng') ? 'Place' : 'Место',
             dataIndex: 'place',
             key: 'place',
             width: columnsWidths['Place'],
@@ -109,7 +113,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Name',
+            title: (language === 'eng') ? 'Name' : 'Название',
             dataIndex: 'name',
             key: 'name',
             width: columnsWidths['Name'],
@@ -121,7 +125,7 @@ const TableView: React.FC = () => {
 
         },
         {
-            title: 'Duration',
+            title: (language === 'eng') ? 'Duration' : 'Продолжительность',
             dataIndex: 'duration',
             key: 'duration',
             width: columnsWidths['Duration'],
@@ -132,7 +136,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Result',
+            title: (language === 'eng') ? 'Result' : 'Результат',
             dataIndex: 'result',
             key: 'result',
             width: columnsWidths['Result'],
@@ -143,7 +147,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Notate',
+            title: (language === 'eng') ? 'Notate' : 'Нотация',
             dataIndex: 'notate',
             key: 'notate',
             width: columnsWidths['Notate'],
@@ -154,7 +158,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Materials',
+            title: (language === 'eng') ? 'Materials' : 'Материалы',
             dataIndex: 'materials',
             key: 'materials',
             ellipsis: true,
@@ -166,7 +170,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Deadline',
+            title: (language === 'eng') ? 'Deadline' : 'Срок сдачи',
             dataIndex: 'deadline',
             key: 'deadline',
             width: columnsWidths['Deadline'],
@@ -177,7 +181,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: 'Tags',
+            title: (language === 'eng') ? 'Tags' : 'Теги',
             key: 'tags',
             dataIndex: 'tags',
             width: columnsWidths['Tags'],
@@ -193,7 +197,7 @@ const TableView: React.FC = () => {
         },
         mode === 'mentor' ?
         {
-            title: 'Action',
+            title: (language === 'eng') ? 'Action' : 'Действие',
             dataIndex: 'action',
             key: 'action',
             width: columnsWidths['Action'],
@@ -322,7 +326,7 @@ const TableView: React.FC = () => {
                     <Dropdown className='dropdown_columns_visible'
                               overlay={menu}
                               placement="bottomLeft">
-                        <Button>Columns Visibility</Button>
+                        <Button>{columnsVisibilityBtn}</Button>
                     </Dropdown>
                 </div>
                 { tableView }

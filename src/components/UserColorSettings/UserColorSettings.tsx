@@ -11,16 +11,32 @@ interface Events {
   eventsData: string[];
 }
 
+interface State {
+  app: {
+    language: string
+  }
+}
+
 const { Option } = Select;
 
 const UserColorSettings: React.FC<Events> = ({eventsData}) => {
-
+  
+  const language = useSelector<State, string>(state => state.app.language);
+  const events = eventsData.map(event =>  <Option value={event} key={event}>{event}</Option>)
+  const taskPropertyTitle = (language === 'eng') ? 'Select task' : 'Выберите задание';
+  const propertySelector = (language === 'eng') ? 'Select property' : 'Выберите свойство';
+  const textColorProperty = (language === 'eng') ? 'Text' : 'Текст';
+  const backgroundColorProperty = (language === 'eng') ? 'Background' : 'Фон';
+  const colorPropertyTitle = (language === 'eng') ? 'Select color' : 'Выберите цвет';
+  const colorExample = (language === 'eng') ? 'Color example' : 'Образец цвета';
+  const defaultColorDescription = (language === 'eng') ? 'Set default colors:' : 'Установить начальные цвета:';
+  const defaultColorBtn = (language === 'eng') ? 'Default colors' : 'Базовые цвета';
   const [color, setColor] = useState('#eeeeee');
   const [property, setProperty] = useState('color');
   const [task, setTask] = useState('Deadline');
-  const defaultColorMessage = (color === '#eeeeee') ? <p>Color example</p> : null;
   const dispatch = useDispatch();
   
+  const defaultColorMessage = (color === '#eeeeee') ? <p>{colorExample}</p> : null;
 
   useEffect(() => {
     handleColor()
@@ -62,11 +78,9 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
     } else { setColor('#ffffff') }
   }
 
-  const events = eventsData.map(event =>  <Option value={event} key={event}>{event}</Option>)
-
   return(
     <div>
-      <p className="color-settings-title">Select task</p>
+      <p className="color-settings-title">{taskPropertyTitle}</p>
       <Select 
         getPopupContainer={trigger => trigger.parentNode}
         defaultValue="Deadline" 
@@ -74,15 +88,15 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
         onChange={handleChange}>
           {events}
       </Select>
-      <p className="color-settings-title">Select property</p>
+      <p className="color-settings-title">{propertySelector}</p>
       <Radio.Group 
         defaultValue="color" 
         onChange={handleStyleProperty}
         >
-        <Radio.Button value="color">Text</Radio.Button>
-        <Radio.Button value="backgroundColor">Background</Radio.Button>
+        <Radio.Button value="color">{textColorProperty}</Radio.Button>
+        <Radio.Button value="backgroundColor">{backgroundColorProperty}</Radio.Button>
       </Radio.Group>
-      <p className="color-settings-title">Select color</p>
+      <p className="color-settings-title">{colorPropertyTitle}</p>
       <div className="color-swatch" style={{
         backgroundColor: color 
       }}>
@@ -95,8 +109,8 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
         }
       }/>
      <div className="default-colors"> 
-       <p className="default-colors__annotation">Set default colors:</p>
-       <Button onClick={ setDefaultColors } type="primary">Default colors</Button>
+       <p className="default-colors__annotation">{defaultColorDescription}</p>
+       <Button onClick={ setDefaultColors } type="primary">{defaultColorBtn}</Button>
      </div>
     </div>
   )
