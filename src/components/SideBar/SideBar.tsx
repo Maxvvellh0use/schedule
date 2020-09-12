@@ -1,26 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, Typography } from 'antd';
-import { ThunderboltOutlined } from '@ant-design/icons';
+import { Calendar, Typography, List, Divider } from 'antd';
+import { ThunderboltOutlined, SmileOutlined } from '@ant-design/icons';
 
 import './SideBar.scss'
+import { EventData, RootStateType } from "../types";
+import { useSelector } from "react-redux";
+import { getTodayEvents } from "./helpers";
+import { Link } from "react-router-dom";
 
-function onPanelChange(value: any, mode: any) {
-  console.log(value, mode);
-}
 
 const SideBar: React.FC = () => {
-  const { Title } = Typography;
+  const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
+  const { Title, Text } = Typography;
+  const todayEvents = allEventsData.length ? getTodayEvents(allEventsData) : undefined;
+ 
+  function onPanelChange(value: any, mode: any) {
+    console.log(value, mode);
+  }
+
   return (
     <ul className="side-bar-content">
       <li className="calendar-container">
         <Calendar fullscreen={false} onPanelChange={onPanelChange} />
       </li>
       <li className="announce-container">
-        <Title level={4}>Disc Announce</Title>
-        <p>Monotonectally develop visionary benefits vis-a-vis granular data. Completely transform bleeding-edge.</p>
-        <ThunderboltOutlined className="announce-icon" style={{ }}/>
+        <List size="small"
+          header={
+            <div style={{display: "flex", alignItems: 'center'}}>
+              <ThunderboltOutlined className="announce-icon" style={{ color: 'green'}} />
+              <Title level={4}>Plan for today:</Title>
+            </div>}
+          bordered
+          dataSource={todayEvents}
+          renderItem={(event: EventData) =>
+            <List.Item>
+              <Link to={`/task/${event._id}`}>{event.name}</Link>
+            </List.Item>} />
+        
       </li>
-
     </ul>
   );
 }

@@ -39,7 +39,7 @@ const TableView: React.FC = () => {
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
     useEffect(() => {
-        dispatch(getEventsData());
+        dispatch(getEventsData());              
     }, [dispatch]);
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
