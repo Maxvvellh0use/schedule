@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './TaskPage.scss'
-import { useParams } from 'react-router-dom';
+
+import { useParams, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {EventData , RootStateType} from '../types';
-import { useSelector } from 'react-redux';
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
 import { Layout, Divider, Typography, Button, Popconfirm, message, Rate } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import MapComponent from '../TaskCreator/MapComponent/MapComponent';
-import { getRawContent, isMarkdown, getCoordinates } from './helpers';
+import { getRawContent, isMarkdown, getCoordinates, deleteEventById } from './helpers';
 import TaskDescription from '../TaskDescription/TaskDescription';
+import { getEventsData } from '../../redux/actions';
 
 interface RootState {
   allEventsData: EventData[];
@@ -23,6 +25,7 @@ const TaskPage: React.FC = () => {
   const mode = useSelector<RootStateType>(state => state.app.mode);
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
+  const dispatch = useDispatch();
   const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
   const curEvent = allEventsData.find((event) => event._id === id);
   console.log(curEvent)
@@ -36,16 +39,17 @@ const TaskPage: React.FC = () => {
     }
   },[])
 
-  function confirmDeletion(e: any) {
-  console.log(e);
-    message.success('Click on Yes');
-    //TODO delete event from db ???
+  async function confirmDeletion(e: any) {
+    console.log(e);
+    await deleteEventById(curEvent?._id);
+    dispatch(getEventsData()); 
+    message.success('Event deleted');
 }
 
   function cancelDeletion(e: any) {
   console.log(e);
-  message.error('Click on No');
-}
+  }
+
 
 const editPanel = (
     <div className="right-panel">
@@ -81,7 +85,7 @@ const editPanel = (
             onMarkerMove={() => { }}
             coordinates={getCoordinates(curEvent)} />
           <Divider />
-          {curEvent && curEvent.optional.feedback === 'true'
+          {(curEvent && curEvent.optional.feedback) 
             ? <div className="rate-container" >
                 <Rate /> <span>How do you like this task?</span>
               </div>

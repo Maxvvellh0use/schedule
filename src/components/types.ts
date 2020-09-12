@@ -1,8 +1,9 @@
 export interface EventData {
     _id: number,
-        name: string,
-        type: string,
-        optional: {
+    name: string,
+    type: string,
+    optional: {
+
             date: string,
             description: string,
             organizer: string,
@@ -13,7 +14,7 @@ export interface EventData {
             duration: string,
             result: string,
             notate: string,
-            feedback: string
+            feedback: boolean
     },
     course: string,
 }

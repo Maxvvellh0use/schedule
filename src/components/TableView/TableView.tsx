@@ -223,7 +223,7 @@ const TableView: React.FC = () => {
 
     const initialTableData = allEventsData.length ? allEventsData.map((event, index) => {
         return {
-            key: index,
+            key: event._id,
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
@@ -232,6 +232,7 @@ const TableView: React.FC = () => {
                 text: event.name,
                 link: event.optional.description,
                 _id: event._id
+
             },
             action: {
                 _id: event._id,

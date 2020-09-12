@@ -10,10 +10,10 @@ import {
   Space,
   Divider
 } from 'antd';
-import 'antd/dist/antd.css';
+import { SliderPicker } from 'react-color'
 import { MinusCircleOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons';
 
-import { TASK_TYPES, COURSES } from './const';
+import { TASK_TYPES, COURSES, defaultColor } from './const';
 
 import './LeftPanel.scss';
 
@@ -23,9 +23,11 @@ const LeftPanel: React.FC = () => {
     newType: ''
   });
   const [deadlineFormEnabled, setDeadlineFormEnabled] = useState(false);
+  const [colorPickerVisible, setColorPickerVisible] = useState(false);
 
   function onTypeChange(event: { target: { value: string; }; }) {
     setTaskTypes({ initialTypes: taskTypes.initialTypes, newType: event.target.value });
+    setColorPickerVisible(true);
   };
 
   function addItem() {
@@ -37,10 +39,15 @@ const LeftPanel: React.FC = () => {
         newType: ''
       }
     });
+    setColorPickerVisible(false);
   }
 
   function onHasDeadlineChange(e: { target: { checked: boolean; }; }) {
     setDeadlineFormEnabled(e.target.checked);
+  }
+
+  function handleChangeComplete() {
+    //TODO save types colors to DB
   }
 
   return (
@@ -66,8 +73,13 @@ const LeftPanel: React.FC = () => {
                 <Input value={taskTypes.newType} onChange={onTypeChange} />
                 <a onClick={addItem}>
                   <PlusOutlined /> Add type
-                </a>
+                </a>                
               </div>
+              {colorPickerVisible
+                ? <SliderPicker 
+                  color={defaultColor}
+                  onChangeComplete={handleChangeComplete} />
+                : null}
             </div>
           )}>
           {taskTypes.initialTypes.map(item => (
@@ -103,7 +115,7 @@ const LeftPanel: React.FC = () => {
       rules={[{ type: 'object', required: true, message: 'Please select time!' }]}>
       <TimePicker />
     </Form.Item>
-    <Form.Item name="hasDeadline">
+    <Form.Item name="hasDeadline" valuePropName="checked">
       <Checkbox onChange={onHasDeadlineChange}>Task has deadline</Checkbox>
     </Form.Item>
     <Form.Item

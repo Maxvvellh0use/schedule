@@ -16,3 +16,5 @@ export const COURSES = [
   'React 2020 Q3',
   'EPAM course'
 ]
+
+export const defaultColor = '#333'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Layout,
   Row,
@@ -7,9 +7,9 @@ import {
   Button,
   notification 
 } from 'antd';
-import 'antd/dist/antd.css';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useParams, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import MainPageHeader from '../../MainPageHeader/MainPageHeader';
 import LeftPanel from '../LeftPanel/LeftPanel';
@@ -17,27 +17,53 @@ import AddressContainer from '../AddressContainer/AddressContainer';
 import BottomContainer from '../BottomContainer/BottomContainer';
 
 import './TaskCreatorLayout.scss';
-import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification } from './helpers';
+
+import { EventData } from '../../types';
+import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification, changeEvent } from './helpers';
 import { getEventsData } from '../../../redux/actions';
 import { Store } from 'antd/lib/form/interface';
 
-
 interface RootState {
-  loading: boolean,
-  errorText: string,
+  allEventsData: EventData[];
 }
 
 const TaskCreatorLayout: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
+  const curEvent = allEventsData.find((event) => event._id === id);
   const { Header, Content } = Layout;
   const formItemLayout = {
     labelCol: { span: 20 },
     wrapperCol: { span: 100 },
   };
   const [form] = Form.useForm();
-  const history = useHistory();
+
+  const history = useHistory();  
   const dispatch = useDispatch();
-  
+
+  useEffect(() => {
+    if (curEvent) {
+      const { materials } = curEvent?.optional;
+      form.setFieldsValue({
+        name: curEvent.name,
+        course: curEvent.course,
+        type: curEvent.type,
+        date: moment(curEvent.optional.date),
+        time: moment(curEvent.optional.date),
+        hasDeadline: curEvent.optional.deadline,
+        deadlineDate: moment(curEvent.optional.deadline),
+        deadlineTime: moment(curEvent.optional.deadline),
+        description: curEvent.optional.description,
+        materials: Array.isArray(materials) ? materials : materials ? [ materials ] : undefined,
+        result: curEvent.optional.result,
+        place: curEvent.optional.place,
+        details: curEvent.optional.details,
+        duration: curEvent.optional.duration,
+        notate: curEvent.optional.notate,
+      });
+    }
+  }, []);    
 
   function onMarkerMove(value: string) {
     form.setFieldsValue({
@@ -47,17 +73,23 @@ const TaskCreatorLayout: React.FC = () => {
 
   async function onFinish(values: Store) {
     setLoading(true);
-    const eventData = parseFormValuesToEventData(values);  
-    const res1 = await createEvent(eventData);
-    if (res1 && res1.ok) {
-      if (values.deadlineDate) {
-        const res2 = await createDeadlineEvent(eventData);
-        openNotification(res2);
+    const eventData = parseFormValuesToEventData(values);
+    if (!id) {      
+      const res1 = await createEvent(eventData);
+      if (res1 && res1.ok) {
+        if (values.deadlineDate) {
+          const res2 = await createDeadlineEvent(eventData);
+          openNotification(res2, id);
+        }
       }
+      openNotification(res1, id);      
+    } else {
+      const res1 = await changeEvent(id, eventData);
+      openNotification(res1, id);
     }
-    openNotification(res1);   
     dispatch(getEventsData());
-    setLoading(false);
+    setLoading(false);    
+    history.push('/');    
   }
 
   return (
@@ -89,7 +121,7 @@ const TaskCreatorLayout: React.FC = () => {
                 <BottomContainer/>
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
                   <Button type="primary" htmlType="submit" loading={loading}>
-                    Create
+                    {curEvent ? 'Complete edition' : 'Create'}
                   </Button>
                 </Form.Item>
                 <Button type="link" onClick={() => history.push('/')} >

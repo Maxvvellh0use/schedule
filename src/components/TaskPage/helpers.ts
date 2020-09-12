@@ -1,4 +1,6 @@
+import axios from 'axios'
 import { EventData } from '../types';
+import { urlApi } from '../../data/const';
 
 export async function getRawContent(url: string) {
   try {
@@ -13,7 +15,7 @@ export async function getRawContent(url: string) {
 
 export function isMarkdown(url: string): boolean {
   const FILE_EXTENSION_LENGTH = 3;
-  return url.slice(-FILE_EXTENSION_LENGTH) === '.md';
+  return url?.slice(-FILE_EXTENSION_LENGTH) === '.md';
 }
 
 export function transformLinkToRawContent(url: string): string {
@@ -31,4 +33,8 @@ export function getCoordinates(eventObj: EventData | undefined): any{
     && supposedCoords.every((item) => !isNaN(item))
   ) return supposedCoords
   else return undefined;
+}
+
+export async function deleteEventById(id:any) { 
+  await axios.delete(`${urlApi}/remove_event/${id}`).catch(e => console.error(e));
 }
