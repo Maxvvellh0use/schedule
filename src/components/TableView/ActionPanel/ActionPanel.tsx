@@ -7,7 +7,7 @@ import { urlApi } from "../../../data/const";
 import {RootStateType , TableData} from "../../types";
 
 import './ActionPanel.scss';
-import {useDispatch , useSelector} from "react-redux";
+import { Link } from "react-router-dom";
 
 interface Props {
     currentEvent: {
@@ -19,8 +19,6 @@ interface Props {
 }
 
 export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableData}) => {
-
-
 
     const removeRow = (removeKey: number) => {
         setTableData(tableData.filter((elem: { key: number }) =>
@@ -40,11 +38,13 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
 
     return (
         <div className='action_panel'>
+            <Link to={`/task-editor/${currentEvent._id}`}>
                 <Button
                     className="task-btn"
                     type="dashed"
                     shape="circle"
                     icon={<EditOutlined />} />
+            </Link>
             <Popconfirm
             title="Are you sure delete this event?"
             onConfirm={confirmDeletion}

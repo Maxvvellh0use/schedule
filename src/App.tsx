@@ -13,7 +13,14 @@ function App() {
      <BrowserRouter>
       <Switch>
         <Route component={MainPage} path="/" exact/>
-        <Route component={TaskCreatorPage} path="/task-creator" />
+          <Route
+            key="task-creator"
+            component={TaskCreatorPage}
+            path="/task-creator" />
+          <Route
+            key="task-editor"
+            component={TaskCreatorPage}
+            path="/task-editor/:id" />
         <Route component={TaskPage} path="/task/:id" />
        </Switch>      
      </BrowserRouter>      
