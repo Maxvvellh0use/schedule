@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ConfigProvider,
   Layout,
   Row,
   Col,
@@ -22,6 +23,15 @@ import { EventData, RootStateType } from '../../types';
 import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification, changeEvent } from './helpers';
 import { getEventsData } from '../../../redux/actions';
 import { Store } from 'antd/lib/form/interface';
+
+import enUS from 'antd/es/locale/en_US';
+import ruRU from 'antd/es/locale/ru_RU';
+import moment from 'moment';
+import 'moment/locale/ru';
+
+interface RootState {
+  allEventsData: EventData[];
+}
 
 const TaskCreatorLayout: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -61,6 +71,16 @@ const TaskCreatorLayout: React.FC = () => {
       });
     }
   }, []);    
+  const language = useSelector<RootStateType, string>(state => state.app.language);
+  const locale = ( language === 'eng') ? enUS : ruRU;
+  if (language === 'eng') {
+    moment.locale('en')
+  } else {
+    moment.locale('ru')
+  }
+  const backToSheduleBtn = ( language === 'eng') ? "Back to schedule" : "Вернутся к расписанию";
+  const createBtn = ( language === 'eng') ? "Create" : "Создать";
+  const completeEdition = ( language === 'eng') ? "Complete edition" : "Полное издание";
 
   function onMarkerMove(value: string) {
     form.setFieldsValue({
@@ -90,12 +110,13 @@ const TaskCreatorLayout: React.FC = () => {
   }
 
   return (
+    <ConfigProvider locale={locale}>
     <Layout className={accessability ? 'accessability-on' : ''}>
       <Header>
         <MainPageHeader />
       </Header>
       <Button type="link" onClick={() => history.push('/')} >
-        Back to schedule
+        {backToSheduleBtn}
       </Button> 
       <Form
         form={form}
@@ -122,13 +143,13 @@ const TaskCreatorLayout: React.FC = () => {
                     type="primary" 
                     htmlType="submit" 
                     loading={loading}>
-                      {curEvent ? 'Complete edition' : 'Create'}
+                      {curEvent ? completeEdition : createBtn}
                   </Button>
                 </Form.Item>
                 <Button 
                   type="link"  
                   onClick={() => history.push('/')} >
-                    Back to schedule
+                    {backToSheduleBtn}
                 </Button>                
               </div>
             </Col>         
@@ -136,6 +157,7 @@ const TaskCreatorLayout: React.FC = () => {
         </Content>
       </Form>
     </Layout>
+    </ConfigProvider>
   )
  }
 
