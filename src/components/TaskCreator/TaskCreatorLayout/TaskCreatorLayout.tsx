@@ -26,7 +26,6 @@ import { Store } from 'antd/lib/form/interface';
 
 import enUS from 'antd/es/locale/en_US';
 import ruRU from 'antd/es/locale/ru_RU';
-import moment from 'moment';
 import 'moment/locale/ru';
 
 interface RootState {

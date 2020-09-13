@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, Typography } from 'antd';
+import { Calendar, Typography, List, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 
@@ -21,7 +21,6 @@ const SideBar: React.FC = () => {
   const language = useSelector<RootStateType, string>(state => state.app.language);
   const discAnnounce = (language === 'eng') ? 'Plan for today:' : 'План на сегодня:';
 
-  const { Title } = Typography;
   return (
     <ul className="side-bar-content">
       <li className="calendar-container">
