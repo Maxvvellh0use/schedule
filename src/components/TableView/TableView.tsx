@@ -39,7 +39,7 @@ const TableView: React.FC = () => {
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
     useEffect(() => {
-        dispatch(getEventsData());              
+        dispatch(getEventsData());
     }, [dispatch]);
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
@@ -224,6 +224,7 @@ const TableView: React.FC = () => {
     const initialTableData = allEventsData.length ? allEventsData.map((event, index) => {
         return {
             key: event._id,
+            dateString: event.optional.date,
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
@@ -292,8 +293,16 @@ const TableView: React.FC = () => {
         setTableData(initialTableData);
     }
 
+    const getTodayEventClass = (record: any) => {
+        const dateNow = new Date(Date.now());
+        const dateEvent = new Date(record.dateString);
+        return dateNow.getDate() === dateEvent.getDate() &&
+        dateNow.getMonth() === dateEvent.getMonth() ? 'table-row-today' : '';
+    }
+
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
+               rowClassName={(record) => getTodayEventClass(record)}
                columns={columns.filter(column => column.visibility)}
                rowSelection={{
                    checkStrictly: true,
