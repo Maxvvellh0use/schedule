@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Avatar, Switch, Typography } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, EyeTwoTone, EyeInvisibleTwoTone } from '@ant-design/icons';
 
 import './MainPageHeader.scss';
 
@@ -10,8 +10,12 @@ const MainPageHeader: React.FC = () => {
 
   const { Title } = Typography;
 
-  function onChange(checked: any) {
+  function onThemeChange(checked: boolean) {
     console.log(`switch to ${checked}`);
+  }
+
+  function onAccassabilityChange(checked: boolean) {
+    
   }
   
   return (
@@ -32,7 +36,12 @@ const MainPageHeader: React.FC = () => {
         <li>
           <div>
             <label> Dark mode </label>
-            <Switch defaultChecked onChange={onChange} />
+            <Switch defaultChecked onChange={onThemeChange} />
+          </div>
+          <div>
+            <label> <EyeInvisibleTwoTone /> </label>
+            <Switch onChange={onAccassabilityChange} />
+            <label> <EyeTwoTone /> </label>
           </div>
           <Button
             className="profile-btn"

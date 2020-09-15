@@ -1,4 +1,4 @@
-import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER} from "./types";
+import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 
@@ -46,5 +46,13 @@ export const changeMode = (mode: string) => {
     return {
         type: CHANGE_MODE,
         payload: mode,
+    }
+}
+
+export const changeAccessability = (accessability: string) => {
+    localStorage.accessability = accessability;
+    return {
+        type: CHANGE_ACCESSABILITY,
+        payload: accessability,
     }
 }
