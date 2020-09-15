@@ -21,6 +21,7 @@ import { getNewVisibility } from "./helpers/getNewVisibility";
 import { ActionPanel } from "./ActionPanel/ActionPanel";
 
 import './TableView.scss';
+import {getRowEventsClasses} from "./helpers/getRowEventsClasses";
 
 interface RootState {
     allEventsData: EventData[];
@@ -293,16 +294,9 @@ const TableView: React.FC = () => {
         setTableData(initialTableData);
     }
 
-    const getTodayEventClass = (record: any) => {
-        const dateNow = new Date(Date.now());
-        const dateEvent = new Date(record.dateString);
-        return dateNow.getDate() === dateEvent.getDate() &&
-        dateNow.getMonth() === dateEvent.getMonth() ? 'table-row-today' : '';
-    }
-
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
-               rowClassName={(record) => getTodayEventClass(record)}
+               rowClassName={(record) => getRowEventsClasses(record)}
                columns={columns.filter(column => column.visibility)}
                rowSelection={{
                    checkStrictly: true,
