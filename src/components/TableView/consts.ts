@@ -2,6 +2,7 @@ export const deadlineColor = 'volcano';
 export const taskColor = 'green';
 
 export const columnNames = [
+    'Week',
     'Date',
     'Time',
     'Type',
@@ -16,6 +17,7 @@ export const columnNames = [
 ]
 
 export const defaultColumnsVisible: { [key: string]: boolean } = {
+    Week: true,
     Date: true,
     Time: true,
     Type: true,
@@ -30,6 +32,7 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
 }
 
 export const defaultColumnsWidths: { [key: string]: number } = {
+    Week: 40,
     Date: 65,
     Time: 50,
     Type: 70,

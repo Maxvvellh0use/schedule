@@ -22,6 +22,7 @@ import { ActionPanel } from "./ActionPanel/ActionPanel";
 
 import './TableView.scss';
 import {getRowEventsClasses} from "./helpers/getRowEventsClasses";
+import {getWeekNumber} from "./helpers/getWeekNumber";
 
 interface RootState {
     allEventsData: EventData[];
@@ -61,8 +62,14 @@ const TableView: React.FC = () => {
             }
           }
     };
-
     const columnsTable = [
+        {
+            title: 'Week',
+            dataIndex: 'week',
+            key: 'week',
+            width: columnsWidths['Week'],
+            visibility: columnsVisible['Week'],
+        },
         {
             title: 'Date',
             dataIndex: 'date',
@@ -222,10 +229,19 @@ const TableView: React.FC = () => {
 
     const [tableData, setTableData] = useState();
 
-    const initialTableData = allEventsData.length ? allEventsData.map((event, index) => {
+    const weekNumberEvents: number[] = [];
+
+    const weekEventsNumberPush = allEventsData.length ? allEventsData.map((event) => {
+        if (!weekNumberEvents.includes(getWeekNumber(new Date(event.optional.date))))
+            weekNumberEvents.push((getWeekNumber(new Date(event.optional.date))))
+    }) : [];
+
+    const initialTableData: any[] | undefined = allEventsData.length ?
+        allEventsData.map((event, index) => {
         return {
             key: event._id,
             dateString: event.optional.date,
+            week: weekNumberEvents.findIndex(week => week === getWeekNumber(new Date(event.optional.date))),
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
@@ -248,7 +264,8 @@ const TableView: React.FC = () => {
             description: event.optional.details,
             tags: event.type === 'Deadline' ? ['deadline'] : [],
         };
-    }) : undefined;
+    }).sort((evt1, evt2) => evt1.week - evt2.week)
+        : undefined;
 
     useEffect(() => {
         if (!loading) {
@@ -291,32 +308,34 @@ const TableView: React.FC = () => {
     );
 
     const showAllRows = () => {
-        setTableData(initialTableData);
+        if (initialTableData) {
+            setTableData(initialTableData);
+        }
     }
 
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
-               rowClassName={(record) => getRowEventsClasses(record)}
-               columns={columns.filter(column => column.visibility)}
-               rowSelection={{
-                   checkStrictly: true,
-                   onChange: newSelectRows,
-                   selections: [
-                       {
-                           key: 'hide',
-                           text: 'Hide selected rows',
-                           onSelect: () => hideRows()
-                       },
-                       {
-                           key: 'show',
-                           text: 'Show all rows',
-                           onSelect: () => showAllRows()
-                       },
-                   ]}
-               }
-               loading={loading}
-               dataSource={tableData}
-               bordered />;
+                       rowClassName={(record) => getRowEventsClasses(record)}
+                       columns={columns.filter(column => column.visibility)}
+                       rowSelection={{
+                           checkStrictly: true,
+                           onChange: newSelectRows,
+                           selections: [
+                               {
+                                   key: 'hide',
+                                   text: 'Hide selected rows',
+                                   onSelect: () => hideRows()
+                               },
+                               {
+                                   key: 'show',
+                                   text: 'Show all rows',
+                                   onSelect: () => showAllRows()
+                               },
+                           ]}
+                       }
+                       loading={loading}
+                       dataSource={tableData}
+                       bordered />
 
     return (
         <main>
