@@ -1,3 +1,63 @@
+@mixin accessability-styles {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: black;
+}
+
 button {
   cursor: pointer;
 }
+
+.accessability-on * {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: black;
+}
+
+.accessability-on  {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: black;
+
+  & .profile-btn, 
+  .settings-btn, 
+  .dropdown_columns_visible, 
+  .select-mode, 
+  .create-task-btn, 
+  .ant-tabs-nav-list:not(.ant-tabs-tab-active)  {
+    @include accessability-styles;
+    height: 40px;
+  }  
+  
+  & .ant-tabs-tab-active * ,
+  & a {
+    font-size: 1.1rem;
+    font-weight: 700!important;
+    color: rgb(41, 15, 114)!important;
+  }
+
+  & .ant-layout-sider-children * {
+    @include accessability-styles;
+  }
+
+  & .ant-select-selector {
+    height: 40px!important;
+  }
+
+  & .ant-layout-sider-dark {
+    flex: 0 0 320px!important;
+    max-width: 320px !important;
+    min-width: 320px !important;
+  }
+
+  & .ant-switch.ant-switch-checked {
+    background: #290f72;
+  }
+
+  & .ant-tag {
+    font-size: 1rem;
+    font-weight: normal;
+  }
+}
+
+

@@ -13,20 +13,13 @@ import { getRawContent, isMarkdown, getCoordinates, deleteEventById } from './he
 import TaskDescription from '../TaskDescription/TaskDescription';
 import { getEventsData } from '../../redux/actions';
 
-interface RootState {
-  allEventsData: EventData[];
-  app: {
-    loading: boolean,
-    errorText: string,
-  },
-}
-
 const TaskPage: React.FC = () => {
   const mode = useSelector<RootStateType>(state => state.app.mode);
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
   const dispatch = useDispatch();
-  const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
+  const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
+  const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
   const curEvent = allEventsData.find((event) => event._id === id);
   console.log(curEvent)
   const { Header, Content } = Layout;
@@ -66,7 +59,7 @@ const editPanel = (
     </div>
 )
   return (
-    <Layout>
+    <Layout className={accessability ? 'accessability-on' : ''}>
       <Header>
         <MainPageHeader />
       </Header>

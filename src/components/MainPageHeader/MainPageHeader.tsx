@@ -5,17 +5,27 @@ import { UserOutlined, EyeTwoTone, EyeInvisibleTwoTone } from '@ant-design/icons
 import './MainPageHeader.scss';
 
 import logo from '../../assets/img/logo-rsschool3.png';
+import { RootStateType } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { changeAccessability } from "../../redux/actions";
+
+
 
 const MainPageHeader: React.FC = () => {
-
   const { Title } = Typography;
+  const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
+  const dispatch = useDispatch();
+  const eyeIconStyle = { 
+    fontSize: '1.3rem', 
+    color: accessability ? '#290f72' : '#08c' 
+  }
 
   function onThemeChange(checked: boolean) {
     console.log(`switch to ${checked}`);
   }
 
   function onAccassabilityChange(checked: boolean) {
-    
+    dispatch(changeAccessability(checked))
   }
   
   return (
@@ -31,17 +41,17 @@ const MainPageHeader: React.FC = () => {
           </a>
         </li>
         <li>
-          <Title level={3}>Schedule</Title>
+          <Title level={accessability ? 2 : 3}>Schedule</Title>
         </li>
         <li>
           <div>
             <label> Dark mode </label>
             <Switch defaultChecked onChange={onThemeChange} />
           </div>
-          <div>
-            <label> <EyeInvisibleTwoTone /> </label>
-            <Switch onChange={onAccassabilityChange} />
-            <label> <EyeTwoTone /> </label>
+          <div className="align-flex">
+            <label> <EyeInvisibleTwoTone style={eyeIconStyle} /> </label>
+            <Switch checked={accessability} onChange={onAccassabilityChange} />
+            <label> <EyeTwoTone style={eyeIconStyle} /> </label>
           </div>
           <Button
             className="profile-btn"

@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     errorText: '',
     mode: localStorage.mode ? localStorage.mode : 'student',
-    accessability: false
+    accessability: localStorage.accessability ? localStorage.accessability : false
 }
 
 export const appReducer = (state = initialState, action: { type: string, payload: boolean | string }) => {

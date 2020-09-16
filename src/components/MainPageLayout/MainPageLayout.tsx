@@ -9,13 +9,15 @@ import TopPanel from '../TopPanel/TopPanel';
 
 import './MainPageLayout.scss';
 import { getEventsData } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "../types";
 
 const MainPageLayout: React.FC = () => {
   const { Header, Footer, Sider, Content } = Layout;  
+  const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
   return (
      <>
-      <Layout>
+      <Layout className={accessability ? 'accessability-on' : ''}>
         <Header>
           <MainPageHeader/>
         </Header>

@@ -36,11 +36,13 @@ const TopPanel: React.FC<Props> = () => {
 
   return (
     <div className="top-panel">
-        <div>
-            <Select defaultValue={mode}
-                    onChange={(value) => dispatch(changeMode(value))}>
-                <Option value="student">Student</Option>
-                <Option value="mentor">Mentor</Option>
+        <div className="left-bar">
+            <Select 
+                className="select-mode"
+                defaultValue={mode}
+                onChange={(value) => dispatch(changeMode(value))}>
+                    <Option value="student">Student</Option>
+                    <Option value="mentor">Mentor</Option>
             </Select>
             {
                 mode === 'mentor' ?

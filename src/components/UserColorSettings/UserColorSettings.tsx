@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Select, Radio, Button } from 'antd';
 import { SliderPicker } from 'react-color';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTableColors } from '../../redux/actions'
 
 import './user-color-settings.scss';
+import { RootStateType } from '../types';
 
 interface Events {
   eventsData: string[];
@@ -19,6 +20,7 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   const [task, setTask] = useState('Deadline');
   const defaultColorMessage = (color === '#eeeeee') ? <p>Color example</p> : null;
   const dispatch = useDispatch();
+  const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
 
   useEffect(() => {
     handleColor()
@@ -63,7 +65,7 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   const events = eventsData.map(event =>  <Option value={event} key={event}>{event}</Option>)
 
   return(
-    <div>
+    <div className={accessability ? 'accessability-on' : ''}>
       <p className="color-settings-title">Select task</p>
       <Select 
         getPopupContainer={trigger => trigger.parentNode}
