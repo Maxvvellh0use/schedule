@@ -117,12 +117,18 @@ const TaskCreatorLayout: React.FC = () => {
               <div className="container bottom-container">
                 <BottomContainer/>
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
-                  <Button type="primary" htmlType="submit" loading={loading}>
-                    {curEvent ? 'Complete edition' : 'Create'}
+                  <Button 
+                    className="form-submit-button"
+                    type="primary" 
+                    htmlType="submit" 
+                    loading={loading}>
+                      {curEvent ? 'Complete edition' : 'Create'}
                   </Button>
                 </Form.Item>
-                <Button type="link" onClick={() => history.push('/')} >
-                  Back to schedule
+                <Button 
+                  type="link"  
+                  onClick={() => history.push('/')} >
+                    Back to schedule
                 </Button>                
               </div>
             </Col>         

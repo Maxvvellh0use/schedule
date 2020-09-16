@@ -66,12 +66,12 @@ const editPanel = (
       <Content>
         <div className="container">
           <div className="top-container">
-            <Title level={4}>Event Info</Title>
+            <Title level={accessability ? 2 : 3}>Event Info</Title>
             { mode === 'mentor' ? editPanel : null }
           </div>
           <Divider />
           <div className="task-description">
-            { source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/> }
+            { source ? <ReactMarkdown className="markdown-container" source={source} /> : <TaskDescription event={curEvent}/> }
           </div>
           <Divider />
           <MapComponent

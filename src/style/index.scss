@@ -12,6 +12,7 @@ button {
   font-size: 1.1rem;
   font-weight: 700;
   color: black;
+  letter-spacing: 0.5px;
 }
 
 .accessability-on  {
@@ -19,18 +20,29 @@ button {
   font-weight: bold;
   color: black;
 
+  & .markdown-container * {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: black;
+  }
+
   & .profile-btn, 
   .settings-btn, 
   .dropdown_columns_visible, 
   .select-mode, 
   .create-task-btn, 
-  .ant-tabs-nav-list:not(.ant-tabs-tab-active)  {
+  .ant-tabs-nav-list:not(.ant-tabs-tab-active), 
+  .default-colors button,
+  .ant-modal-footer button,
+  .ant-form-item-label > label, 
+  .form-submit-button  {
     @include accessability-styles;
     height: 40px;
   }  
   
   & .ant-tabs-tab-active * ,
-  & a {
+  & a,
+  .ant-btn-link {
     font-size: 1.1rem;
     font-weight: 700!important;
     color: rgb(41, 15, 114)!important;
@@ -57,7 +69,7 @@ button {
   & .ant-tag {
     font-size: 1rem;
     font-weight: normal;
-  }
+  } 
 }
 
 
