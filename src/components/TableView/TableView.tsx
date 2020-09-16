@@ -39,7 +39,8 @@ const TableView: React.FC = () => {
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
-    const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
+    const tableColorStyle = useSelector<RootState,
+        {[key: string]: object}>(state => state.tableColorStyle);
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch]);
@@ -221,7 +222,8 @@ const TableView: React.FC = () => {
         },
     };
 
-    const handleResize = (title: string) => (e: any , sizeNode: { size: { width: number } }) => {
+    const handleResize = (title: string) => (e: any , sizeNode:
+        { size: { width: number } }) => {
         const nextColumnsWidths = Object.assign({}, columnsWidths);
         nextColumnsWidths[title] = sizeNode.size.width;
         setColumnsWidths(nextColumnsWidths);
@@ -241,7 +243,8 @@ const TableView: React.FC = () => {
         return {
             key: event._id,
             dateString: event.optional.date,
-            week: weekNumberEvents.findIndex(week => week === getWeekNumber(new Date(event.optional.date))),
+            week: weekNumberEvents.findIndex(week =>
+                week === getWeekNumber(new Date(event.optional.date))),
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
