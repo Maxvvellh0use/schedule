@@ -56,6 +56,7 @@ export const parseFormValuesToEventData = (values: Store): any => {
 
 
 export const createEvent = async (eventData: any) => {
+  console.log(eventData)
   try {
     const res = await fetch(`${urlApi}/event_create`, {
       method: 'POST',
