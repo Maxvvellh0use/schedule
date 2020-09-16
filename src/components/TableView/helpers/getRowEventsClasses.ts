@@ -1,6 +1,7 @@
 const isTodayEvent = (dateNow: Date, dateEvent: Date) => {
     return dateNow.getDate() === dateEvent.getDate() &&
-        dateNow.getMonth() === dateEvent.getMonth()
+        dateNow.getMonth() === dateEvent.getMonth() &&
+        dateNow.getFullYear() === dateEvent.getFullYear()
 }
 
 export const getRowEventsClasses = (record: any) => {
