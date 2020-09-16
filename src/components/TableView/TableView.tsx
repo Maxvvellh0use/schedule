@@ -67,7 +67,7 @@ const TableView: React.FC = () => {
 
     const columnsTable = [
         {
-            title: (language === 'eng') ? 'Date' : 'Дата',
+            title: 'Date',
             dataIndex: 'date',
             key: 'date',
             width: columnsWidths['Date'],
@@ -78,7 +78,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Time' : 'Время',
+            title: 'Time',
             dataIndex: 'time',
             key: 'time',
             width: columnsWidths['Time'],
@@ -89,7 +89,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Type' : 'Тип',
+            title: 'Type',
             dataIndex: 'type',
             key: 'type',
             width: columnsWidths['Type'],
@@ -102,7 +102,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Place' : 'Место',
+            title: 'Place',
             dataIndex: 'place',
             key: 'place',
             width: columnsWidths['Place'],
@@ -113,7 +113,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Name' : 'Название',
+            title: 'Name',
             dataIndex: 'name',
             key: 'name',
             width: columnsWidths['Name'],
@@ -125,7 +125,7 @@ const TableView: React.FC = () => {
 
         },
         {
-            title: (language === 'eng') ? 'Duration' : 'Продолжительность',
+            title: 'Duration',
             dataIndex: 'duration',
             key: 'duration',
             width: columnsWidths['Duration'],
@@ -136,7 +136,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Result' : 'Результат',
+            title: 'Result',
             dataIndex: 'result',
             key: 'result',
             width: columnsWidths['Result'],
@@ -147,7 +147,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Notate' : 'Нотация',
+            title: 'Notate',
             dataIndex: 'notate',
             key: 'notate',
             width: columnsWidths['Notate'],
@@ -158,7 +158,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Materials' : 'Материалы',
+            title: 'Materials',
             dataIndex: 'materials',
             key: 'materials',
             ellipsis: true,
@@ -170,7 +170,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Deadline' : 'Срок сдачи',
+            title: 'Deadline',
             dataIndex: 'deadline',
             key: 'deadline',
             width: columnsWidths['Deadline'],
@@ -181,7 +181,7 @@ const TableView: React.FC = () => {
             },
         },
         {
-            title: (language === 'eng') ? 'Tags' : 'Теги',
+            title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
             width: columnsWidths['Tags'],
@@ -197,7 +197,7 @@ const TableView: React.FC = () => {
         },
         mode === 'mentor' ?
         {
-            title: (language === 'eng') ? 'Action' : 'Действие',
+            title: 'Action',
             dataIndex: 'action',
             key: 'action',
             width: columnsWidths['Action'],
