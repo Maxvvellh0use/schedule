@@ -6,9 +6,8 @@ import {
   Col,
   Form,
   Button,
-  notification 
 } from 'antd';
-import { useHistory, useParams, Redirect } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
@@ -28,16 +27,13 @@ import enUS from 'antd/es/locale/en_US';
 import ruRU from 'antd/es/locale/ru_RU';
 import 'moment/locale/ru';
 
-interface RootState {
-  allEventsData: EventData[];
-}
-
 const TaskCreatorLayout: React.FC = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
   const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
-  const curEvent = allEventsData.find((event) => event._id === id);
+  const curEvent = allEventsData.length ? allEventsData.find((event) => event._id === id) : '';
   const { Header, Content } = Layout;
   const formItemLayout = {
     labelCol: { span: 20 },
@@ -45,8 +41,7 @@ const TaskCreatorLayout: React.FC = () => {
   };
   const [form] = Form.useForm();
 
-  const history = useHistory();  
-  const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (curEvent) {
@@ -69,7 +64,7 @@ const TaskCreatorLayout: React.FC = () => {
         notate: curEvent.optional.notate,
       });
     }
-  }, []);    
+  }, []);
   const language = useSelector<RootStateType, string>(state => state.app.language);
   const locale = ( language === 'eng') ? enUS : ruRU;
   if (language === 'eng') {
@@ -85,12 +80,12 @@ const TaskCreatorLayout: React.FC = () => {
     form.setFieldsValue({
       place: value,
     });
-  }  
+  }
 
   async function onFinish(values: Store) {
     setLoading(true);
     const eventData = parseFormValuesToEventData(values);
-    if (!id) {      
+    if (!id) {
       const res1 = await createEvent(eventData);
       if (res1 && res1.ok) {
         if (values.deadlineDate) {
@@ -98,14 +93,14 @@ const TaskCreatorLayout: React.FC = () => {
           openNotification(res2, id);
         }
       }
-      openNotification(res1, id);      
+      openNotification(res1, id);
     } else {
       const res1 = await changeEvent(id, eventData);
       openNotification(res1, id);
     }
     dispatch(getEventsData());
-    setLoading(false);    
-    history.push('/');    
+    setLoading(false);
+    history.push('/');
   }
 
   return (
@@ -116,7 +111,7 @@ const TaskCreatorLayout: React.FC = () => {
       </Header>
       <Button type="link" onClick={() => history.push('/')} >
         {backToSheduleBtn}
-      </Button> 
+      </Button>
       <Form
         form={form}
         onFinish={onFinish}
@@ -124,10 +119,10 @@ const TaskCreatorLayout: React.FC = () => {
         layout="vertical"
       >
         <Content>
-          <Row>          
+          <Row>
               <Col flex={1}>
                 <div className="container">
-                  <LeftPanel />                  
+                  <LeftPanel />
                 </div>
               </Col>
               <Col flex={3}>
@@ -136,22 +131,22 @@ const TaskCreatorLayout: React.FC = () => {
                 </div>
               <div className="container bottom-container">
                 <BottomContainer/>
-                <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
-                  <Button 
+                <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+                  <Button
                     className="form-submit-button"
-                    type="primary" 
-                    htmlType="submit" 
+                    type="primary"
+                    htmlType="submit"
                     loading={loading}>
                       {curEvent ? completeEdition : createBtn}
                   </Button>
                 </Form.Item>
-                <Button 
-                  type="link"  
+                <Button
+                  type="link"
                   onClick={() => history.push('/')} >
                     {backToSheduleBtn}
-                </Button>                
+                </Button>
               </div>
-            </Col>         
+            </Col>
           </Row>
         </Content>
       </Form>

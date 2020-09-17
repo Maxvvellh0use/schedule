@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './TaskPage.scss'
 
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {EventData , RootStateType} from '../types';
 import MainPageHeader from '../MainPageHeader/MainPageHeader';
@@ -12,15 +12,21 @@ import MapComponent from '../TaskCreator/MapComponent/MapComponent';
 import { getRawContent, isMarkdown, getCoordinates, deleteEventById } from './helpers';
 import TaskDescription from '../TaskDescription/TaskDescription';
 import { getEventsData } from '../../redux/actions';
+import { defaultEvent } from "./const";
 
 const TaskPage: React.FC = () => {
   const mode = useSelector<RootStateType>(state => state.app.mode);
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
+  console.log(id)
   const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getEventsData());
+    }, [dispatch]);
   const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
+  console.log(allEventsData)
   const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
-  const curEvent = allEventsData.find((event) => event._id === id);
+  const curEvent = allEventsData.length ? allEventsData.find((event) => event._id === id) : defaultEvent;
   const { Header, Content } = Layout;
   const { Title } = Typography;
 
@@ -29,15 +35,15 @@ const TaskPage: React.FC = () => {
       getRawContent(curEvent.optional.description)
         .then(res => setSource(res));
     }
-  },[])
+  },[curEvent])
 
-  async function confirmDeletion(e: any) {    
+  async function confirmDeletion(e: any) {
     await deleteEventById(curEvent?._id);
-    dispatch(getEventsData()); 
+    dispatch(getEventsData());
     message.success('Event deleted');
 }
 
-  function cancelDeletion(e: any) {  
+  function cancelDeletion(e: any) {
   }
 
 
@@ -75,7 +81,7 @@ const editPanel = (
             onMarkerMove={() => { }}
             coordinates={getCoordinates(curEvent)} />
           <Divider />
-          {(curEvent && curEvent.optional.feedback) 
+          {(curEvent && curEvent.optional.feedback)
             ? <div className="rate-container" >
                 <Rate /> <span>How do you like this task?</span>
               </div>
