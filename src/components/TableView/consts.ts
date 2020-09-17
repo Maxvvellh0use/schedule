@@ -2,6 +2,7 @@ export const deadlineColor = 'volcano';
 export const taskColor = 'green';
 
 export const columnNames = [
+    'Course',
     'Date',
     'Time',
     'Type',
@@ -16,6 +17,7 @@ export const columnNames = [
 ]
 
 export const defaultColumnsVisible: { [key: string]: boolean } = {
+    Course: true,
     Date: true,
     Time: true,
     Type: true,
@@ -30,6 +32,7 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
 }
 
 export const defaultColumnsWidths: { [key: string]: number } = {
+    Course: 50,
     Date: 65,
     Time: 50,
     Type: 70,
@@ -76,5 +79,24 @@ export const filtersType = [
     {
         text: 'Registration',
         value: 'Registration',
+    },
+]
+
+export const filtersCourse = [
+    {
+        text: 'JS Stage 1 2020 Q2',
+        value: 'JS Stage 1 2020 Q2',
+    },
+    {
+        text: 'JS Stage 2 2020 Q2',
+        value: 'JS Stage 2 2020 Q2',
+    },
+    {
+        text: 'React 2020 Q3',
+        value: 'React 2020 Q3',
+    },
+    {
+        text: 'EPAM course',
+        value: 'EPAM course',
     },
 ]

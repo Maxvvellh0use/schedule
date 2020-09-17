@@ -12,7 +12,7 @@ import {
     columnNames ,
     deadlineColor ,
     defaultColumnsVisible ,
-    defaultColumnsWidths ,
+    defaultColumnsWidths , filtersCourse ,
     filtersType ,
     taskColor
 } from "./consts";
@@ -67,6 +67,15 @@ const TableView: React.FC = () => {
     };
 
     const columnsTable = [
+        {
+            title: 'Course',
+            dataIndex: 'course',
+            key: 'course',
+            width: columnsWidths['Course'],
+            visibility: columnsVisible['Course'],
+            filters: filtersCourse,
+            onFilter: (value: string, record: any) => record.course.indexOf(value) === 0,
+        },
         {
             title: 'Date',
             dataIndex: 'date',
@@ -230,6 +239,7 @@ const TableView: React.FC = () => {
         return {
             key: event._id,
             dateString: event.optional.date,
+            course: event.course,
             date: getCorrectDate(event.optional.date),
             time: getCorrectTime(event.optional.date),
             type: event.type,
