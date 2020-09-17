@@ -1,18 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Timeline } from 'antd';
-
-import { SystemState } from "../../redux/types";
-import { EventData } from "../types";
+import { EventData , RootStateType } from "../types";
 
 import './ListView.scss'
 
 
-interface Props {
-  allEventsData: EventData[];
-}
-
-const ListView: React.FC<Props> = ({ allEventsData }) => {
+const ListView: React.FC = () => {
+  const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
   const events = allEventsData.map((event) => {
     return (
       <Timeline.Item
@@ -32,9 +27,4 @@ const ListView: React.FC<Props> = ({ allEventsData }) => {
  )
 }
 
-
-const mapStateToProps = (state: SystemState) => ({
-  allEventsData: state.allEventsData,
-})
-
-export default connect(mapStateToProps)(ListView);
+export default ListView;

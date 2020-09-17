@@ -1,6 +1,7 @@
 import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
+import {sortEventsByDate} from "./helpers/sortEventsByDate";
 
 export const showLoader = () => {
     return {
@@ -26,6 +27,7 @@ export const getEventsData = () => {
             dispatch(showLoader());
             const res = await fetch(`${urlApi}/events`);
             const data = await res.json();
+            data.sort(sortEventsByDate);
             dispatch({ type: GET_EVENTS, payload: data});
             dispatch(hideLoader());
         } catch (e) {
