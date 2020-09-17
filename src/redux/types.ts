@@ -5,6 +5,9 @@ export const SHOW_ERROR: string = 'APP/SHOW_ERROR';
 export const GET_TABLE_COLORS: string = 'TABLE_COLOR_STYLE/GET_TABLE_COLORS';
 export const CHANGE_MODE: string = 'APP/CHANGE_MODE';
 export const CHANGE_ACCESSABILITY: string = 'APP/CHANGE_ACCESSABILITY';
+export const SET_ENGLISH: string = 'APP/SET_ENGLISH';
+export const SET_RUSSIAN: string = 'APP/SET_RUSSIAN';
+
 
 export interface SystemState {
    allEventsData: EventData[];

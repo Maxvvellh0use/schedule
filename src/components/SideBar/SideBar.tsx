@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, Typography, List, Divider } from 'antd';
-import { ThunderboltOutlined, SmileOutlined } from '@ant-design/icons';
+import { ThunderboltOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 import './SideBar.scss'
 import { EventData, RootStateType } from "../types";
-import { useSelector } from "react-redux";
 import { getTodayEvents } from "./helpers";
 import { Link } from "react-router-dom";
 
@@ -18,6 +18,9 @@ const SideBar: React.FC = () => {
     
   }
 
+  const language = useSelector<RootStateType, string>(state => state.app.language);
+  const discAnnounce = (language === 'eng') ? 'Plan for today:' : 'План на сегодня:';
+
   return (
     <ul className="side-bar-content">
       <li className="calendar-container">
@@ -28,7 +31,7 @@ const SideBar: React.FC = () => {
           header={
             <div style={{display: "flex", alignItems: 'center'}}>
               <ThunderboltOutlined className="announce-icon" style={{ color: 'green'}} />
-              <Title level={4}>Plan for today:</Title>
+              <Title level={4}>{discAnnounce}</Title>
             </div>}
           bordered
           dataSource={todayEvents}
@@ -36,8 +39,7 @@ const SideBar: React.FC = () => {
             <List.Item>
               <Link to={`/task/${event._id}`}>{event.name}</Link>
             </List.Item>} />
-        
-      </li>
+        </li>
     </ul>
   );
 }

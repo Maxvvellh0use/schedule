@@ -72,5 +72,6 @@ export interface RootStateType {
         errorText: string,
         mode: string,
         accessability: boolean
+        language: string
     },
 }

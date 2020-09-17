@@ -16,17 +16,24 @@ interface Props {
     allEventsData: EventData[];
 }
 
-
 const TopPanel: React.FC<Props> = () => {
     const { Option } = Select;
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
+    const language = useSelector<RootStateType, string>(state => state.app.language);
     const allEventsData = useSelector<Props, EventData[]>(state => state.allEventsData);
     const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
     const eventsData = allEventsData.length ? getEventTypes(allEventsData) : [];
 
     const [isShowModal, setModal] = useState(false);
 
+    const modeOptionStudent = (language === 'eng') ? 'Student' : 'Студент';
+    const modeOptionMentor = (language === 'eng') ? 'Mentor' : 'Ментор';
+    const createNewTask = (language === 'eng') ? 'Create new task +' : 'Создать новое задание +';
+    const saveSheduleAs = (language === 'eng') ? 'Save shedule as:' : 'Сохранить расписание как:';
+    const colorSettingsBtn = (language === 'eng') ? 'Settings' : 'Настройки';
+    const closeColorSettingsBtn = (language === 'eng') ? 'Close' : 'Закрыть';
+    
     const showModal = () => {
         setModal(true);
     };
@@ -42,34 +49,34 @@ const TopPanel: React.FC<Props> = () => {
                 className="select-mode"
                 defaultValue={mode}
                 onChange={(value) => dispatch(changeMode(value))}>
-                    <Option value="student">Student</Option>
-                    <Option value="mentor">Mentor</Option>
+                    <Option value="student">{modeOptionStudent}</Option>
+                    <Option value="mentor">{modeOptionMentor}</Option>
             </Select>
             {
                 mode === 'mentor' ?
                     <NavLink to="/task-creator">
-                        <Button className="create-task-btn">Create new task + </Button>
+                        <Button className="create-task-btn">{createNewTask}</Button>
                     </NavLink> : null
             }
         </div>
       <div className="right-bar">
         <div className="save-container">
-          <p>Save schedule as:
+          <p>{saveSheduleAs}
             <a>xlsx</a>,
             <a>pdf</a>
             <DownloadOutlined />
           </p>
         </div>
-          <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
+          <Button className="settings-btn" onClick={() => showModal()}>{colorSettingsBtn}<SettingOutlined /> </Button>
           <Modal
               className={accessability ? 'accessability-on' : ''}
               style={{top: 20}}
-              title="Settings"
+              title={colorSettingsBtn}
               visible={isShowModal}
               onCancel={handleCancel}
               footer={[
                   <Button key="submit" type="primary" onClick={handleCancel}>
-                      Close
+                      {closeColorSettingsBtn}
                   </Button>,
               ]}
           >

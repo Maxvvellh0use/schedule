@@ -34,10 +34,14 @@ interface RootState {
 const TableView: React.FC = () => {
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
+    const language = useSelector<RootStateType, string>(state => state.app.language);
     const errorText = useSelector<RootState, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
+    
+    const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
+      
     useEffect(() => {
         dispatch(getEventsData());              
     }, [dispatch]);
@@ -322,7 +326,7 @@ const TableView: React.FC = () => {
                     <Dropdown className='dropdown_columns_visible'
                               overlay={menu}
                               placement="bottomLeft">
-                        <Button>Columns Visibility</Button>
+                        <Button>{columnsVisibilityBtn}</Button>
                     </Dropdown>
                 </div>
                 { tableView }

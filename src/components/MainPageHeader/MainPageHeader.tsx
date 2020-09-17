@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Button, Avatar, Switch, Typography } from 'antd';
+import { Button, Avatar, Switch, Typography, Radio } from 'antd';
 import { UserOutlined, EyeTwoTone, EyeInvisibleTwoTone } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { setEnglish, setRussian } from '../../redux/actions'
 
 import './MainPageHeader.scss';
 
 import logo from '../../assets/img/logo-rsschool3.png';
 import { RootStateType } from "../types";
-import { useDispatch, useSelector } from "react-redux";
 import { changeAccessability } from "../../redux/actions";
 
 
+interface State {
+  app: {
+    language: string
+  }
+}
 
 const MainPageHeader: React.FC = () => {
+
+  const dispatch = useDispatch();
+
+  const language = useSelector<State, string>(state => state.app.language);
+  
   const { Title } = Typography;
   const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
-  const dispatch = useDispatch();
   const eyeIconStyle = { 
     fontSize: '1.3rem', 
     color: accessability ? '#290f72' : '#08c' 
@@ -27,6 +37,18 @@ const MainPageHeader: React.FC = () => {
   function onAccassabilityChange(checked: boolean) {
     dispatch(changeAccessability(checked))
   }
+
+  function changeLanguage(e: any) {
+    const language = e.target.value;
+    localStorage.language = language;
+    if ( language === 'eng' ) {
+      dispatch(setEnglish())
+    } else { dispatch(setRussian()) }
+  }
+
+  const sheduleTitle = (language === 'eng') ? 'Schedule' : 'Расписание';
+  const theme = (language === 'eng') ? 'Dark mode' : 'Темная тема';
+  const profile = (language === 'eng') ? 'My profile' : 'Мой профиль';
   
   return (
     <nav>
@@ -41,11 +63,11 @@ const MainPageHeader: React.FC = () => {
           </a>
         </li>
         <li>
-          <Title level={accessability ? 2 : 3}>Schedule</Title>
+          <Title level={accessability ? 2 : 3}>{sheduleTitle}</Title>
         </li>
         <li>
           <div>
-            <label> Dark mode </label>
+            <label> {theme} </label>
             <Switch defaultChecked onChange={onThemeChange} />
           </div>
           <div className="align-flex">
@@ -53,6 +75,7 @@ const MainPageHeader: React.FC = () => {
             <Switch checked={accessability} onChange={onAccassabilityChange} />
             <label> <EyeTwoTone style={eyeIconStyle} /> </label>
           </div>
+
           <Button
             className="profile-btn"
             type="dashed">
@@ -60,8 +83,17 @@ const MainPageHeader: React.FC = () => {
               className="avatar"
               size="small"
               icon={<UserOutlined />} />
-            My profile
+            {profile}
           </Button>
+        </li>
+        <li><Radio.Group 
+              defaultValue={language} 
+              size="small"
+              onChange={changeLanguage}
+            >
+              <Radio.Button value="eng">Eng</Radio.Button>
+              <Radio.Button value="ru">Ru</Radio.Button>
+            </Radio.Group>
         </li>
       </ul>
     </nav>
