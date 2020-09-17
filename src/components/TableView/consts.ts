@@ -1,6 +1,3 @@
-export const deadlineColor = 'volcano';
-export const taskColor = 'green';
-
 export const columnNames = [
     'Course',
     'Date',
@@ -13,7 +10,6 @@ export const columnNames = [
     'Notate',
     'Materials',
     'Deadline',
-    'Tags',
 ]
 
 export const defaultColumnsVisible: { [key: string]: boolean } = {
@@ -28,7 +24,6 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
     Notate: false,
     Materials: true,
     Deadline: true,
-    Tags: true,
 }
 
 export const defaultColumnsWidths: { [key: string]: number } = {
@@ -43,7 +38,6 @@ export const defaultColumnsWidths: { [key: string]: number } = {
     Notate: 30,
     Materials: 100,
     Deadline: 110,
-    Tags: 70,
     Action: 100,
 }
 

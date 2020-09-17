@@ -10,11 +10,9 @@ import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
 import { getEventsData } from "../../redux/actions";
 import {
     columnNames ,
-    deadlineColor ,
     defaultColumnsVisible ,
     defaultColumnsWidths , filtersCourse ,
     filtersType ,
-    taskColor
 } from "./consts";
 import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
@@ -22,6 +20,7 @@ import { ActionPanel } from "./ActionPanel/ActionPanel";
 
 import './TableView.scss';
 import { getRowEventsClasses } from "./helpers/getRowEventsClasses";
+import {getTypeColor} from "./helpers/getTypeColor";
 
 interface RootState {
     allEventsData: EventData[];
@@ -40,9 +39,9 @@ const TableView: React.FC = () => {
     const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootState, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
-    
+
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
-      
+
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch]);
@@ -107,7 +106,7 @@ const TableView: React.FC = () => {
             filters: filtersType,
             onFilter: (value: string, record: any) => record.type.indexOf(value) === 0,
             render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
+                const child = <Tag color={getTypeColor(text)}>{text.toUpperCase()}</Tag>;
                 return colorHandler(child, record.type);
             },
         },
@@ -187,21 +186,6 @@ const TableView: React.FC = () => {
             visibility: columnsVisible['Deadline'],
             render: (text: string, record: {type: string}) => {
                 const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
-        },
-        {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            width: columnsWidths['Tags'],
-            visibility: columnsVisible['Tags'],
-            render: (tags: string[], record: {type: string}) => {
-                const child = tags.map(tag =>
-                                <Tag color={tag === 'deadline' ? deadlineColor : taskColor}
-                                     key={tag}>
-                                    {tag.toUpperCase()}
-                                </Tag>);
                 return colorHandler(child, record.type);
             },
         },
