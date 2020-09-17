@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Select, Radio, Button } from 'antd';
 import { SliderPicker } from 'react-color';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTableColors } from '../../redux/actions'
 
 import './user-color-settings.scss';
+
 
 interface Events {
   eventsData: string[];
@@ -19,6 +20,7 @@ const UserColorSettings: React.FC<Events> = ({eventsData}) => {
   const [task, setTask] = useState('Deadline');
   const defaultColorMessage = (color === '#eeeeee') ? <p>Color example</p> : null;
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     handleColor()

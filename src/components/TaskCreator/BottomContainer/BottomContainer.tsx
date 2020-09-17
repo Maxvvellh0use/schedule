@@ -13,7 +13,6 @@ import './BottomContainer.scss';
 
 const BottomContainer: React.FC = () => {
   const normFile = (e: { fileList: any }) => {
-    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }

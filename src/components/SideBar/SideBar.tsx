@@ -15,7 +15,7 @@ const SideBar: React.FC = () => {
   const todayEvents = allEventsData.length ? getTodayEvents(allEventsData) : undefined;
  
   function onPanelChange(value: any, mode: any) {
-    console.log(value, mode);
+    
   }
 
   return (

@@ -1,11 +1,19 @@
+@mixin horisontal-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.align-flex {
+  @include horisontal-flex;
+}
+
 ul li {
   list-style: none;
 }
 
 .ant-layout-header ul {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include horisontal-flex;
   padding: 0;
   margin: 0;
 
@@ -13,10 +21,10 @@ ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
+    width: 40vw;
 
     & label {
-      margin-right: 5px;
+      margin: 0 5px;
     }
   }
 }

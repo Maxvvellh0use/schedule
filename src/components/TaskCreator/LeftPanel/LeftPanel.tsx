@@ -31,7 +31,6 @@ const LeftPanel: React.FC = () => {
   };
 
   function addItem() {
-    console.log('addItem');
     setTaskTypes((prevState: { initialTypes: string[], newType: string }) => {
       prevState.initialTypes.push(prevState.newType);
       return {
@@ -94,7 +93,7 @@ const LeftPanel: React.FC = () => {
       <Select
         showSearch
         placeholder="Select course">
-          {COURSES.map((course: any) => <Select.Option value={course}>{course}</Select.Option>)}
+          {COURSES.map((course: any) => <Select.Option key={course} value={course}>{course}</Select.Option>)}
       </Select>      
     </Form.Item>
       

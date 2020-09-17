@@ -13,22 +13,14 @@ import { getRawContent, isMarkdown, getCoordinates, deleteEventById } from './he
 import TaskDescription from '../TaskDescription/TaskDescription';
 import { getEventsData } from '../../redux/actions';
 
-interface RootState {
-  allEventsData: EventData[];
-  app: {
-    loading: boolean,
-    errorText: string,
-  },
-}
-
 const TaskPage: React.FC = () => {
   const mode = useSelector<RootStateType>(state => state.app.mode);
   const [source, setSource] = useState <string | undefined>('');
   const { id } = useParams();
   const dispatch = useDispatch();
-  const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
+  const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
+  const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
   const curEvent = allEventsData.find((event) => event._id === id);
-  console.log(curEvent)
   const { Header, Content } = Layout;
   const { Title } = Typography;
 
@@ -39,15 +31,13 @@ const TaskPage: React.FC = () => {
     }
   },[])
 
-  async function confirmDeletion(e: any) {
-    console.log(e);
+  async function confirmDeletion(e: any) {    
     await deleteEventById(curEvent?._id);
     dispatch(getEventsData()); 
     message.success('Event deleted');
 }
 
-  function cancelDeletion(e: any) {
-  console.log(e);
+  function cancelDeletion(e: any) {  
   }
 
 
@@ -66,19 +56,19 @@ const editPanel = (
     </div>
 )
   return (
-    <Layout>
+    <Layout className={accessability ? 'accessability-on' : ''}>
       <Header>
         <MainPageHeader />
       </Header>
       <Content>
         <div className="container">
           <div className="top-container">
-            <Title level={4}>Event Info</Title>
+            <Title level={accessability ? 2 : 3}>Event Info</Title>
             { mode === 'mentor' ? editPanel : null }
           </div>
           <Divider />
           <div className="task-description">
-            { source ? <ReactMarkdown source={source} /> : <TaskDescription event={curEvent}/> }
+            { source ? <ReactMarkdown className="markdown-container" source={source} /> : <TaskDescription event={curEvent}/> }
           </div>
           <Divider />
           <MapComponent

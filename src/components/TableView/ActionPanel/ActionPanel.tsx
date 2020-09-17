@@ -32,7 +32,6 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
     }
 
     const cancelDeletion = (e: any) => {
-        console.log(e);
         message.error('Click on No');
     }
 

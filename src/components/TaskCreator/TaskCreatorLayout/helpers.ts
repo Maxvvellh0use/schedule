@@ -6,7 +6,6 @@ import { notification } from "antd";
 const dateFormat = 'MMMM DD, YYYY hh:mm:ss';
 
 export const parseFormValuesToEventData = (values: Store): any => {
-  console.log(values);
   const {
     date,
     deadlineDate,
@@ -64,7 +63,7 @@ export const createEvent = async (eventData: any) => {
       },
       body: JSON.stringify(eventData),
     });
-    console.log(res)
+    
     return res;
   } catch (e) {
     console.error(e)
@@ -74,12 +73,10 @@ export const createEvent = async (eventData: any) => {
 export const createDeadlineEvent = async (eventData: any) => {
   const deadlineEvent = { ...eventData, type: 'Deadline', name: `Deadline: ${eventData.name}` };
   deadlineEvent.optional = { ...eventData.optional, deadline: '', date: eventData.optional.deadline }
-  console.log(deadlineEvent);
   return await createEvent(deadlineEvent);
 }
 
 export const changeEvent = async (id:number, eventData: any) => {
-  console.log(eventData)
   try {
 
     const res = await fetch(`${urlApi}/update_event/${id}`, {
@@ -89,7 +86,6 @@ export const changeEvent = async (id:number, eventData: any) => {
       },
       body: JSON.stringify(eventData),
     });
-    console.log(res)
     return res;
   } catch (e) {
     console.error(e)
@@ -97,7 +93,6 @@ export const changeEvent = async (id:number, eventData: any) => {
 }
 
 export const openNotification = (res: any, id: number) => {
-  console.log(res)
   if (id) {
     notification.open({
       message: res.ok ? 'Event Successfully Updated' : 'Event Editing Failed',

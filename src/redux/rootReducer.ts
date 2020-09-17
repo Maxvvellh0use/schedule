@@ -6,5 +6,5 @@ import { getTableColorStyle } from "./reducers/getTableColorStyle"
 export const rootReducer = combineReducers({
     allEventsData: setEventsDataReducer,
     app: appReducer,
-    tableColorStyle: getTableColorStyle
+    tableColorStyle: getTableColorStyle,
 });

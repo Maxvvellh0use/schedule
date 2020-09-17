@@ -22,6 +22,7 @@ const TopPanel: React.FC<Props> = () => {
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
     const allEventsData = useSelector<Props, EventData[]>(state => state.allEventsData);
+    const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
     const eventsData = allEventsData.length ? getEventTypes(allEventsData) : [];
 
     const [isShowModal, setModal] = useState(false);
@@ -36,11 +37,13 @@ const TopPanel: React.FC<Props> = () => {
 
   return (
     <div className="top-panel">
-        <div>
-            <Select defaultValue={mode}
-                    onChange={(value) => dispatch(changeMode(value))}>
-                <Option value="student">Student</Option>
-                <Option value="mentor">Mentor</Option>
+        <div className="left-bar">
+            <Select 
+                className="select-mode"
+                defaultValue={mode}
+                onChange={(value) => dispatch(changeMode(value))}>
+                    <Option value="student">Student</Option>
+                    <Option value="mentor">Mentor</Option>
             </Select>
             {
                 mode === 'mentor' ?
@@ -59,6 +62,7 @@ const TopPanel: React.FC<Props> = () => {
         </div>
           <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
           <Modal
+              className={accessability ? 'accessability-on' : ''}
               style={{top: 20}}
               title="Settings"
               visible={isShowModal}

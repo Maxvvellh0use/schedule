@@ -4,7 +4,7 @@ export const HIDE_LOADER: string = 'APP/HIDE_LOADER';
 export const SHOW_ERROR: string = 'APP/SHOW_ERROR';
 export const GET_TABLE_COLORS: string = 'TABLE_COLOR_STYLE/GET_TABLE_COLORS';
 export const CHANGE_MODE: string = 'APP/CHANGE_MODE';
-
+export const CHANGE_ACCESSABILITY: string = 'APP/CHANGE_ACCESSABILITY';
 
 export interface SystemState {
    allEventsData: EventData[];

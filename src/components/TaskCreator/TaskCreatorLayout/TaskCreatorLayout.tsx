@@ -18,19 +18,16 @@ import BottomContainer from '../BottomContainer/BottomContainer';
 
 import './TaskCreatorLayout.scss';
 
-import { EventData } from '../../types';
+import { EventData, RootStateType } from '../../types';
 import { parseFormValuesToEventData, createEvent, createDeadlineEvent, openNotification, changeEvent } from './helpers';
 import { getEventsData } from '../../../redux/actions';
 import { Store } from 'antd/lib/form/interface';
 
-interface RootState {
-  allEventsData: EventData[];
-}
-
 const TaskCreatorLayout: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
+  const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
+  const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
   const curEvent = allEventsData.find((event) => event._id === id);
   const { Header, Content } = Layout;
   const formItemLayout = {
@@ -93,7 +90,7 @@ const TaskCreatorLayout: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <Layout className={accessability ? 'accessability-on' : ''}>
       <Header>
         <MainPageHeader />
       </Header>
@@ -120,12 +117,18 @@ const TaskCreatorLayout: React.FC = () => {
               <div className="container bottom-container">
                 <BottomContainer/>
                 <Form.Item wrapperCol={{ span: 12, offset: 6 }}> 
-                  <Button type="primary" htmlType="submit" loading={loading}>
-                    {curEvent ? 'Complete edition' : 'Create'}
+                  <Button 
+                    className="form-submit-button"
+                    type="primary" 
+                    htmlType="submit" 
+                    loading={loading}>
+                      {curEvent ? 'Complete edition' : 'Create'}
                   </Button>
                 </Form.Item>
-                <Button type="link" onClick={() => history.push('/')} >
-                  Back to schedule
+                <Button 
+                  type="link"  
+                  onClick={() => history.push('/')} >
+                    Back to schedule
                 </Button>                
               </div>
             </Col>         
