@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Button, Select, Modal, Avatar, Switch, Typography } from 'antd';
+import React, { useState } from "react";
+import { Button, Select, Modal } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch , useSelector} from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -9,7 +9,6 @@ import './TopPanel.scss';
 
 import UserColorSettings from '../UserColorSettings/UserColorSettings'
 import { getEventTypes } from './helpers/getEventTypes'
-import { SystemState } from "../../redux/types";
 import { EventData, RootStateType } from "../types";
 import { changeMode } from "../../redux/actions";
 import { getEventsDataCsv } from "./helpers/getEventsDataCsv";
@@ -64,7 +63,7 @@ const TopPanel: React.FC = () => {
         </div>
       <div className="right-bar">
         <div className="save-container">
-          <p>Save schedule as:
+          <p>{saveSheduleAs}:
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
               <DownloadOutlined />
           </p>
@@ -88,6 +87,5 @@ const TopPanel: React.FC = () => {
     </div>
   )
 }
-
 
 export default TopPanel;
