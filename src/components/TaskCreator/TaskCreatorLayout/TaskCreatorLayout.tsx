@@ -70,7 +70,6 @@ const TaskCreatorLayout: React.FC = () => {
 
   async function onFinish(values: Store) {
     setLoading(true);
-    console.log(values);
     const eventData = parseFormValuesToEventData(values);
     if (!id) {      
       const res1 = await createEvent(eventData);

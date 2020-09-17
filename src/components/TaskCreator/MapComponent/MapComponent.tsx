@@ -31,8 +31,7 @@ const MapComponent: React.FC<Props> = ({ onMarkerMove, coordinates}) => {
     if (!coordinates) {
       getCurrentCoordinates()
         .then((res) => {
-          setCoords(res);
-          console.log(res);
+          setCoords(res);          
         })
         .catch(() => { setErrorText('Error data request!'); })
     } else {

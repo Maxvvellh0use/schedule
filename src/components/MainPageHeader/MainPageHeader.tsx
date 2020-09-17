@@ -21,7 +21,7 @@ const MainPageHeader: React.FC = () => {
   }
 
   function onThemeChange(checked: boolean) {
-    console.log(`switch to ${checked}`);
+    
   }
 
   function onAccassabilityChange(checked: boolean) {

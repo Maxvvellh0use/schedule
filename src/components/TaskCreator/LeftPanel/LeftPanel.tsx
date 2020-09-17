@@ -31,7 +31,6 @@ const LeftPanel: React.FC = () => {
   };
 
   function addItem() {
-    console.log('addItem');
     setTaskTypes((prevState: { initialTypes: string[], newType: string }) => {
       prevState.initialTypes.push(prevState.newType);
       return {

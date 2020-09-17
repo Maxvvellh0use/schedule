@@ -21,7 +21,6 @@ const TaskPage: React.FC = () => {
   const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
   const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
   const curEvent = allEventsData.find((event) => event._id === id);
-  console.log(curEvent)
   const { Header, Content } = Layout;
   const { Title } = Typography;
 
@@ -32,15 +31,13 @@ const TaskPage: React.FC = () => {
     }
   },[])
 
-  async function confirmDeletion(e: any) {
-    console.log(e);
+  async function confirmDeletion(e: any) {    
     await deleteEventById(curEvent?._id);
     dispatch(getEventsData()); 
     message.success('Event deleted');
 }
 
-  function cancelDeletion(e: any) {
-  console.log(e);
+  function cancelDeletion(e: any) {  
   }
 
 

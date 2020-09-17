@@ -5,8 +5,7 @@ import { urlApi } from '../../data/const';
 export async function getRawContent(url: string) {
   try {
     const res = await fetch(transformLinkToRawContent(url));
-    const data = await res.text();
-    console.log(data)
+    const data = await res.text();    
     return data;
   } catch (e) {
     console.error(e);
