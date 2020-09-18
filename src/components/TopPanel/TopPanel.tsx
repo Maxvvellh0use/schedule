@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { Button, Select, Modal, Avatar, Switch, Typography } from 'antd';
+import React, { useState } from "react";
+import { Button, Select, Modal } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
-import {connect , useDispatch , useSelector} from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { CSVLink } from 'react-csv'
 
 import './TopPanel.scss';
 
 import UserColorSettings from '../UserColorSettings/UserColorSettings'
 import { getEventTypes } from './helpers/getEventTypes'
-import { SystemState } from "../../redux/types";
 import { EventData, RootStateType } from "../types";
 import { changeMode } from "../../redux/actions";
+import { getEventsDataCsv } from "./helpers/getEventsDataCsv";
 
-interface Props {
-    allEventsData: EventData[];
-}
 
-const TopPanel: React.FC<Props> = () => {
+
+const TopPanel: React.FC = () => {
     const { Option } = Select;
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
-    const language = useSelector<RootStateType, string>(state => state.app.language);
-    const allEventsData = useSelector<Props, EventData[]>(state => state.allEventsData);
-    const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
+    const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
     const eventsData = allEventsData.length ? getEventTypes(allEventsData) : [];
+    const dataForCsv = allEventsData.length ? allEventsData.map(getEventsDataCsv) : [];
 
-    const [isShowModal, setModal] = useState(false);
+    const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
 
+    const language = useSelector<RootStateType, string>(state => state.app.language);
     const modeOptionStudent = (language === 'eng') ? 'Student' : 'Студент';
     const modeOptionMentor = (language === 'eng') ? 'Mentor' : 'Ментор';
     const createNewTask = (language === 'eng') ? 'Create new task +' : 'Создать новое задание +';
     const saveSheduleAs = (language === 'eng') ? 'Save shedule as:' : 'Сохранить расписание как:';
     const colorSettingsBtn = (language === 'eng') ? 'Settings' : 'Настройки';
     const closeColorSettingsBtn = (language === 'eng') ? 'Close' : 'Закрыть';
-    
+
+
+    const [isShowModal, setModal] = useState(false);
+
     const showModal = () => {
         setModal(true);
     };
@@ -45,12 +47,12 @@ const TopPanel: React.FC<Props> = () => {
   return (
     <div className="top-panel">
         <div className="left-bar">
-            <Select 
+            <Select
                 className="select-mode"
                 defaultValue={mode}
                 onChange={(value) => dispatch(changeMode(value))}>
-                    <Option value="student">{modeOptionStudent}</Option>
-                    <Option value="mentor">{modeOptionMentor}</Option>
+                <Option value="student">{modeOptionStudent}</Option>
+                <Option value="mentor">{modeOptionMentor}</Option>
             </Select>
             {
                 mode === 'mentor' ?
@@ -61,13 +63,12 @@ const TopPanel: React.FC<Props> = () => {
         </div>
       <div className="right-bar">
         <div className="save-container">
-          <p>{saveSheduleAs}
-            <a>xlsx</a>,
-            <a>pdf</a>
-            <DownloadOutlined />
+          <p>{saveSheduleAs}:
+              <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
+              <DownloadOutlined />
           </p>
         </div>
-          <Button className="settings-btn" onClick={() => showModal()}>{colorSettingsBtn}<SettingOutlined /> </Button>
+          <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
           <Modal
               className={accessability ? 'accessability-on' : ''}
               style={{top: 20}}
@@ -87,8 +88,4 @@ const TopPanel: React.FC<Props> = () => {
   )
 }
 
-const mapStateToProps = (state: SystemState) => ({
-    allEventsData: state.allEventsData,
-})
-
-export default connect(mapStateToProps)(TopPanel);
+export default TopPanel;
