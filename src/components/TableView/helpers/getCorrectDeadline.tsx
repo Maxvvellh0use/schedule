@@ -1,3 +1,4 @@
 export const getCorrectDeadline = (deadlineDate: string): string => {
-    return deadlineDate ? new Date(deadlineDate).toLocaleString().slice(0, -3) : '';
+    const zone = localStorage.getItem('timezone');
+    return deadlineDate ? new Date(deadlineDate).toLocaleString('en-GB', {timeZone: `${zone}`} ).slice(0, -3) : '';
 }
