@@ -37,7 +37,7 @@ export const defaultColumnsWidths: { [key: string]: number } = {
     Result: 50,
     Notate: 30,
     Materials: 100,
-    Deadline: 110,
+    Deadline: 85,
     Action: 60,
 }
 
