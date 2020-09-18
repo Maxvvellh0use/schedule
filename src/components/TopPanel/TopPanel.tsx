@@ -44,8 +44,7 @@ const TopPanel: React.FC<Props> = () => {
             <DownloadOutlined />
           </p>
         </div>
-        <TimezoneContainer/>
-        <Button className="settings-btn">Settings <SettingOutlined /> </Button>
+        <TimezoneContainer allEventsData = {allEventsData}/>
       </div>
       <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
       <Modal
