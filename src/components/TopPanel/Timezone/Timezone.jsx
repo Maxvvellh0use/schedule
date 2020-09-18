@@ -5,14 +5,21 @@ import { ClockCircleOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 const Timezone = (props) => {
+
     const zoneItem = props.zones.zones.map(i => {
-    return <Option value= { i} key = { i } > { i }  </Option>
-    })
       
+    return <Option value= { i} key = { i } > { i }  </Option>
+
+    })
+    console.log(zoneItem);
       return (
           <div>
-            <Select defaultValue={ localStorage.getItem('timezone') || props.zones.defaultZone } style={{ width: 250 }} onChange={props.changeTimeZone}>
+            <Select 
+             value={ localStorage.getItem('timezone') || props.zones.defaultZone }
+             style={{ width: 250 }} 
+             onChange={props.changeTimeZone}>
                 { zoneItem }
+
             </Select>
           </div>
       )

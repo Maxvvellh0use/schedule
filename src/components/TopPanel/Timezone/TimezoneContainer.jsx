@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import Timezone from './Timezone';
 import { changeTimezoneActCreator } from '../../../redux/reducers/timezoneReduser';
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   debugger
     return {
       zones: state.timezone,
     }
   }
   
-let mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
       changeTimeZone: (zone) => dispatch(changeTimezoneActCreator(zone)),
   }

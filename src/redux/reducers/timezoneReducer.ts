@@ -393,7 +393,7 @@ const initialState = {
     ],
 }
 
-const timezoneReduser = (state = initialState, action) => {
+const timezoneReduser = (state = initialState, action:{type:string, zone:string}) => {
     switch(action.type) {
         case CHANGE_TIMEZONE: {
             localStorage.setItem('timezone', action.zone);
@@ -405,6 +405,6 @@ const timezoneReduser = (state = initialState, action) => {
     }
 }
 
-export const changeTimezoneActCreator = (zone) => ({type: CHANGE_TIMEZONE, zone: zone });
+export const changeTimezoneActCreator = (zone:string) => ({type: CHANGE_TIMEZONE, zone: zone });
 
 export default timezoneReduser;
