@@ -1,4 +1,4 @@
-import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN} from "./types";
+import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN, SET_DATE} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 
@@ -66,5 +66,12 @@ export const setEnglish = () => {
 export const setRussian = () => {
     return {
         type: SET_RUSSIAN,
+    }
+}
+
+export const setDate = (date: string) => {
+    return {
+        type: SET_DATE,
+        payload: date
     }
 }

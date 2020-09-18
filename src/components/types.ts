@@ -71,7 +71,9 @@ export interface RootStateType {
         loading: boolean,
         errorText: string,
         mode: string,
-        accessability: boolean
-        language: string
+        accessability: boolean,
+        language: string,
+        date: string,
     },
+    tableColorStyle: {[key: string]: object}
 }

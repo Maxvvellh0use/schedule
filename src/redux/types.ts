@@ -7,7 +7,7 @@ export const CHANGE_MODE: string = 'APP/CHANGE_MODE';
 export const CHANGE_ACCESSABILITY: string = 'APP/CHANGE_ACCESSABILITY';
 export const SET_ENGLISH: string = 'APP/SET_ENGLISH';
 export const SET_RUSSIAN: string = 'APP/SET_RUSSIAN';
-
+export const SET_DATE: string = 'APP/SET_DATE';
 
 export interface SystemState {
    allEventsData: EventData[];

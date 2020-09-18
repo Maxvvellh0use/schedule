@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, Typography, List, Divider } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import './SideBar.scss'
 import { EventData, RootStateType } from "../types";
 import { getTodayEvents } from "./helpers";
-import { Link } from "react-router-dom";
-
+import { setDate } from "../../redux/actions";
+import moment from "moment";
 
 const SideBar: React.FC = () => {
   const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
   const { Title, Text } = Typography;
   const todayEvents = allEventsData.length ? getTodayEvents(allEventsData) : undefined;
+  const dispatch = useDispatch();
  
-  function onPanelChange(value: any, mode: any) {
-    
+  function onSelect(value: moment.Moment) {
+    dispatch(setDate(value.format('DD.MM.YYYY')))
   }
 
   const language = useSelector<RootStateType, string>(state => state.app.language);
@@ -24,7 +26,7 @@ const SideBar: React.FC = () => {
   return (
     <ul className="side-bar-content">
       <li className="calendar-container">
-        <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+        <Calendar fullscreen={false} onSelect={onSelect}/>
       </li>
       <li className="announce-container">
         <List size="small"
