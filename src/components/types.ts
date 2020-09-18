@@ -38,6 +38,7 @@ export interface ListTypes {
     type: "success" | "processing" | "error" | "default" | "warning" | undefined,
     content: string,
     link: string,
+    _id: number,
 }
 
 export interface TableData {

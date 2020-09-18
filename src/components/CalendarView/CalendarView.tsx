@@ -10,6 +10,7 @@ import { getCurrentDayEvents } from "./helpers/getCurrentDayEvents";
 import { getCurrentMonthEvents } from "./helpers/getCurrentMonthEvents";
 import { connect } from 'react-redux';
 import { SystemState } from "../../redux/types";
+import {Link} from "react-router-dom";
 
 interface Props {
     allEventsData: EventData[];
@@ -33,9 +34,9 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
                         <div>{index + unitOffset}.
                             {
                                 eventData.type === 'Deadline' ?
-                                <a className='month_deadline_link' href={eventData.link}> {eventData.text}</a>
+                                <Link className='month_deadline_link' to={`/task/${eventData._id}`}>{eventData.text}</Link>
                                     :
-                                <a href={eventData.link}> {eventData.text}</a>
+                                <Link to={`/task/${eventData._id}`}>{eventData.text}</Link>
                             }
                         </div>
                     </div>
@@ -52,12 +53,12 @@ const CalendarView: React.FC<Props> = ({ allEventsData }) => {
                     listData.map((item, index) => (
                     <li className='calendar_events_list__item'
                         key={`${item.content}${index}`}>
-                        <a className='event_day_link'
-                            href={item.link}>
+                        <Link className='event_day_link'
+                              to={`/task/${item._id}`}>
                             <Badge style={{color: linkColor}}
                                    status={item.type}
                                    text={item.content} />
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>

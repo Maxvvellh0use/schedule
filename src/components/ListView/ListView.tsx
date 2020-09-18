@@ -4,6 +4,7 @@ import { Timeline } from 'antd';
 import { EventData , RootStateType } from "../types";
 
 import './ListView.scss'
+import {Link} from "react-router-dom";
 
 
 const ListView: React.FC = () => {
@@ -13,9 +14,7 @@ const ListView: React.FC = () => {
       <Timeline.Item
         color={ event.type === "Deadline" ? "red" : "green" }
         key={event._id}>
-          <a href={event.optional.description}>
-            { event.optional.date.slice(0, -9) + " " + event.name }
-          </a>
+          <Link to={`/task/${event._id}`}>{ event.optional.date.slice(0, -9) + " " + event.name }</Link>
       </Timeline.Item>
     )
   })
