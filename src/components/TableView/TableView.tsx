@@ -1,9 +1,9 @@
-import React , { ReactText , useEffect , useState } from "react";
+import React , {EffectCallback , ReactText , useEffect , useState} from "react";
 import { Table, Tag, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
-import { EventData , NameEventType, EventDataTable, RootStateType } from "../types";
+import { EventData , EventDataTable , NameEventType , RootStateType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
@@ -19,10 +19,10 @@ import { getNewVisibility } from "./helpers/getNewVisibility";
 import { ActionPanel } from "./ActionPanel/ActionPanel";
 import { getRowEventsClasses } from "./helpers/getRowEventsClasses";
 import { getTypeColor } from "./helpers/getTypeColor";
-import { getTodayEvents } from "./helpers/getPageTodayEvents";
-
 
 import './TableView.scss';
+import {getTodayEvents} from "./helpers/getPageTodayEvents";
+
 
 const TableView: React.FC = () => {
     const dispatch = useDispatch();
@@ -32,19 +32,19 @@ const TableView: React.FC = () => {
     const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootStateType, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);
-    const [tableStartPage, setTableStartPage] = useState<number | undefined>(undefined);
+    const [tablePage, setTablePage] = useState<number | undefined>(undefined);
 
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
 
     useEffect(() => {
         dispatch(getEventsData());
-    }, [dispatch]);
+    }, [dispatch])
 
     useEffect(() => {
-        if (allEventsData.length && !tableStartPage) {
-            setTableStartPage(getTodayEvents(allEventsData));
+        if (allEventsData.length && !tablePage) {
+            setTablePage(getTodayEvents(allEventsData));
         }
-    }, [dispatch, allEventsData, tableStartPage]);
+    }, [dispatch, allEventsData, tablePage]);
 
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
@@ -221,8 +221,8 @@ const TableView: React.FC = () => {
     const [tableData, setTableData] = useState();
     const chosenDate = useSelector<RootStateType, string>(state => state.app.date);
 
-
-    const initialTableData: EventDataTable[] | undefined  = allEventsData.length ? allEventsData.map((event, index) => {
+    const initialTableData: EventDataTable[] | undefined = allEventsData.length ?
+        allEventsData.map((event, index) => {
         return {
             key: event._id,
             dateString: event.optional.date,
@@ -247,7 +247,6 @@ const TableView: React.FC = () => {
             materials: event.optional.materials,
             deadline: getCorrectDeadline(event.optional.deadline),
             description: event.optional.details,
-            tags: event.type === 'Deadline' ? ['deadline'] : [],
         };
     }) : undefined;
 
@@ -304,8 +303,8 @@ const TableView: React.FC = () => {
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
                pagination={{
-                   current: tableStartPage,
-                   onChange: (value: number) => setTableStartPage(value),
+                   current: tablePage,
+                   onChange: (value: number) => setTablePage(value),
                }}
                rowClassName={(record) => getRowEventsClasses(record)}
                columns={columns.filter(column => column.visibility)}
