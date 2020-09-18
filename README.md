@@ -25,16 +25,18 @@ for assessed tasks, you need to display the number of points for the task in ord
 - [ ] It should be nice and cool. The timetable is the face of the course. Just let it be a table with cells at school, and on the frontend course and the schedule should be high-tech. Each task can be done as a level in the game. Completed the task - passed the level. A course project as the final boss
 Each new set contains part of the tasks from the previous schedule. It should be possible to copy the schedule of one set, add it to another set, and make changes. If for each new set you need to create a new schedule from scratch, no one will use this application
 
+#### Our ideas of improvements in addition: 
+
+- [ ] RS APP schdule should be divided by weeks
+- [x] Ability to switch to dark theme 
+- [x] Internationalization 
+- [x] Highlighting of today events
+- [ ] Email notification of coming test or deadline
+- [x] Resizable columns in schedule table
+
+
 #### Team 16: 
 1. Maxim Pavlov [Maxvvellh0use](http://webdesign.ru.net)
 2. Iuliia Plekhanova [jules0802](http://webdesign.ru.net)
 3. Eduard Brukish [EduardBrukish](http://webdesign.ru.net)
 4. Yulia Kotlyarova [Yulia-Kotlyarova](http://webdesign.ru.net)
-
-
-
-
-
-
-
-
