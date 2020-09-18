@@ -28,7 +28,7 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
     const confirmDeletion = async (e: any) => {
         message.success('Event removed');
         await axios.delete(`${urlApi}/remove_event/${currentEvent._id}`).catch(e => console.error(e));
-        removeRow(currentEvent.key);
+        removeRow(currentEvent._id);
     }
 
     const cancelDeletion = (e: any) => {
