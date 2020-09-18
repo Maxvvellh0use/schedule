@@ -11,6 +11,7 @@ import { getEventTypes } from './helpers/getEventTypes'
 import { SystemState } from "../../redux/types";
 import { EventData, RootStateType } from "../types";
 import { changeMode } from "../../redux/actions";
+import Timezone from "./Timezone/Timezone";
 
 interface Props {
     allEventsData: EventData[];
@@ -33,7 +34,7 @@ const TopPanel: React.FC<Props> = () => {
     const saveSheduleAs = (language === 'eng') ? 'Save shedule as:' : 'Сохранить расписание как:';
     const colorSettingsBtn = (language === 'eng') ? 'Settings' : 'Настройки';
     const closeColorSettingsBtn = (language === 'eng') ? 'Close' : 'Закрыть';
-    
+
     const showModal = () => {
         setModal(true);
     };
@@ -45,7 +46,7 @@ const TopPanel: React.FC<Props> = () => {
   return (
     <div className="top-panel">
         <div className="left-bar">
-            <Select 
+            <Select
                 className="select-mode"
                 defaultValue={mode}
                 onChange={(value) => dispatch(changeMode(value))}>
@@ -82,6 +83,7 @@ const TopPanel: React.FC<Props> = () => {
           >
               <UserColorSettings eventsData={eventsData}/>
           </Modal>
+        <Timezone/>
       </div>
     </div>
   )

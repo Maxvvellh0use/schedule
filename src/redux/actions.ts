@@ -1,4 +1,15 @@
-import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN} from "./types";
+import {
+    GET_EVENTS ,
+    CHANGE_MODE ,
+    GET_TABLE_COLORS ,
+    HIDE_LOADER ,
+    SHOW_ERROR ,
+    SHOW_LOADER ,
+    CHANGE_ACCESSABILITY ,
+    SET_ENGLISH ,
+    SET_RUSSIAN ,
+    CHANGE_TIMEZONE
+} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 
@@ -45,7 +56,7 @@ export const changeMode = (mode: string) => {
     localStorage.mode = mode;
     return {
         type: CHANGE_MODE,
-        payload: mode,        
+        payload: mode,
     }
 }
 
@@ -68,3 +79,5 @@ export const setRussian = () => {
         type: SET_RUSSIAN,
     }
 }
+
+export const changeTimezoneActCreator = (zone: any) => ({type: CHANGE_TIMEZONE, zone });

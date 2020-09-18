@@ -67,6 +67,9 @@ export interface TableData {
 
 export interface RootStateType {
     allEventsData: EventData[];
+    timezone: {
+        zones: string[]
+    },
     app: {
         loading: boolean,
         errorText: string,
