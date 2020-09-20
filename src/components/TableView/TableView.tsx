@@ -38,7 +38,7 @@ const TableView: React.FC = () => {
     const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
     const activeZone = useSelector<RootStateType, any>(state => state.timezone.activeZone);
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
-
+    const [tablePage, setTablePage] = useState<number | undefined>(undefined);
     useEffect(() => {
         dispatch(getEventsData());
     }, [dispatch])
