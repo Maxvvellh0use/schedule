@@ -3,7 +3,7 @@ import { ListTypes , MutableEventData } from "../../types";
 export const getCurrentDayEvents = (moment: any, allEventsDataParseDate:
     MutableEventData[]): ListTypes[] => {
     const findEventsDay = allEventsDataParseDate.filter((event) =>
-        moment.month() === event.date.getMonth() && moment.date() === event.date.getDay());
+        moment.month() === event.date.getMonth() && moment.date() === event.date.getDate());
     if (findEventsDay.length) {
         return findEventsDay.map((eventDay) => {
             if (eventDay.type === 'Deadline') {

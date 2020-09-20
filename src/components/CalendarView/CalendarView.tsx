@@ -18,13 +18,14 @@ interface Props {
 
 const CalendarView: React.FC<Props> = ({ allEventsData }) => {
     const allEventsDataParseDate = parseDateEvent(allEventsData);
-    console.log(allEventsDataParseDate)
 
     const getMonthData = (moment: any): NameEventType[]  =>
         getCurrentMonthEvents(moment, allEventsDataParseDate);
 
-    const getListData = (moment: any): ListTypes[] =>
-        getCurrentDayEvents(moment, allEventsDataParseDate);
+    const getListData = (moment: any): ListTypes[] => {
+        return getCurrentDayEvents(moment, allEventsDataParseDate);
+    }
+
 
     const monthCellRender = (moment: any) => {
         const eventsData = getMonthData(moment);
