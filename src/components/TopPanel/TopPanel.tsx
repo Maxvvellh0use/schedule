@@ -25,7 +25,7 @@ const TopPanel: React.FC = () => {
     const dataForCsv = allEventsData.length ? allEventsData.map(getEventsDataCsv) : [];
 
     const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
-    const defaultZone = useSelector<RootStateType, string[]>(state => state.timezone.defaultZone);
+    const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
     const language = useSelector<RootStateType, string>(state => state.app.language);
     const modeOptionStudent = (language === 'eng') ? 'Student' : 'Студент';
     const modeOptionMentor = (language === 'eng') ? 'Mentor' : 'Ментор';
