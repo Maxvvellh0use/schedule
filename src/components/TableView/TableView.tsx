@@ -19,32 +19,18 @@ import { getNewVisibility } from "./helpers/getNewVisibility";
 import { ActionPanel } from "./ActionPanel/ActionPanel";
 
 import './TableView.scss';
+import { getTypeColor } from "./helpers/getTypeColor";
 import { getRowEventsClasses } from "./helpers/getRowEventsClasses";
-import {getTypeColor} from "./helpers/getTypeColor";
-
-interface RootState {
-    allEventsData: EventData[];
-    app: {
-        loading: boolean,
-        errorText: string,
-    },
-    tableColorStyle: {[key: string]: object}
-}
 
 const TableView: React.FC = () => {
     const dispatch = useDispatch();
     const mode = useSelector<RootStateType, string>(state => state.app.mode);
     const language = useSelector<RootStateType, string>(state => state.app.language);
-    const errorText = useSelector<RootState, string>(state => state.app.errorText);
-    const allEventsData = useSelector<RootState, EventData[]>(state => state.allEventsData);
-    const loading = useSelector<RootState, boolean>(state => state.app.loading);
-    const tableColorStyle = useSelector<RootState, {[key: string]: object}>(state => state.tableColorStyle);
-
+    const errorText = useSelector<RootStateType, string>(state => state.app.errorText);
+    const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
+    const loading = useSelector<RootStateType, boolean>(state => state.app.loading);
+    const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);      
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
-
-    useEffect(() => {
-        dispatch(getEventsData());
-    }, [dispatch]);
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
     const [columnsWidths, setColumnsWidths] = useState(defaultColumnsWidths);
@@ -52,7 +38,11 @@ const TableView: React.FC = () => {
     const newSelectRows = (newRowSelect: ReactText[]) => {
         setRowSelect(newRowSelect);
     }
-
+      
+    useEffect(() => {
+        dispatch(getEventsData());              
+    }, [dispatch]);    
+   
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
 
@@ -218,6 +208,7 @@ const TableView: React.FC = () => {
     };
 
     const [tableData, setTableData] = useState();
+    const chosenDate = useSelector<RootStateType, string>(state => state.app.date); 
 
     const initialTableData = allEventsData.length ? allEventsData.map((event, index) => {
         return {
@@ -253,6 +244,12 @@ const TableView: React.FC = () => {
             setTableData(initialTableData);
         }
     }, [loading, allEventsData])
+
+    useEffect(() => {
+        if (!loading && chosenDate && initialTableData ) {
+            setTableData(initialTableData.filter((el) => el.date === chosenDate));
+        }
+    }, [chosenDate])
 
     const hideColumn = (columnName: string) => {
         const updateColumnsVisibility =

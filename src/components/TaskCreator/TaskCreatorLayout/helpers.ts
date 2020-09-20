@@ -2,9 +2,6 @@ import { Store } from "antd/lib/form/interface";
 import { urlApi } from "../../../data/const";
 import { notification } from "antd";
 
-
-const dateFormat = 'MMMM DD, YYYY hh:mm:ss';
-
 export const parseFormValuesToEventData = (values: Store): any => {
   const {
     date,

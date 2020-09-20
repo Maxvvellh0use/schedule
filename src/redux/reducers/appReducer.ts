@@ -1,11 +1,12 @@
-import { CHANGE_MODE , HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN } from "../types";
+import { CHANGE_MODE , HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN, SET_DATE } from "../types";
 
 const initialState = {
     loading: false,
     errorText: '',
     mode: localStorage.mode ? localStorage.mode : 'student',
     accessability: localStorage.accessability ? localStorage.accessability === 'true' : false,
-    language: localStorage.language ? localStorage.language : 'eng'
+    language: localStorage.language ? localStorage.language : 'eng',
+    date: ''
 }
 
 export const appReducer = (state = initialState, action: { type: string, payload: boolean | string }) => {
@@ -24,6 +25,8 @@ export const appReducer = (state = initialState, action: { type: string, payload
             return Object.assign({...state},{ language: 'eng' })
         case SET_RUSSIAN:
             return Object.assign({...state},{ language: 'ru' })
+        case SET_DATE:
+            return  Object.assign({...state},{ date: action.payload }) 
         default: return state;
     }
 }
