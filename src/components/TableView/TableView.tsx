@@ -82,6 +82,7 @@ const TableView: React.FC = () => {
             visibility: columnsVisible['Course'],
             filters: filtersCourse,
             onFilter: (value: string, record: any) => record.course.indexOf(value) === 0,
+            render: colorRender
         },
         {
             title: 'Date',
@@ -126,7 +127,10 @@ const TableView: React.FC = () => {
             key: 'name',
             width: columnsWidths['Name'],
             visibility: columnsVisible['Name'],
-            render: colorRender
+            render: (name: NameEventType, record: {type: string}) => {
+                const child = <Link to={`/task/${name._id}`}>{name.text}</Link>;
+                return colorHandler(child, record.type);
+            },
         },
         {
             title: 'Duration',
@@ -207,6 +211,7 @@ const TableView: React.FC = () => {
         allEventsData.map((event, index) => {
         return {
             key: event._id,
+            _id: event._id,
             dateString: event.optional.date,
             course: event.course,
             date: getCorrectDate(event.optional.date),
