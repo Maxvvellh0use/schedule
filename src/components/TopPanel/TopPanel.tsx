@@ -11,12 +11,9 @@ import UserColorSettings from '../UserColorSettings/UserColorSettings'
 import { getEventTypes } from './helpers/getEventTypes'
 import { EventData, RootStateType } from "../types";
 import { changeMode } from "../../redux/actions";
-<<<<<<< HEAD
 import { getEventsDataCsv } from "./helpers/getEventsDataCsv";
 
-=======
-import TimezoneContainer from "./Timezone/TimezoneContainer";
->>>>>>> feat: add timezone selector
+import Timezone from "./Timezone/Timezone";
 
 
 const TopPanel: React.FC = () => {
@@ -87,7 +84,7 @@ const TopPanel: React.FC = () => {
           >
               <UserColorSettings eventsData={eventsData}/>
           </Modal>
-        <TimezoneContainer/>
+        <Timezone/>
       </div>
     </div>
   )

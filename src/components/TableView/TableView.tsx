@@ -35,6 +35,7 @@ const TableView: React.FC = () => {
     const loading = useSelector<RootStateType, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);
     const [tablePage, setTablePage] = useState<number | undefined>(undefined);
+    const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
 
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
 
@@ -214,8 +215,8 @@ const TableView: React.FC = () => {
             _id: event._id,
             dateString: event.optional.date,
             course: event.course,
-            date: getCorrectDate(event.optional.date),
-            time: getCorrectTime(event.optional.date),
+            date: getCorrectDate(event.optional.date, defaultZone),
+            time: getCorrectTime(event.optional.date, defaultZone),
             type: event.type,
             place: event.optional.place,
             name: {
@@ -232,7 +233,7 @@ const TableView: React.FC = () => {
             result: event.optional.result,
             notate: event.optional.notate,
             materials: event.optional.materials,
-            deadline: getCorrectDeadline(event.optional.deadline),
+            deadline: getCorrectDeadline(event.optional.deadline, defaultZone),
             description: event.optional.details,
         };
     }) : undefined;
