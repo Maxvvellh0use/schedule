@@ -18,6 +18,7 @@ interface Props {
 
 const CalendarView: React.FC<Props> = ({ allEventsData }) => {
     const allEventsDataParseDate = parseDateEvent(allEventsData);
+    console.log(allEventsDataParseDate)
 
     const getMonthData = (moment: any): NameEventType[]  =>
         getCurrentMonthEvents(moment, allEventsDataParseDate);

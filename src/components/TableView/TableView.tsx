@@ -22,6 +22,8 @@ import { getTypeColor } from "./helpers/getTypeColor";
 
 import './TableView.scss';
 import {getTodayEvents} from "./helpers/getPageTodayEvents";
+import value from "*.png";
+
 
 
 const TableView: React.FC = () => {
@@ -66,6 +68,11 @@ const TableView: React.FC = () => {
           }
     };
 
+    const colorRender = (text: string, record: {type: string}) => {
+        const child = <div>{text}</div>;
+        return colorHandler(child, record.type);
+    }
+
     const columnsTable = [
         {
             title: 'Course',
@@ -82,10 +89,7 @@ const TableView: React.FC = () => {
             key: 'date',
             width: columnsWidths['Date'],
             visibility: columnsVisible['Date'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Time',
@@ -93,10 +97,7 @@ const TableView: React.FC = () => {
             key: 'time',
             width: columnsWidths['Time'],
             visibility: columnsVisible['Time'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Type',
@@ -117,10 +118,7 @@ const TableView: React.FC = () => {
             key: 'place',
             width: columnsWidths['Place'],
             visibility: columnsVisible['Place'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Name',
@@ -128,11 +126,7 @@ const TableView: React.FC = () => {
             key: 'name',
             width: columnsWidths['Name'],
             visibility: columnsVisible['Name'],
-            render: (name: NameEventType, record: {type: string}) => {
-                const child = <Link to={`/task/${name._id}`}>{name.text}</Link>;
-                return colorHandler(child, record.type);
-            },
-
+            render: colorRender
         },
         {
             title: 'Duration',
@@ -140,10 +134,7 @@ const TableView: React.FC = () => {
             key: 'duration',
             width: columnsWidths['Duration'],
             visibility: columnsVisible['Duration'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Result',
@@ -151,10 +142,7 @@ const TableView: React.FC = () => {
             key: 'result',
             width: columnsWidths['Result'],
             visibility: columnsVisible['Result'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Notate',
@@ -162,10 +150,7 @@ const TableView: React.FC = () => {
             key: 'notate',
             width: columnsWidths['Notate'],
             visibility: columnsVisible['Notate'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Materials',
@@ -185,10 +170,7 @@ const TableView: React.FC = () => {
             key: 'deadline',
             width: columnsWidths['Deadline'],
             visibility: columnsVisible['Deadline'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         mode === 'mentor' ?
         {
