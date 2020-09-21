@@ -17,18 +17,18 @@ import './ListView.scss'
 const ListView: React.FC = () => {
   const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
 
-    useEffect(() => {
-        if (allEventsData.length) {
-            const todayEventIndex = allEventsData.findIndex((event) => {
-                return isTodayEvent(event.optional.date)
-            })
-            scrollToTodayEvents(todayEventIndex)
-        }
-    }, [allEventsData])
+  useEffect(() => {
+      if (allEventsData.length) {
+          const todayEventIndex = allEventsData.findIndex((event) => {
+              return isTodayEvent(event.optional.date)
+          })
+          scrollToTodayEvents(todayEventIndex)
+      }
+  }, [])
 
-    const scrollToTodayEvents = (todayEventIndex: number) => {
-        window.scroll(zero,todayEventIndex * scrollEventCoeff)
-    }
+  const scrollToTodayEvents = (todayEventIndex: number) => {
+      window.scroll(zero,todayEventIndex * scrollEventCoeff)
+  }
 
   const events = allEventsData.map((event) => {
     return (

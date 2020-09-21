@@ -1,6 +1,6 @@
 import { EventData } from "../../types";
 
-const isTodayEvent = (dateNow: Date, dateEvent: Date) => {
+export const isTodayEvent = (dateNow: Date, dateEvent: Date) => {
     return dateNow.getDate() === dateEvent.getDate() &&
         dateNow.getMonth() === dateEvent.getMonth()
 }
