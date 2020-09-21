@@ -84,14 +84,14 @@ Global State = {
     tableColorStyle: {[key: string]: object},
 }
 ```
-In this case:
-**allEventsData** - contains detailed information about events in the learning process.
-**app.**loading - determines the state of the loader.
-**app.**errorText - contains a text message in case of unsuccessful loading of data from the server.
-**app.**mode - determines the display of the application depending on the user's role (allowed state: “student”, “mentor”).
-**app.**accessability - determines the state of the application for the visually impaired.
-**app.**language - determines the language of the application (allowed state: “eng”, “ru”).
-**tableColorStyle** - contains information about the applied color settings of the schedule table rows. Also, these settings are stored in localStorage. Event types are used as keys. This element has the structure:
+In this case:  
+**allEventsData** - contains detailed information about events in the learning process.  
+**app.**loading - determines the state of the loader.  
+**app.**errorText - contains a text message in case of unsuccessful loading of data from the server.  
+**app.**mode - determines the display of the application depending on the user's role (allowed state: “student”, “mentor”).  
+**app.**accessability - determines the state of the application for the visually impaired.  
+**app.**language - determines the language of the application (allowed state: “eng”, “ru”).    
+**tableColorStyle** - contains information about the applied color settings of the schedule table rows. Also, these settings are stored in localStorage. Event types are used as keys. This element has the structure:  
 
 ```html
 {Event: {color: …., backgroundcolor:.....},
@@ -125,12 +125,12 @@ When implementing application components, we used TypeScript. To describe the in
 
 Application components are handled in pluggable components. And the general structure of the component looks like this:
 
-components/
---exampleComponent/
-----helpers/
-----exampleComponent.scss
-----exampleComponent.tsx
-----consts.js
+components/  
+--exampleComponent/  
+----helpers/  
+----exampleComponent.scss  
+----exampleComponent.tsx  
+----consts.js  
 
 Folder helpers/ contains files with helper functions. 
 
@@ -150,14 +150,14 @@ To add data to the global state add your reducer or use the existing one at the 
 
 Below will be described all the components of the application, as well as the data included in the components:
 
-* CalendarView: from the global state is used allEventsData, the component is responsible for displaying data in the form of a calendar.
-* ListView: from the global state is used allEventsData, the component is responsible for displaying data in the form of a list.
+* CalendarView: from the global state is used allEventsData. The component is responsible for displaying data in the form of a calendar.
+* ListView: from the global state is used allEventsData. The component is responsible for displaying data in the form of a list.
 * MainPageHeader: from the global state is used app.accessability, app.language. The component is responsible for displaying the page header, contains switches for accessibility of the application for the visually impaired and the language. Also contains a link to go to the user's account.
-* MainPageLayout: from the global state is used app.accessability, app.language, the component is responsible for displaying main page layout. 
-* MainTab:  from the global state is used allEventsData,  app.accessability, app.language the component is responsible for displaying table, calendar and event list.
+* MainPageLayout: from the global state is used app.accessability, app.language. The component is responsible for displaying main page layout. 
+* MainTab:  from the global state is used allEventsData,  app.accessability, app.language. The component is responsible for displaying table, calendar and event list.
 * ResizebleTitle: the component is responsible for displaying the sidebar of the table with variable columns.
-* SideBar: from the global state is used allEventsData, the component  is responsible for displaying Left panel with small calendar and announce of today events.
-* TableView: from the global state is used app.mode, app.language, app.errorText, app.loading, allEventsData, tableColorStyle the component is responsible for displaying data in the form of a calendar. The table is sorted by dates. Passed events hide. Table also has implemented features: resizable columns, ability of hiding rows and columns, filters, today events highlighting, etc.  Each event has its own link to event description. 
+* SideBar: from the global state is used allEventsData. The component  is responsible for displaying Left panel with small calendar and announce of today events.
+* TableView: from the global state is used app.mode, app.language, app.errorText, app.loading, allEventsData, tableColorStyle. The component is responsible for displaying data in the form of a calendar. The table is sorted by dates. Passed events hide. Table also has implemented features: resizable columns, ability of hiding rows and columns, filters, today events highlighting, etc.  Each event has its own link to event description. 
 * TaskCreator/	
     * AddressContainer: the component is responsible for displaying the map block and input addresses or coordinates. Selecting coordinates on the map automatically puts them in the input.  
     * BottomContainer: the component is responsible for displaying block under the map. Includes additional fields, describing event.
@@ -165,6 +165,6 @@ Below will be described all the components of the application, as well as the da
     * MapComponent: the component is responsible for displaying the map. Map is powered by Mapbox API.
     * TaskCreatorLayout: takes all of the above components and is responsible for displaying them on the page for creating a new task
 * TaskDescription: the component is responsible for displaying the selected task. 
-* TaskPage: from the global state is used app.mode, app.language, app.errorText, app.loading, allEventsData the component is responsible for the ability to delete an event and leave a feedback. If the description of the event contains a link to a markdown document, the page displays its content. Otherwise, a small table with event fields (Task Description component). 
-* TopPanel: from the global state is used app.mode, app.language, app.accessability, allEventsData  the component is responsible for displaying table header and contains a switch for the "student-mentor" mod, a link for downloading the schedule in available formats, "Create event button" in mentor's mode.
-* UserColorSettings: from the global state is used app.language the component is responsible for rendering the modal window of the table color settings
+* TaskPage: from the global state is used app.mode, app.language, app.errorText, app.loading, allEventsData. The component is responsible for the ability to delete an event and leave a feedback. If the description of the event contains a link to a markdown document, the page displays its content. Otherwise, a small table with event fields (Task Description component). 
+* TopPanel: from the global state is used app.mode, app.language, app.accessability, allEventsData. The component is responsible for displaying table header and contains a switch for the "student-mentor" mod, a link for downloading the schedule in available formats, "Create event button" in mentor's mode.
+* UserColorSettings: from the global state is used app.language. The component is responsible for rendering the modal window of the table color settings
