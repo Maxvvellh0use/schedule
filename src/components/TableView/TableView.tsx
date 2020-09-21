@@ -3,7 +3,7 @@ import { Table, Tag, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
-import { EventData , EventDataTable , NameEventType , RootStateType } from "../types";
+import { EventData , NameEventType , RootStateType, EventDataTable  } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
