@@ -1,9 +1,9 @@
-import React , { ReactText , useEffect , useState } from "react";
+import React , {EffectCallback , ReactText , useEffect , useState} from "react";
 import { Table, Tag, Menu, Dropdown, Checkbox, Button } from 'antd';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
-import { EventData , NameEventType , RootStateType } from "../types";
+import { EventData , EventDataTable , NameEventType , RootStateType } from "../types";
 import { getCorrectTime } from "./helpers/getCorrectTime";
 import { getCorrectDate } from "./helpers/getCorrectDate";
 import { getCorrectDeadline } from "./helpers/getCorrectDeadline";
@@ -17,10 +17,14 @@ import {
 import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
 import { getNewVisibility } from "./helpers/getNewVisibility";
 import { ActionPanel } from "./ActionPanel/ActionPanel";
+import { getRowEventsClasses } from "./helpers/getRowEventsClasses";
+import { getTypeColor } from "./helpers/getTypeColor";
 
 import './TableView.scss';
-import { getTypeColor } from "./helpers/getTypeColor";
-import { getRowEventsClasses } from "./helpers/getRowEventsClasses";
+import {getTodayEvents} from "./helpers/getPageTodayEvents";
+import value from "*.png";
+
+
 
 const TableView: React.FC = () => {
     const dispatch = useDispatch();
@@ -29,8 +33,21 @@ const TableView: React.FC = () => {
     const errorText = useSelector<RootStateType, string>(state => state.app.errorText);
     const allEventsData = useSelector<RootStateType, EventData[]>(state => state.allEventsData);
     const loading = useSelector<RootStateType, boolean>(state => state.app.loading);
-    const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);      
+    const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);
+    const [tablePage, setTablePage] = useState<number | undefined>(undefined);
+
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
+
+    useEffect(() => {
+        dispatch(getEventsData());
+    }, [dispatch])
+
+    useEffect(() => {
+        if (allEventsData.length && !tablePage) {
+            setTablePage(getTodayEvents(allEventsData));
+        }
+    }, [dispatch, allEventsData, tablePage]);
+
     const [columnsVisible, setColumnsVisible] = useState(localStorage.columnsVisible ?
         JSON.parse(localStorage.columnsVisible) : defaultColumnsVisible);
     const [columnsWidths, setColumnsWidths] = useState(defaultColumnsWidths);
@@ -38,11 +55,7 @@ const TableView: React.FC = () => {
     const newSelectRows = (newRowSelect: ReactText[]) => {
         setRowSelect(newRowSelect);
     }
-      
-    useEffect(() => {
-        dispatch(getEventsData());              
-    }, [dispatch]);    
-   
+
     localStorage.columnsVisible = localStorage.columnsVisible ?
         JSON.stringify(columnsVisible) : JSON.stringify(defaultColumnsVisible);
 
@@ -55,6 +68,11 @@ const TableView: React.FC = () => {
           }
     };
 
+    const colorRender = (text: string, record: {type: string}) => {
+        const child = <div>{text}</div>;
+        return colorHandler(child, record.type);
+    }
+
     const columnsTable = [
         {
             title: 'Course',
@@ -64,6 +82,7 @@ const TableView: React.FC = () => {
             visibility: columnsVisible['Course'],
             filters: filtersCourse,
             onFilter: (value: string, record: any) => record.course.indexOf(value) === 0,
+            render: colorRender
         },
         {
             title: 'Date',
@@ -71,10 +90,7 @@ const TableView: React.FC = () => {
             key: 'date',
             width: columnsWidths['Date'],
             visibility: columnsVisible['Date'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Time',
@@ -82,10 +98,7 @@ const TableView: React.FC = () => {
             key: 'time',
             width: columnsWidths['Time'],
             visibility: columnsVisible['Time'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Type',
@@ -106,10 +119,7 @@ const TableView: React.FC = () => {
             key: 'place',
             width: columnsWidths['Place'],
             visibility: columnsVisible['Place'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Name',
@@ -121,7 +131,6 @@ const TableView: React.FC = () => {
                 const child = <Link to={`/task/${name._id}`}>{name.text}</Link>;
                 return colorHandler(child, record.type);
             },
-
         },
         {
             title: 'Duration',
@@ -129,10 +138,7 @@ const TableView: React.FC = () => {
             key: 'duration',
             width: columnsWidths['Duration'],
             visibility: columnsVisible['Duration'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Result',
@@ -140,10 +146,7 @@ const TableView: React.FC = () => {
             key: 'result',
             width: columnsWidths['Result'],
             visibility: columnsVisible['Result'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Notate',
@@ -151,10 +154,7 @@ const TableView: React.FC = () => {
             key: 'notate',
             width: columnsWidths['Notate'],
             visibility: columnsVisible['Notate'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         {
             title: 'Materials',
@@ -174,10 +174,7 @@ const TableView: React.FC = () => {
             key: 'deadline',
             width: columnsWidths['Deadline'],
             visibility: columnsVisible['Deadline'],
-            render: (text: string, record: {type: string}) => {
-                const child = <div>{text}</div>;
-                return colorHandler(child, record.type);
-            },
+            render: colorRender
         },
         mode === 'mentor' ?
         {
@@ -208,11 +205,13 @@ const TableView: React.FC = () => {
     };
 
     const [tableData, setTableData] = useState();
-    const chosenDate = useSelector<RootStateType, string>(state => state.app.date); 
+    const chosenDate = useSelector<RootStateType, string>(state => state.app.date);
 
-    const initialTableData = allEventsData.length ? allEventsData.map((event, index) => {
+    const initialTableData: EventDataTable[] | undefined = allEventsData.length ?
+        allEventsData.map((event, index) => {
         return {
             key: event._id,
+            _id: event._id,
             dateString: event.optional.date,
             course: event.course,
             date: getCorrectDate(event.optional.date),
@@ -235,7 +234,6 @@ const TableView: React.FC = () => {
             materials: event.optional.materials,
             deadline: getCorrectDeadline(event.optional.deadline),
             description: event.optional.details,
-            tags: event.type === 'Deadline' ? ['deadline'] : [],
         };
     }) : undefined;
 
@@ -291,6 +289,10 @@ const TableView: React.FC = () => {
 
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
+               pagination={{
+                   current: tablePage,
+                   onChange: (value: number) => setTablePage(value),
+               }}
                rowClassName={(record) => getRowEventsClasses(record)}
                columns={columns.filter(column => column.visibility)}
                rowSelection={{

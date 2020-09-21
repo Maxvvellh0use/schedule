@@ -63,7 +63,7 @@ const TopPanel: React.FC = () => {
         </div>
       <div className="right-bar">
         <div className="save-container">
-          <p>{saveSheduleAs}:
+          <p>{saveSheduleAs}
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
               <DownloadOutlined />
           </p>

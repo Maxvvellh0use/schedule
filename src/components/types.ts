@@ -1,3 +1,7 @@
+import {getCorrectDate} from "./TableView/helpers/getCorrectDate";
+import {getCorrectTime} from "./TableView/helpers/getCorrectTime";
+import {getCorrectDeadline} from "./TableView/helpers/getCorrectDeadline";
+
 export interface EventData {
     _id: number,
     name: string,
@@ -27,6 +31,32 @@ export interface MutableEventData {
     _id: number,
 }
 
+export interface EventDataTable {
+    key: number,
+    dateString: string,
+    course: string,
+    date: string,
+    time: string,
+    type: string,
+    place: string,
+    name: {
+        text: string,
+        link: string,
+        _id: number
+
+    },
+    action: {
+        _id: number,
+        key: number,
+    },
+    duration: string,
+    result: string,
+    notate: string,
+    materials: string[] | string,
+    deadline: string,
+    description: string,
+}
+
 export interface NameEventType {
     text: string,
     link: string,
@@ -38,6 +68,7 @@ export interface ListTypes {
     type: "success" | "processing" | "error" | "default" | "warning" | undefined,
     content: string,
     link: string,
+    _id: number,
 }
 
 export interface TableData {
@@ -77,3 +108,4 @@ export interface RootStateType {
     },
     tableColorStyle: {[key: string]: object}
 }
+

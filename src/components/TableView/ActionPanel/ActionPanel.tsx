@@ -26,13 +26,13 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
     }
 
     const confirmDeletion = async (e: any) => {
-        message.success('Click on Yes');
+        message.success('Event removed');
         await axios.delete(`${urlApi}/remove_event/${currentEvent._id}`).catch(e => console.error(e));
-        removeRow(currentEvent.key);
+        removeRow(currentEvent._id);
     }
 
     const cancelDeletion = (e: any) => {
-        message.error('Click on No');
+        message.error('Abort remove');
     }
 
     return (
@@ -45,7 +45,7 @@ export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableD
                     icon={<EditOutlined />} />
             </Link>
             <Popconfirm
-            title="Are you sure delete this event?"
+            title="Are you sure remove this event?"
             onConfirm={confirmDeletion}
             onCancel={cancelDeletion}
             okText="Yes"

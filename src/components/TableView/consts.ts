@@ -30,15 +30,15 @@ export const defaultColumnsWidths: { [key: string]: number } = {
     Course: 50,
     Date: 65,
     Time: 50,
-    Type: 70,
+    Type: 90,
     Place: 70,
     Name: 100,
     Duration: 30,
     Result: 50,
     Notate: 30,
     Materials: 100,
-    Deadline: 110,
-    Action: 100,
+    Deadline: 85,
+    Action: 60,
 }
 
 export const filtersType = [
