@@ -86,7 +86,7 @@ Global State = {
 ```
 In this case:  
 **allEventsData** - contains detailed information about events in the learning process.  
-**app.**loading - determines the state of the loader.  
+**app.** loading - determines the state of the loader.  
 **app.**errorText - contains a text message in case of unsuccessful loading of data from the server.  
 **app.**mode - determines the display of the application depending on the user's role (allowed state: “student”, “mentor”).  
 **app.**accessability - determines the state of the application for the visually impaired.  
