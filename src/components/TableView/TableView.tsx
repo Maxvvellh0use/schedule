@@ -36,7 +36,7 @@ const TableView: React.FC = () => {
     const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);
     const [tablePage, setTablePage] = useState<number | undefined>(undefined);
     const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
-
+    const activeZone = useSelector<RootStateType, any>(state => state.timezone.activeZone);
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
 
     useEffect(() => {
@@ -205,18 +205,16 @@ const TableView: React.FC = () => {
         setColumnsWidths(nextColumnsWidths);
     };
 
-    const [tableData, setTableData] = useState();
-    const chosenDate = useSelector<RootStateType, string>(state => state.app.date);
+    const [tableData, setTableData] = useState<EventDataTable[] | undefined>();
 
-    const initialTableData: EventDataTable[] | undefined = allEventsData.length ?
-        allEventsData.map((event, index) => {
+    const initialTableData: EventDataTable[] | undefined  = allEventsData.length ? allEventsData.map((event, index) => {
         return {
             key: event._id,
             _id: event._id,
             dateString: event.optional.date,
             course: event.course,
-            date: getCorrectDate(event.optional.date, defaultZone),
-            time: getCorrectTime(event.optional.date, defaultZone),
+            date: getCorrectDate(event.optional.date, defaultZone, activeZone),
+            time: getCorrectTime(event.optional.date, defaultZone, activeZone),
             type: event.type,
             place: event.optional.place,
             name: {
@@ -233,13 +231,15 @@ const TableView: React.FC = () => {
             result: event.optional.result,
             notate: event.optional.notate,
             materials: event.optional.materials,
-            deadline: getCorrectDeadline(event.optional.deadline, defaultZone),
+            deadline: getCorrectDeadline(event.optional.deadline, defaultZone, activeZone),
             description: event.optional.details,
         };
     }) : undefined;
 
     useEffect(() => {
-        if (!loading) {
+
+        if (!loading && initialTableData) {
+
             setTableData(initialTableData);
         }
     }, [loading, allEventsData])
@@ -257,8 +257,10 @@ const TableView: React.FC = () => {
     };
 
     const hideRows = () => {
-        setTableData(tableData.filter((elem: { key: number }) =>
+        if (tableData) {
+            setTableData(tableData.filter((elem: { key: number }) =>
             !rowSelect.includes(elem.key)));
+        }
     }
 
     const menu = (

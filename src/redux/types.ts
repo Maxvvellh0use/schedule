@@ -51,6 +51,7 @@ export interface initialStateType {
     timezone: {
         defaultZone: string,
         zones: string[],
+        activeZone: string,
     },
     app: {
         loading: boolean,

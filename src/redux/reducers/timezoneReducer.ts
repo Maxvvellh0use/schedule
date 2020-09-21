@@ -5,8 +5,7 @@ const timezoneReduser = (state = timeZoneData, action:{type:string, zone:string}
     switch(action.type) {
         case CHANGE_TIMEZONE: {
             localStorage.setItem('timezone', action.zone);
-            state.activeZone = action.zone;
-            return state;
+            return {...state, activeZone: action.zone};
         }
         default:
             return state;

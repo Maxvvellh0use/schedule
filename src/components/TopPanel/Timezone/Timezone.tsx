@@ -9,18 +9,17 @@ const { Option } = Select;
 
 const Timezone = () => {
     const dispatch = useDispatch();
-    const zones = useSelector<RootStateType, any>(state => state.timezone.zones);
-
-    const zoneItem = zones.map((zone: string, index: number) => {
+    const zonesData = useSelector<RootStateType, any>(state => state.timezone);
+    const zoneItem = zonesData.zones.map((zone: string, index: number) => {
       return <Option value= { zone } key = { index } > { zone }  </Option>
       })
 
       return (
           <div>
             <Select 
-             value={ localStorage.getItem('timezone') || zones.defaultZone }
+             value= { zonesData.activeZone || zonesData.defaultZone }
              style={{ width: 250 }} 
-             onChange={() => dispatch(changeTimezoneActCreator(zoneItem))}>
+             onChange={(e) => dispatch(changeTimezoneActCreator(e))}>
                 { zoneItem }
             </Select>
           </div>

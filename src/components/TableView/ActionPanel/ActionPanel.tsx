@@ -1,7 +1,8 @@
 import React, { ReactText } from "react";
 import { Button , message , Popconfirm } from "antd";
 import { DeleteOutlined , EditOutlined } from "@ant-design/icons";
-import axios from 'axios'
+import axios from 'axios';
+import { EventDataTable } from '../../types';
 
 import { urlApi } from "../../../data/const";
 import {RootStateType , TableData} from "../../types";
@@ -14,15 +15,17 @@ interface Props {
         _id: number,
         key: number
     }
-    setTableData: React.Dispatch<TableData[]>,
-    tableData: TableData[];
+    setTableData: React.Dispatch<EventDataTable[] | undefined>,
+    tableData: EventDataTable[] | undefined;
 }
 
 export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableData}) => {
     debugger
     const removeRow = (removeKey: number) => {
-        setTableData(tableData.filter((elem: { key: number }) =>
+        if (tableData) {
+            setTableData(tableData.filter((elem: { key: number }) =>
             elem.key !== removeKey));
+        }
     }
 
     const confirmDeletion = async (e: any) => {

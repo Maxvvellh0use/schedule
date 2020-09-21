@@ -12,7 +12,7 @@ export const eventTypesData =['Deadline',
 
 export const timeZoneData = {
     defaultZone: 'Europe/Moscow',
-    activeZone: localStorage.getItem('timezone')||'',
+    activeZone: localStorage.getItem('timezone')||'Europe/Moscow',
     zones: [
         'Europe/Andorra',
         'Asia/Dubai',
