@@ -244,7 +244,7 @@ const TableView: React.FC = () => {
 
             setTableData(initialTableData);
         }
-    }, [loading, allEventsData])
+    }, [loading, allEventsData, defaultZone, activeZone])
 
     useEffect(() => {
         if (!loading && chosenDate && initialTableData ) {
