@@ -9,9 +9,10 @@ import { EventData , RootStateType } from "../types";
 import { getItemColor } from "./helpers/getItemColor";
 import { scrollEventCoeff , zero } from "./consts";
 import { isDeadlineEvent } from "./helpers/isDeadlineEvent";
+import { getCorrectDate } from '../TableView/helpers/getCorrectDate';
+import { getCorrectTime } from '../TableView/helpers/getCorrectTime';
 
 import './ListView.scss'
-
 
 
 const ListView: React.FC = () => {
@@ -30,7 +31,12 @@ const ListView: React.FC = () => {
       window.scroll(zero,todayEventIndex * scrollEventCoeff)
   }
 
+  const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
+  const activeZone = useSelector<RootStateType, any>(state => state.timezone.activeZone);
+  
   const events = allEventsData.map((event) => {
+    const date = getCorrectDate(event.optional.date, defaultZone, activeZone);
+    const time = getCorrectTime(event.optional.date, defaultZone, activeZone);
     return (
       <Timeline.Item
           color={ getItemColor(event) }
