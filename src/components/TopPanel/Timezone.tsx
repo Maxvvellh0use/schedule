@@ -8,7 +8,7 @@ import '../TopPanel.scss';
 
 const { Option } = Select;
 
-const Timezone = () => {
+export const Timezone = () => {
     const dispatch = useDispatch();
     const zonesData = useSelector<RootStateType, any>(state => state.timezone);
     const zoneItem = zonesData.zones.map((zone: string, index: number) => {
@@ -26,5 +26,3 @@ const Timezone = () => {
           </div>
       )
 }
-
-export default Timezone;
