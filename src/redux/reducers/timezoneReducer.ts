@@ -12,6 +12,4 @@ const timezoneReduser = (state = timeZoneData, action:{type:string, zone:string}
     }
 }
 
-export const changeTimezoneActCreator = (zone:string) => ({type: CHANGE_TIMEZONE, zone: zone });
-
 export default timezoneReduser;

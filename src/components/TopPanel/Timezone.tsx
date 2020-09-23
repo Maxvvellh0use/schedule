@@ -2,9 +2,8 @@ import React from 'react';
 import { Select } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-import { RootStateType } from "../../types";
-import { changeTimezoneActCreator } from "../../../redux/reducers/timezoneReducer";
-import '../TopPanel.scss';
+import { RootStateType } from "../types";
+import { changeTimezoneActCreator } from "../../redux/actions";
 
 const { Option } = Select;
 
