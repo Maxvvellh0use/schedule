@@ -42,3 +42,12 @@ ul li {
 .avatar {
   margin-right: 5px;
 }
+
+@media (min-width: 991) {
+  button {
+    .profile {
+      display: none!important;
+      color: red!important;
+    }
+  }
+}

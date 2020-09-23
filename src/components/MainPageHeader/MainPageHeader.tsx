@@ -83,7 +83,9 @@ const MainPageHeader: React.FC = () => {
               className="avatar"
               size="small"
               icon={<UserOutlined />} />
-            {profile}
+              <span className = "profile" >
+                {profile}
+              </span>
           </Button>
         </li>
         <li><Radio.Group 

@@ -6,6 +6,11 @@
   margin: 0;
 }
 
-.ant-tabs {
-  overflow: scroll;
+.ant-tabs-content-holder {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  transform:scaleY(-1);
+  .ant-tabs-content {
+    transform:scaleY(-1);
+  }
 }

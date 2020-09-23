@@ -20,7 +20,6 @@ interface Props {
 }
 
 export const ActionPanel: React.FC<Props> = ({currentEvent, setTableData, tableData}) => {
-    debugger
     const removeRow = (removeKey: number) => {
         if (tableData) {
             setTableData(tableData.filter((elem: { key: number }) =>
