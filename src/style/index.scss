@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 @mixin accessability-styles {
   font-size: 1.1rem;
   font-weight: 700;
@@ -26,20 +30,20 @@ button {
     color: black;
   }
 
-  & .profile-btn, 
-  .settings-btn, 
-  .dropdown_columns_visible, 
-  .select-mode, 
-  .create-task-btn, 
-  .ant-tabs-nav-list:not(.ant-tabs-tab-active), 
+  & .profile-btn,
+  .settings-btn,
+  .dropdown_columns_visible,
+  .select-mode,
+  .create-task-btn,
+  .ant-tabs-nav-list:not(.ant-tabs-tab-active),
   .default-colors button,
   .ant-modal-footer button,
-  .ant-form-item-label > label, 
+  .ant-form-item-label > label,
   .form-submit-button  {
     @include accessability-styles;
     height: 40px;
-  }  
-  
+  }
+
   & .ant-tabs-tab-active * ,
   & a,
   .ant-btn-link {
@@ -69,7 +73,7 @@ button {
   & .ant-tag {
     font-size: 1rem;
     font-weight: normal;
-  } 
+  }
 }
 
 

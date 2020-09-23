@@ -1,7 +1,17 @@
 .ant-timeline {
   margin: 40px 20px;
-} 
+}
 
 .ant-timeline-item-tail {
+  padding-top: 10px;
   border-left: 2px solid #c7c5c5!important;
+}
+
+.ant-timeline-item-head {
+  background: #F0F2F5 !important;
+}
+
+.today_item {
+  background-size: 200%;
+  background: blue;
 }
