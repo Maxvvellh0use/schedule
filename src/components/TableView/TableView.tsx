@@ -11,7 +11,7 @@ import { getEventsData } from "../../redux/actions";
 import {
     columnNames ,
     defaultColumnsVisible ,
-    defaultColumnsWidths , filtersCourse ,
+    defaultColumnsWidths , defaultPageNumber , filtersCourse ,
     filtersType ,
 } from "./consts";
 import { ResizableTitle } from "../ResizableTitle/ResizableTitle";
@@ -290,7 +290,7 @@ const TableView: React.FC = () => {
     const tableView = errorText ? <div>{errorText}</div> :
         <Table components={components}
                pagination={{
-                   current: tablePage,
+                   current: tablePage ? tablePage : defaultPageNumber,
                    onChange: (value: number) => setTablePage(value),
                }}
                rowClassName={(record) => getRowEventsClasses(record)}
