@@ -113,7 +113,7 @@ const MainPageHeader: React.FC = () => {
               </Button>
             </Menu.Item>
           </Col>
-          <Col xs= '8' sm= '8' md= '8' lg= '8' xl= '8'>
+          <Col xs= '8' sm= '8' md= '8' lg= '4' xl= '4'>
             <Menu.Item className = 'menu-item'><Radio.Group 
                   defaultValue={language} 
                   size="small"

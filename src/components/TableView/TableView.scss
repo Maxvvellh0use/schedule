@@ -1,42 +1,41 @@
 @import "../../style/placeholders";
 
-.table-view {
-  .loader_table__container {
-    width: 50px;
-    margin: 10px;
-  }
-  
-  .loader_table {
-    width: 50px;
-  }
-  
-  .dropdown_container {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .dropdown_columns_visible {
-    margin: 5px 0 5px 0;
-  }
-  
-  .main_table_section {
-    margin-top: -43px;
-  }
-  
-  .ant-table-cell {
-    overflow: hidden;
-  }
-  
-  .table-row-today {
-    background: #d6e4ff
-  }
-  
-  .table-row-passed {
-    background: #f5f5f5
-  }
-  table {
-    td {
-      padding: 7px 14px;
-    }
+.loader_table__container {
+  width: 50px;
+  margin: 10px;
+}
+
+.loader_table {
+  width: 50px;
+}
+
+.dropdown_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dropdown_columns_visible {
+  margin: 5px 0 5px 0;
+}
+
+.main_table_section {
+  margin-top: -43px;
+}
+
+.ant-table-cell {
+  overflow: hidden;
+}
+
+.table-row-today {
+  background: #d6e4ff
+}
+
+.table-row-passed {
+  background: #f5f5f5
+}
+
+table {
+  td {
+    padding: 7px 14px!important;
   }
 }
