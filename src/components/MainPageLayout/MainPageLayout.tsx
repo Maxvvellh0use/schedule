@@ -35,14 +35,14 @@ const MainPageLayout: React.FC = () => {
     //     </Header>
     //     <Layout>
     //       <Sider       
-    //       // breakpoint="lg"
-    //       // collapsedWidth="0"
-    //       // onBreakpoint={broken => {
-    //       //   console.log(broken);
-    //       // }}
-    //       // onCollapse={(collapsed, type) => {
-    //       //   console.log(collapsed, type);
-    //       // }}
+    //       breakpoint="lg"
+    //       collapsedWidth="0"
+    //       onBreakpoint={broken => {
+    //         console.log(broken);
+    //       }}
+    //       onCollapse={(collapsed, type) => {
+    //         console.log(collapsed, type);
+    //       }}
     //       >
     //         <SideBar/>
     //       </Sider>
