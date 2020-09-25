@@ -5,12 +5,14 @@
 }
 
 .top-panel {
-  @include horizontal-flex;
+  // @include horizontal-flex;
+  // flex-wrap: nowrap;
   width: 100%;  
   padding: 20px 0 0 10px;
 
   .left-bar {
     @include horizontal-flex;
+    overflow: hidden;
     // width: 30%;
   }
 

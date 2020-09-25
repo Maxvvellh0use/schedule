@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Select, Modal } from 'antd';
+import { Button, Select, Modal, Row, Col } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch , useSelector} from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -46,8 +46,8 @@ const TopPanel: React.FC = () => {
     };
 
   return (
-    <div className="top-panel">
-        <div className="left-bar">
+    <Row className="top-panel">
+        <Col flex = {1} className="left-bar">
             <Select
                 className="select-mode"
                 defaultValue={mode}
@@ -61,8 +61,8 @@ const TopPanel: React.FC = () => {
                         <Button className="create-task-btn">{createNewTask}</Button>
                     </NavLink> : null
             }
-        </div>
-      <div className="right-bar">
+        </Col>
+      <Col flex = {3} className="right-bar">
         <div className="save-container">
           <p>{saveSheduleAs}
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
@@ -85,8 +85,8 @@ const TopPanel: React.FC = () => {
               <UserColorSettings eventsData={eventsData}/>
           </Modal>
         <Timezone/>
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

@@ -291,7 +291,8 @@ const TableView: React.FC = () => {
     }
 
     const tableView = errorText ? <div>{errorText}</div> :
-        <Table components={components}
+        <Table className = 'table-view'
+            components={components}
                pagination={{
                    current: tablePage ? tablePage : defaultPageNumber,
                    onChange: (value: number) => setTablePage(value),
