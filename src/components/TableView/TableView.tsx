@@ -91,7 +91,8 @@ const TableView: React.FC = () => {
             key: 'date',
             width: columnsWidths['Date'],
             visibility: columnsVisible['Date'],
-            render: colorRender
+            render: colorRender,
+            fixed: 'left',
         },
         {
             title: 'Time',

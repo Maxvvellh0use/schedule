@@ -29,7 +29,7 @@ const TopPanel: React.FC = () => {
     const language = useSelector<RootStateType, string>(state => state.app.language);
     const modeOptionStudent = (language === 'eng') ? 'Student' : 'Студент';
     const modeOptionMentor = (language === 'eng') ? 'Mentor' : 'Ментор';
-    const createNewTask = (language === 'eng') ? 'Create new task +' : 'Создать новое задание +';
+    const createNewTask = (language === 'eng') ? 'Create new task +' : 'Новое задание +';
     const saveSheduleAs = (language === 'eng') ? 'Save shedule as:' : 'Сохранить расписание как:';
     const colorSettingsBtn = (language === 'eng') ? 'Settings' : 'Настройки';
     const closeColorSettingsBtn = (language === 'eng') ? 'Close' : 'Закрыть';
@@ -47,7 +47,7 @@ const TopPanel: React.FC = () => {
 
   return (
     <Row className="top-panel">
-        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 7}} xl={{span: 7}} className="left-bar">
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 8}} xl={{span: 8}} className="left-bar">
             <Select
                 className="select-mode"
                 defaultValue={mode}
@@ -62,7 +62,7 @@ const TopPanel: React.FC = () => {
                     </NavLink> : null
             }
         </Col>
-      <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 5}} xl={{span: 5}} className="right-bar">
+      <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 4}} xl={{span: 4}} className="right-bar">
         <div className="save-container">
           <p>{saveSheduleAs}
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
