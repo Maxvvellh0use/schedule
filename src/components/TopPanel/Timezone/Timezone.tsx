@@ -4,6 +4,7 @@ import { ClockCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { RootStateType } from "../../types";
 import { changeTimezoneActCreator } from "../../../redux/reducers/timezoneReducer";
+import '../TopPanel.scss';
 
 const { Option } = Select;
 
@@ -15,7 +16,7 @@ const Timezone = () => {
       })
 
       return (
-          <div>
+          <div style = {{ display: 'inline-block'}}>
             <Select 
              value= { zonesData.activeZone || zonesData.defaultZone }
              style={{ width: 250 }} 

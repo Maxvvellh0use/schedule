@@ -5,9 +5,14 @@
 }
 
 .align-flex {
-  @include horizontal-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   button {
     margin: 0 5px;
+  }
+  span {
+    transform: translateY(3px);
   }
 }
 
@@ -28,6 +33,10 @@
       margin: 0 5px;
     }
   }
+}
+
+.lang-choice-box {
+  text-align: right;
 }
 
 .ant-layout-header {
@@ -54,4 +63,8 @@
 }
 .profile-box {
   @include horizontal-flex;
+}
+
+h3 {
+  margin: 0;
 }

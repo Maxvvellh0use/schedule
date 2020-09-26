@@ -47,7 +47,7 @@ const TopPanel: React.FC = () => {
 
   return (
     <Row className="top-panel">
-        <Col flex = {1} className="left-bar">
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 6}} xl={{span: 6}} className="left-bar">
             <Select
                 className="select-mode"
                 defaultValue={mode}
@@ -62,13 +62,15 @@ const TopPanel: React.FC = () => {
                     </NavLink> : null
             }
         </Col>
-      <Col flex = {3} className="right-bar">
+      <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 6}} xl={{span: 6}} className="right-bar">
         <div className="save-container">
           <p>{saveSheduleAs}
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
               <DownloadOutlined />
           </p>
         </div>
+        </Col>
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 12}} xl={{span: 12}}>
           <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
           <Modal
               className={accessability ? 'accessability-on' : ''}
