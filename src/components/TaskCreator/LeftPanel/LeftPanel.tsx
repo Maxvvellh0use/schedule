@@ -17,6 +17,7 @@ import 'antd/dist/antd.css';
 import { MinusCircleOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { TASK_TYPES, COURSES, defaultColor } from './const';
+import { Timezone } from '../../TopPanel/Timezone'
 
 import './LeftPanel.scss';
 
@@ -60,7 +61,8 @@ const LeftPanel: React.FC = () => {
   const missingMaterialURL = ( language === 'eng') ? 'Missing Material URL' : 'Пропущен URL материалов';
   const materialURL = ( language === 'eng') ? 'Material URL' : 'URL материалов';
   const expectedResults = ( language === 'eng') ? 'Expected results description' : 'Описание ожидаемых результатов';
- 
+  const selectTimezone = ( language === 'eng') ? 'Select your timezone' : 'Выберите ваш часовой пояс';
+
   function onTypeChange(event: { target: { value: string; }; }) {
     setTaskTypes({ initialTypes: taskTypes.initialTypes, newType: event.target.value });
     setColorPickerVisible(true);
@@ -195,7 +197,16 @@ const LeftPanel: React.FC = () => {
                 block>
                   <PlusOutlined /> {addMaterialURL}
               </Button>
-            </Form.Item>            
+            </Form.Item>
+            <Form.Item
+              name="result"
+              label={expectedResults}>
+                <Input.TextArea rows={2} />
+            </Form.Item>
+            <Form.Item
+              label={selectTimezone}>
+              <Timezone/>
+            </Form.Item>
           </div>
         );
       }}
