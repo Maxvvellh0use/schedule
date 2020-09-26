@@ -28,7 +28,7 @@ const SideBar: React.FC = () => {
   return (
     <Row className="side-bar-content">
       <Col xs={24} sm={12} md={12} lg={24} xl={24} className="calendar-container">
-        <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+        <Calendar fullscreen={false} onSelect={onSelect} />
       </Col>
       <Col xs={24} sm={12} md={12} lg={24} xl={24} className="announce-container">
         <List size="small"

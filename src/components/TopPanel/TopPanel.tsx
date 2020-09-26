@@ -47,7 +47,7 @@ const TopPanel: React.FC = () => {
 
   return (
     <Row className="top-panel">
-        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 6}} xl={{span: 6}} className="left-bar">
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 7}} xl={{span: 7}} className="left-bar">
             <Select
                 className="select-mode"
                 defaultValue={mode}
@@ -62,7 +62,7 @@ const TopPanel: React.FC = () => {
                     </NavLink> : null
             }
         </Col>
-      <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 6}} xl={{span: 6}} className="right-bar">
+      <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 5}} xl={{span: 5}} className="right-bar">
         <div className="save-container">
           <p>{saveSheduleAs}
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>

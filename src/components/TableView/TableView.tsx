@@ -206,6 +206,7 @@ const TableView: React.FC = () => {
     };
 
     const [tableData, setTableData] = useState<EventDataTable[] | undefined>();
+    const chosenDate = useSelector<RootStateType, string>(state => state.app.date);
 
     const initialTableData: EventDataTable[] | undefined  = allEventsData.length ? allEventsData.map((event, index) => {
         return {
