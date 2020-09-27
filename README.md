@@ -1,5 +1,7 @@
 # schedule 
 
+### Deploy: https://schedule-team16-maxvvellh0use.netlify.app
+
 ### Determining user needs
 
 #### Comparing two types of schedule: [current schedule](https://docs.google.com/spreadsheets/d/1oM2O8DtjC0HodB3j7hcIResaWBw8P18tXkOl1ymelvE/) and [schdeule in rs app](https://github.com/rolling-scopes/rsschool-app)
