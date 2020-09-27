@@ -195,16 +195,16 @@ const LeftPanel: React.FC = () => {
                 block>
                   <PlusOutlined /> {addMaterialURL}
               </Button>
-            </Form.Item>
-            <Form.Item
-              name="result"
-              label={expectedResults}>
-                <Input.TextArea rows={2} />
-            </Form.Item>
+            </Form.Item>            
           </div>
         );
       }}
-    </Form.List> 
+    </Form.List>
+    <Form.Item
+      name="result"
+      label={expectedResults}>
+        <Input.TextArea rows={2} />
+    </Form.Item> 
   </>
  )
 }
