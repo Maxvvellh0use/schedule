@@ -71,8 +71,8 @@ const MainPageHeader: React.FC = () => {
           </Col>
           <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 10}} xl= {{span: 10}} className = 'header-right'>
             
-            <Row>
-              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 10}} xl= {{span: 10}} className = 'align-flex '>
+            <Row justify="end" style = {{width: '100%'}} >
+              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 10}} xl= {{span: 10}} className = 'align-flex header-end'>
                 <li className = 'menu-item'>
                   <div className="align-flex">
                     <label> <EyeInvisibleTwoTone style={eyeIconStyle} /> </label>
@@ -81,7 +81,7 @@ const MainPageHeader: React.FC = () => {
                   </div>
                 </li>
               </Col>
-              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 14}} xl= {{span: 14}} className = 'align-flex '>
+              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 14}} xl= {{span: 14}} className = 'align-flex header-end'>
                 <li className = 'menu-item profile-box'>
                   <Button
                     className="profile-btn"
