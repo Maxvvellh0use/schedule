@@ -26,18 +26,22 @@
   overflow: hidden;
 }
 
+
+
 .table-row-today {
   background: #d6e4ff
 }
 
 .table-row-passed {
   background: #f5f5f5;
-  td:nth-child(3) {
-    background: #f5f5f5;
-    &:hover {
-      background: #FAFAFA;
-    }
-  }
+}
+
+.table-row-passed .ant-table-cell-fix-left, .ant-table-cell-fix-right {
+  background: #f5f5f5;
+}
+
+.table-row-today .ant-table-cell-fix-left, .ant-table-cell-fix-right {
+  background: #d6e4ff
 }
 
 table {
