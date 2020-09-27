@@ -1,0 +1,87 @@
+@mixin horizontal-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.align-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    margin: 0 5px;
+  }
+  span {
+    transform: translateY(3px);
+  }
+}
+
+.menu .menu-item {
+  list-style: none;
+}
+
+.ant-layout-header .menu {
+  padding: 0;
+  margin: 0;
+
+  & menu-item:nth-child(3) {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    & label {
+      margin: 0 5px;
+    }
+  }
+}
+
+.lang-choice-box {
+  transform: translateY(2px);
+  .ant-radio-group {
+    @include horizontal-flex;
+  }
+}
+
+.ant-layout-header {
+  background-color: white;
+  padding: 0 20px;
+  height: auto!important;
+}
+
+.header-logo {
+  height: 30px;
+  margin-right: 5px;
+}
+
+.avatar {
+  margin-right: 5px;
+}
+
+.ant-menu-item-selected {
+  background-color: unset!important;
+}
+
+.ant-menu-vertical {
+  border: none;
+}
+.profile-box {
+  @include horizontal-flex;
+  span {
+    transform: translateY(-2px);
+  }
+}
+
+h3 {
+  margin: 0!important;
+}
+
+.header-right {
+  @include horizontal-flex;
+  text-align: right;
+  div {
+    padding: 0 10px;
+  }
+  .header-end {
+    justify-content: flex-end;
+  }
+}
