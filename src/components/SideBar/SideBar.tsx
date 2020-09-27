@@ -17,6 +17,26 @@ const SideBar: React.FC = () => {
   const todayEvents = allEventsData.length ? getTodayEvents(allEventsData) : undefined;
   const dispatch = useDispatch();
 
+  const defaultTodayList = [{
+      _id: 0,
+      name: 'There are no events today',
+      course: '',
+      type: '',
+      optional: {
+          date: '',
+        description: '',
+        organizer: '',
+        place: '',
+        materials: '',
+        deadline: '',
+        details: '',
+        duration: '',
+        result: '',
+        notate: '',
+        feedback: false,
+      },
+  }]
+
 
   function onSelect(value: moment.Moment) {
         dispatch(setDate(value.format('DD/MM/YYYY')))
@@ -37,10 +57,14 @@ const SideBar: React.FC = () => {
               <ThunderboltOutlined className="announce-icon" style={{ color: 'green'}} />
               <Title level={4}>{discAnnounce}</Title>
             </div>}
-          dataSource={todayEvents}
+          dataSource={todayEvents?.length ? todayEvents : defaultTodayList}
           renderItem={(event: EventData) =>
             <List.Item>
-              <Link to={`/task/${event._id}`}>{event.name}</Link>
+                {
+                    todayEvents?.length ?
+                        <Link to={`/task/${event._id}`}>{event.name}</Link> :
+                        event.name
+                }
             </List.Item>} />
         </Col>
     </Row>
