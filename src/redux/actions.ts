@@ -77,3 +77,10 @@ export const setDate = (date: string) => {
         payload: date
     }
 }
+
+export const changeTimezoneActCreator = (zone:string) => {
+    return {
+        type: CHANGE_TIMEZONE, 
+        zone: zone 
+    }
+}

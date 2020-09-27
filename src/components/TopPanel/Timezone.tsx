@@ -2,13 +2,12 @@ import React from 'react';
 import { Select } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-import { RootStateType } from "../../types";
-import { changeTimezoneActCreator } from "../../../redux/reducers/timezoneReducer";
-import '../TopPanel.scss';
+import { RootStateType } from "../types";
+import { changeTimezoneActCreator } from "../../redux/actions";
 
 const { Option } = Select;
 
-const Timezone = () => {
+export const Timezone = () => {
     const dispatch = useDispatch();
     const zonesData = useSelector<RootStateType, any>(state => state.timezone);
     const zoneItem = zonesData.zones.map((zone: string, index: number) => {
@@ -26,5 +25,3 @@ const Timezone = () => {
           </div>
       )
 }
-
-export default Timezone;

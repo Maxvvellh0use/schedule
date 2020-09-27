@@ -13,7 +13,7 @@ import { EventData, RootStateType } from "../types";
 import { changeMode } from "../../redux/actions";
 import { getEventsDataCsv } from "./helpers/getEventsDataCsv";
 
-import Timezone from "./Timezone/Timezone";
+import { Timezone } from "./Timezone";
 
 
 const TopPanel: React.FC = () => {
