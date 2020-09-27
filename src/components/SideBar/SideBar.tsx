@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, Typography, List, Divider } from 'antd';
+import { Calendar, Typography, List, Row, Col } from 'antd';
 import { ThunderboltOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDate } from "../../redux/actions";
@@ -19,18 +19,18 @@ const SideBar: React.FC = () => {
 
 
   function onSelect(value: moment.Moment) {
-        dispatch(setDate(value.format('DD.MM.YYYY')))
+        dispatch(setDate(value.format('DD/MM/YYYY')))
   }
 
   const language = useSelector<RootStateType, string>(state => state.app.language);
   const discAnnounce = (language === 'eng') ? 'Plan for today:' : 'План на сегодня:';
 
   return (
-    <ul className="side-bar-content">
-      <li className="calendar-container">
-        <Calendar fullscreen={false} onSelect={onSelect}/>
-      </li>
-      <li className="announce-container">
+    <Row className="side-bar-content">
+      <Col xs={24} sm={12} md={12} lg={24} xl={24} className="calendar-container">
+        <Calendar fullscreen={false} onSelect={onSelect} />
+      </Col>
+      <Col xs={24} sm={12} md={12} lg={24} xl={24} className="announce-container">
         <List size="small"
           header={
             <div style={{display: "flex", alignItems: 'center'}}>
@@ -42,8 +42,8 @@ const SideBar: React.FC = () => {
             <List.Item>
               <Link to={`/task/${event._id}`}>{event.name}</Link>
             </List.Item>} />
-        </li>
-    </ul>
+        </Col>
+    </Row>
   );
 }
 

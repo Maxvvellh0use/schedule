@@ -8,6 +8,8 @@ export const CHANGE_ACCESSABILITY: string = 'APP/CHANGE_ACCESSABILITY';
 export const SET_ENGLISH: string = 'APP/SET_ENGLISH';
 export const SET_RUSSIAN: string = 'APP/SET_RUSSIAN';
 export const SET_DATE: string = 'APP/SET_DATE';
+export const CHANGE_TIMEZONE: string = 'CHANGE-TIMEZONE';
+
 
 export interface SystemState {
    allEventsData: EventData[];
@@ -45,6 +47,11 @@ export interface AppState {
 export interface initialStateType {
     allEventsData: {
         allEventsData: EventData[],
+    },
+    timezone: {
+        defaultZone: string,
+        zones: string[],
+        activeZone: string,
     },
     app: {
         loading: boolean,

@@ -98,6 +98,11 @@ export interface TableData {
 
 export interface RootStateType {
     allEventsData: EventData[];
+    timezone: {
+        defaultZone: string,
+        zones: string[],
+        activeZone: string,
+    },
     app: {
         loading: boolean,
         errorText: string,
@@ -109,3 +114,28 @@ export interface RootStateType {
     tableColorStyle: {[key: string]: object}
 }
 
+export interface EventDataTable {
+    key: number,
+    dateString: string,
+    course: string,
+    date: string,
+    time: string,
+    type: string,
+    place: string,
+    name: {
+        text: string,
+        link: string,
+        _id: number
+
+    },
+    action: {
+        _id: number,
+        key: number,
+    },
+    duration: string,
+    result: string,
+    notate: string,
+    materials: string[] | string,
+    deadline: string,
+    description: string,
+}

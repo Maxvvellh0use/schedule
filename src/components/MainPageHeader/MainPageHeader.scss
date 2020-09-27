@@ -1,27 +1,33 @@
-@mixin horisontal-flex {
+@mixin horizontal-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .align-flex {
-  @include horisontal-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    margin: 0 5px;
+  }
+  span {
+    transform: translateY(3px);
+  }
 }
 
-ul li {
+.menu .menu-item {
   list-style: none;
 }
 
-.ant-layout-header ul {
-  @include horisontal-flex;
+.ant-layout-header .menu {
   padding: 0;
   margin: 0;
 
-  & li:nth-child(3) {
+  & menu-item:nth-child(3) {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    width: 40vw;
 
     & label {
       margin: 0 5px;
@@ -29,9 +35,14 @@ ul li {
   }
 }
 
+.lang-choice-box {
+  transform: translateY(2px);
+}
+
 .ant-layout-header {
   background-color: white;
   padding: 0 20px;
+  height: auto!important;
 }
 
 .header-logo {
@@ -41,4 +52,23 @@ ul li {
 
 .avatar {
   margin-right: 5px;
+}
+
+.ant-menu-item-selected {
+  background-color: unset!important;
+}
+
+.ant-menu-vertical {
+  border: none;
+}
+.profile-box {
+  @include horizontal-flex;
+}
+
+h3 {
+  margin: 0!important;
+}
+
+.header-right {
+  @include horizontal-flex;
 }

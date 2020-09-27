@@ -29,10 +29,10 @@ export const defaultColumnsVisible: { [key: string]: boolean } = {
 }
 
 export const defaultColumnsWidths: { [key: string]: number } = {
-    Course: 50,
-    Date: 65,
-    Time: 50,
-    Type: 90,
+    Course: 70,
+    Date: 90,
+    Time: 60,
+    Type: 110,
     Place: 70,
     Name: 100,
     Duration: 30,

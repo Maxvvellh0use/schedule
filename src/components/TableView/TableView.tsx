@@ -35,7 +35,8 @@ const TableView: React.FC = () => {
     const loading = useSelector<RootStateType, boolean>(state => state.app.loading);
     const tableColorStyle = useSelector<RootStateType, {[key: string]: object}>(state => state.tableColorStyle);
     const [tablePage, setTablePage] = useState<number | undefined>(undefined);
-
+    const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
+    const activeZone = useSelector<RootStateType, any>(state => state.timezone.activeZone);
     const columnsVisibilityBtn = (language === 'eng') ? 'Columns Visibility' : 'Видимость Колонок';
 
     useEffect(() => {
@@ -90,7 +91,8 @@ const TableView: React.FC = () => {
             key: 'date',
             width: columnsWidths['Date'],
             visibility: columnsVisible['Date'],
-            render: colorRender
+            render: colorRender,
+            fixed: 'left',
         },
         {
             title: 'Time',
@@ -204,18 +206,17 @@ const TableView: React.FC = () => {
         setColumnsWidths(nextColumnsWidths);
     };
 
-    const [tableData, setTableData] = useState();
+    const [tableData, setTableData] = useState<EventDataTable[] | undefined>();
     const chosenDate = useSelector<RootStateType, string>(state => state.app.date);
 
-    const initialTableData: EventDataTable[] | undefined = allEventsData.length ?
-        allEventsData.map((event, index) => {
+    const initialTableData: EventDataTable[] | undefined  = allEventsData.length ? allEventsData.map((event, index) => {
         return {
             key: event._id,
             _id: event._id,
             dateString: event.optional.date,
             course: event.course,
-            date: getCorrectDate(event.optional.date),
-            time: getCorrectTime(event.optional.date),
+            date: getCorrectDate(event.optional.date, defaultZone, activeZone),
+            time: getCorrectTime(event.optional.date, defaultZone, activeZone),
             type: event.type,
             place: event.optional.place,
             name: {
@@ -232,13 +233,15 @@ const TableView: React.FC = () => {
             result: event.optional.result,
             notate: event.optional.notate,
             materials: event.optional.materials,
-            deadline: getCorrectDeadline(event.optional.deadline),
+            deadline: getCorrectDeadline(event.optional.deadline, defaultZone, activeZone),
             description: event.optional.details,
         };
     }) : undefined;
 
     useEffect(() => {
-        if (!loading) {
+
+        if (!loading && initialTableData) {
+
             setTableData(initialTableData);
         }
     }, [loading, allEventsData])
@@ -256,8 +259,10 @@ const TableView: React.FC = () => {
     };
 
     const hideRows = () => {
-        setTableData(tableData.filter((elem: { key: number }) =>
+        if (tableData) {
+            setTableData(tableData.filter((elem: { key: number }) =>
             !rowSelect.includes(elem.key)));
+        }
     }
 
     const menu = (
@@ -288,7 +293,8 @@ const TableView: React.FC = () => {
     }
 
     const tableView = errorText ? <div>{errorText}</div> :
-        <Table components={components}
+        <Table className = 'table-view'
+            components={components}
                pagination={{
                    current: tablePage ? tablePage : defaultPageNumber,
                    onChange: (value: number) => setTablePage(value),

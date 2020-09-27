@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Select, Modal } from 'antd';
+import { Button, Select, Modal, Row, Col } from 'antd';
 import { DownloadOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch , useSelector} from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { EventData, RootStateType } from "../types";
 import { changeMode } from "../../redux/actions";
 import { getEventsDataCsv } from "./helpers/getEventsDataCsv";
 
+import Timezone from "./Timezone/Timezone";
 
 
 const TopPanel: React.FC = () => {
@@ -24,11 +25,11 @@ const TopPanel: React.FC = () => {
     const dataForCsv = allEventsData.length ? allEventsData.map(getEventsDataCsv) : [];
 
     const accessability = useSelector<RootStateType, boolean>(state => state.app.accessability);
-
+    const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
     const language = useSelector<RootStateType, string>(state => state.app.language);
     const modeOptionStudent = (language === 'eng') ? 'Student' : 'Студент';
     const modeOptionMentor = (language === 'eng') ? 'Mentor' : 'Ментор';
-    const createNewTask = (language === 'eng') ? 'Create new task +' : 'Создать новое задание +';
+    const createNewTask = (language === 'eng') ? 'Create new task +' : 'Новое задание +';
     const saveSheduleAs = (language === 'eng') ? 'Save shedule as:' : 'Сохранить расписание как:';
     const colorSettingsBtn = (language === 'eng') ? 'Settings' : 'Настройки';
     const closeColorSettingsBtn = (language === 'eng') ? 'Close' : 'Закрыть';
@@ -45,8 +46,8 @@ const TopPanel: React.FC = () => {
     };
 
   return (
-    <div className="top-panel">
-        <div className="left-bar">
+    <Row className="top-panel">
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 8}} xl={{span: 8}} className="left-bar">
             <Select
                 className="select-mode"
                 defaultValue={mode}
@@ -60,14 +61,16 @@ const TopPanel: React.FC = () => {
                         <Button className="create-task-btn">{createNewTask}</Button>
                     </NavLink> : null
             }
-        </div>
-      <div className="right-bar">
+        </Col>
+      <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 4}} xl={{span: 4}} className="right-bar">
         <div className="save-container">
           <p>{saveSheduleAs}
               <CSVLink data={dataForCsv} filename={'schedule.csv'}> csv</CSVLink>
               <DownloadOutlined />
           </p>
         </div>
+        </Col>
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 12}} xl={{span: 12}}>
           <Button className="settings-btn" onClick={() => showModal()}>Settings <SettingOutlined /> </Button>
           <Modal
               className={accessability ? 'accessability-on' : ''}
@@ -83,8 +86,9 @@ const TopPanel: React.FC = () => {
           >
               <UserColorSettings eventsData={eventsData}/>
           </Modal>
-      </div>
-    </div>
+        <Timezone/>
+      </Col>
+    </Row>
   )
 }
 

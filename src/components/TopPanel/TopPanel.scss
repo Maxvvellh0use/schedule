@@ -1,28 +1,29 @@
 @mixin horizontal-flex {
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
 }
 
 .top-panel {
-  @include horizontal-flex;
-  width: 100%;
-  margin: 10px;
-  padding: 0 20px;
+  width: 100%;  
+  padding: 20px 0 0 10px;
 
   .left-bar {
     @include horizontal-flex;
-    justify-content: flex-start;
-    width: 30%;
+    overflow: hidden;
   }
 
   .right-bar {
-    width: 40%;
     @include horizontal-flex;
   }
 
   & .save-container, .settings-btn  {
     margin: 0 10px;
+  }
+
+  .settings-btn {
+    margin: 0 10px 0 0;
   }
 
   & .save-container {
@@ -31,4 +32,3 @@
    }
   }
 }
-

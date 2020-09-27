@@ -1,4 +1,4 @@
-import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN, SET_DATE} from "./types";
+import {GET_EVENTS , CHANGE_MODE, GET_TABLE_COLORS, HIDE_LOADER , SHOW_ERROR , SHOW_LOADER, CHANGE_ACCESSABILITY, SET_ENGLISH, SET_RUSSIAN, SET_DATE, CHANGE_TIMEZONE} from "./types";
 import { urlApi } from "../data/const";
 import { Dispatch } from "redux";
 import {sortEventsByDate} from "./helpers/sortEventsByDate";

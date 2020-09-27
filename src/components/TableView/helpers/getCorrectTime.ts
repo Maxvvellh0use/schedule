@@ -1,4 +1,5 @@
-export const getCorrectTime = (date: string): string => {
+export const getCorrectTime = (date: string, defaultZone: string, activeZone: any): string => {
     const dateObj = new Date(date);
-    return dateObj.toLocaleTimeString().slice(0, -3);
+    const zone = activeZone || defaultZone;
+    return dateObj.toLocaleTimeString('en-GB', {timeZone: `${zone}`} ).slice(0, -3);
 }
