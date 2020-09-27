@@ -51,10 +51,10 @@ const MainPageHeader: React.FC = () => {
   
   return (
     <nav>
-      <Menu className = 'menu'>
+      <ul className = 'menu'>
         <Row justify="space-around" align="middle">
-          <Col xs= {{span: 12}} sm= {{span: 12}} md= {{span: 12}} lg= {{span: 4}} xl= {{span: 4}}>
-            <Menu.Item className = 'menu-item'>
+          <Col xs= {{span: 12}} sm= {{span: 12}} md= {{span: 12}} lg= {{span: 11}} xl= {{span: 11}}>
+            <li className = 'menu-item'>
               <a href="/"
                 className="">
                 <img
@@ -62,15 +62,15 @@ const MainPageHeader: React.FC = () => {
                   alt="Rolling Scopes School Logo"
                   className="header-logo" />
               </a>
-            </Menu.Item>
+            </li>
           </Col>
           <Col xs= {{span: 12}} sm= {{span: 12}} md= {{span: 12}} lg= {{span: 4}} xl= {{span: 4}}>
-            <Menu.Item className = 'menu-item'>
+            <li className = 'menu-item'>
               <Title level={accessability ? 2 : 3}>{sheduleTitle}</Title>
-            </Menu.Item>
+            </li>
           </Col>
-          <Col xs= {{span: 12}} sm= {{span: 6}} md= {{span: 6}} lg= {{span: 4}} xl= {{span: 4}}>
-            <Menu.Item className = 'menu-item'>
+          <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 9}} xl= {{span: 9}} className = 'header-right'>
+            <li className = 'menu-item'>
               <div>
                 <label style = {{display: 'none'}} > {theme} </label>
                 <Switch defaultChecked 
@@ -78,19 +78,16 @@ const MainPageHeader: React.FC = () => {
                   checkedChildren= 'dark'
                   unCheckedChildren= 'light'/>
               </div>
-            </Menu.Item>
-          </Col>
-          <Col xs= {{span: 12}} sm= {{span: 6}} md= {{span: 6}} lg= {{span: 4}} xl= {{span: 4}}>
-            <Menu.Item className = 'menu-item'>
+            </li>
+          
+            <li className = 'menu-item'>
               <div className="align-flex">
                 <label> <EyeInvisibleTwoTone style={eyeIconStyle} /> </label>
                 <Switch checked={accessability} onChange={onAccassabilityChange}/>
                 <label> <EyeTwoTone style={eyeIconStyle} /> </label>
               </div>
-            </Menu.Item>
-          </Col>
-          <Col xs= {{span: 12}} sm= {{span: 6}} md= {{span: 6}} lg= {{span: 4}} xl= {{span: 4}}>
-            <Menu.Item className = 'menu-item profile-box'>
+            </li>
+            <li className = 'menu-item profile-box'>
               <Button
                 className="profile-btn"
                 type="dashed">
@@ -102,10 +99,8 @@ const MainPageHeader: React.FC = () => {
                     {profile}
                   </span>
               </Button>
-            </Menu.Item>
-          </Col>
-          <Col xs= {{span: 12}} sm= {{span: 6}} md= {{span: 6}} lg= {{span: 4}} xl= {{span: 4}}>
-            <Menu.Item className = 'menu-item lang-choice-box'>
+            </li>
+            <li className = 'menu-item lang-choice-box'>
               <Radio.Group 
                   defaultValue={language} 
                   size="small"
@@ -114,10 +109,10 @@ const MainPageHeader: React.FC = () => {
                   <Radio.Button value="eng">Eng</Radio.Button>
                   <Radio.Button value="ru">Ru</Radio.Button>
                 </Radio.Group>
-            </Menu.Item>
+            </li>
           </Col>
         </Row>
-      </Menu>
+      </ul>
     </nav>
   )
 }

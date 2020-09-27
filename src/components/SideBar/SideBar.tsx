@@ -19,7 +19,7 @@ const SideBar: React.FC = () => {
 
 
   function onSelect(value: moment.Moment) {
-        dispatch(setDate(value.format('DD.MM.YYYY')))
+        dispatch(setDate(value.format('DD/MM/YYYY')))
   }
 
   const language = useSelector<RootStateType, string>(state => state.app.language);
