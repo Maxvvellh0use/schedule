@@ -77,4 +77,7 @@ h3 {
 
 .header-right {
   @include horizontal-flex;
+  div {
+    padding: 0 10px;
+  }
 }

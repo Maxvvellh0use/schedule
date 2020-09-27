@@ -64,25 +64,15 @@ const MainPageHeader: React.FC = () => {
               </a>
             </li>
           </Col>
-          <Col xs= {{span: 12}} sm= {{span: 12}} md= {{span: 12}} lg= {{span: 4}} xl= {{span: 4}}>
+          <Col xs= {{span: 12}} sm= {{span: 12}} md= {{span: 12}} lg= {{span: 3}} xl= {{span: 3}}>
             <li className = 'menu-item'>
               <Title level={accessability ? 2 : 3}>{sheduleTitle}</Title>
             </li>
           </Col>
-          <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 9}} xl= {{span: 9}} className = 'header-right'>
+          <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 10}} xl= {{span: 10}} className = 'header-right'>
             
             <Row>
-              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 12}} xl= {{span: 12}} className = 'align-flex '>
-                <li className = 'menu-item'>
-                  <div>
-                    <label style = {{display: 'none'}} > {theme} </label>
-                    <Switch defaultChecked 
-                      onChange={onThemeChange} 
-                      checkedChildren= 'dark'
-                      unCheckedChildren= 'light'/>
-                  </div>
-                </li>
-              
+              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 10}} xl= {{span: 10}} className = 'align-flex '>
                 <li className = 'menu-item'>
                   <div className="align-flex">
                     <label> <EyeInvisibleTwoTone style={eyeIconStyle} /> </label>
@@ -91,7 +81,7 @@ const MainPageHeader: React.FC = () => {
                   </div>
                 </li>
               </Col>
-              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 12}} xl= {{span: 12}} className = 'align-flex '>
+              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 14}} xl= {{span: 14}} className = 'align-flex '>
                 <li className = 'menu-item profile-box'>
                   <Button
                     className="profile-btn"
