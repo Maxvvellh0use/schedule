@@ -37,6 +37,9 @@
 
 .lang-choice-box {
   transform: translateY(2px);
+  .ant-radio-group {
+    @include horizontal-flex;
+  }
 }
 
 .ant-layout-header {
@@ -63,6 +66,9 @@
 }
 .profile-box {
   @include horizontal-flex;
+  span {
+    transform: translateY(-2px);
+  }
 }
 
 h3 {

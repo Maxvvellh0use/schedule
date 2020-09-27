@@ -70,46 +70,53 @@ const MainPageHeader: React.FC = () => {
             </li>
           </Col>
           <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 9}} xl= {{span: 9}} className = 'header-right'>
-            <li className = 'menu-item'>
-              <div>
-                <label style = {{display: 'none'}} > {theme} </label>
-                <Switch defaultChecked 
-                  onChange={onThemeChange} 
-                  checkedChildren= 'dark'
-                  unCheckedChildren= 'light'/>
-              </div>
-            </li>
-          
-            <li className = 'menu-item'>
-              <div className="align-flex">
-                <label> <EyeInvisibleTwoTone style={eyeIconStyle} /> </label>
-                <Switch checked={accessability} onChange={onAccassabilityChange}/>
-                <label> <EyeTwoTone style={eyeIconStyle} /> </label>
-              </div>
-            </li>
-            <li className = 'menu-item profile-box'>
-              <Button
-                className="profile-btn"
-                type="dashed">
-                <Avatar
-                  className="avatar"
-                  size="small"
-                  icon={<UserOutlined />} />
-                  <span className = "profile" >
-                    {profile}
-                  </span>
-              </Button>
-            </li>
-            <li className = 'menu-item lang-choice-box'>
-              <Radio.Group 
-                  defaultValue={language} 
-                  size="small"
-                  onChange={changeLanguage}
-                >
-                  <Radio.Button value="eng">Eng</Radio.Button>
-                  <Radio.Button value="ru">Ru</Radio.Button>
-                </Radio.Group>
-            </li>
+            
+            <Row>
+              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 12}} xl= {{span: 12}} className = 'align-flex '>
+                <li className = 'menu-item'>
+                  <div>
+                    <label style = {{display: 'none'}} > {theme} </label>
+                    <Switch defaultChecked 
+                      onChange={onThemeChange} 
+                      checkedChildren= 'dark'
+                      unCheckedChildren= 'light'/>
+                  </div>
+                </li>
+              
+                <li className = 'menu-item'>
+                  <div className="align-flex">
+                    <label> <EyeInvisibleTwoTone style={eyeIconStyle} /> </label>
+                    <Switch checked={accessability} onChange={onAccassabilityChange}/>
+                    <label> <EyeTwoTone style={eyeIconStyle} /> </label>
+                  </div>
+                </li>
+              </Col>
+              <Col xs= {{span: 24}} sm= {{span: 24}} md= {{span: 24}} lg= {{span: 12}} xl= {{span: 12}} className = 'align-flex '>
+                <li className = 'menu-item profile-box'>
+                  <Button
+                    className="profile-btn"
+                    type="dashed">
+                    <Avatar
+                      className="avatar"
+                      size="small"
+                      icon={<UserOutlined />} />
+                      <span className = "profile" >
+                        {profile}
+                      </span>
+                  </Button>
+                </li>
+                <li className = 'menu-item lang-choice-box'>
+                  <Radio.Group 
+                      defaultValue={language} 
+                      size="small"
+                      onChange={changeLanguage}
+                    >
+                      <Radio.Button value="eng">Eng</Radio.Button>
+                      <Radio.Button value="ru">Ru</Radio.Button>
+                    </Radio.Group>
+                </li>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </ul>
