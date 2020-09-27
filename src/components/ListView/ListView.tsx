@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { isTodayEvent } from "./helpers/isTodayEvent";
 import { EventData , RootStateType } from "../types";
-import { getItemColor } from "./helpers/getItemColor";
+import {getItemColor , isPassedEvent} from "./helpers/getItemColor";
 import { scrollEventCoeff , zero } from "./consts";
 import { isDeadlineEvent } from "./helpers/isDeadlineEvent";
 import { getCorrectDate } from '../TableView/helpers/getCorrectDate';
@@ -28,12 +28,20 @@ const ListView: React.FC = () => {
   }, [])
 
   const scrollToTodayEvents = (todayEventIndex: number) => {
-      window.scroll(zero,todayEventIndex * scrollEventCoeff)
+      if (todayEventIndex !== -1) {
+          window.scroll(zero,todayEventIndex * scrollEventCoeff)
+      } else {
+          const passedEvents = allEventsData.filter((event) => {
+              return isPassedEvent(new Date(Date.now()), new Date(event.optional.date))
+          })
+          window.scroll(zero,passedEvents.length * scrollEventCoeff)
+      }
+
   }
 
   const defaultZone = useSelector<RootStateType, string>(state => state.timezone.defaultZone);
   const activeZone = useSelector<RootStateType, any>(state => state.timezone.activeZone);
-  
+
   const events = allEventsData.map((event) => {
     const date = getCorrectDate(event.optional.date, defaultZone, activeZone);
     const time = getCorrectTime(event.optional.date, defaultZone, activeZone);

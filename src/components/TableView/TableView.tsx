@@ -23,6 +23,7 @@ import { getTypeColor } from "./helpers/getTypeColor";
 import './TableView.scss';
 import {getTodayEvents} from "./helpers/getPageTodayEvents";
 import value from "*.png";
+import {isPassedEvent} from "../ListView/helpers/getItemColor";
 
 
 
@@ -44,8 +45,14 @@ const TableView: React.FC = () => {
     }, [dispatch])
 
     useEffect(() => {
-        if (allEventsData.length && !tablePage) {
+        if (allEventsData.length && !tablePage && getTodayEvents(allEventsData)) {
             setTablePage(getTodayEvents(allEventsData));
+            console.log(getTodayEvents(allEventsData))
+        } else if (allEventsData.length && !tablePage) {
+            const passedEvents = allEventsData.filter((event) => {
+                return isPassedEvent(new Date(Date.now()), new Date(event.optional.date))
+            });
+            setTablePage(Math.ceil(passedEvents.length / 10));
         }
     }, [dispatch, allEventsData, tablePage]);
 
