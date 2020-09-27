@@ -1,3 +1,5 @@
+export const defaultPageNumber = 1;
+
 export const columnNames = [
     'Course',
     'Date',
