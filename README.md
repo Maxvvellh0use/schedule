@@ -1,6 +1,6 @@
 # schedule 
 
-### Deploy: https://schedule-team16-maxvvellh0use.netlify.app
+### [Deploy](https://schedule-team16-maxvvellh0use.netlify.app)
 
 ### Determining user needs
 
