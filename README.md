@@ -33,6 +33,9 @@ Each new set contains part of the tasks from the previous schedule. It should be
 - [x] Highlighting of today events
 - [ ] Email notification of coming test or deadline
 - [x] Resizable columns in schedule table
+- [x] Choosing date on small calendar shows only this day events
+- [x] Scroll and change color for today events in ListView
+- [x] Table start page today events
 
 
 #### Team 16: 
