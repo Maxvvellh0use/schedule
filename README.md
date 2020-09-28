@@ -56,6 +56,19 @@ Each new set contains part of the tasks from the previous schedule. It should be
 
 ## Documentation
 
+### On the project used:
+
+- typescript
+- antd for react
+- react
+- react-redux
+- redux-thunk
+- react-create-app
+- react-router
+- mapbox
+- react-color
+- react-resizable
+- axios
 
 #### Global state
 
